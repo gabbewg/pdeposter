@@ -436,6 +436,18 @@
       </div>
     </div>
 
+    <!-- Data och parameterskattning -->
+    <div class="panel">
+      <span class="badge">5</span>
+      <h2>Data och parameterskattning</h2>
+      <div class="sub">AR(1)-anpassning av räntedata</div>
+      <p>Korträntor approximeras av historiska räntor på 10-åriga statsobligationer för Sverige och Indien (period 2020–2026), hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} med tidssteg Δ<i>t</i> ≈ 7 dagar diskretiseras som en AR(1)-process,</p>
+      <div class="eq"><i>r</i><sub><i>k</i>+1</sub> = α + β <i>r<sub>k</sub></i> + ε<sub><i>k</i></sub>, &nbsp; ε<sub><i>k</i></sub> ~ 𝒩(0, <i>s</i>²)</div>
+      <p>vilket är den exakta övergångsfördelningen för den tidsdiskretiserade OU-processen. Minsta-kvadrat-anpassning ger α, β och <i>s</i>², varifrån Vasicek-parametrarna fås via</p>
+      <div class="eq">θ = −ln β / Δ<i>t</i>, &nbsp; μ = α/(1−β), &nbsp; σ = √( <i>s</i>² · 2θ / (1−<i>e</i><sup>−2θΔ<i>t</i></sup>) )</div>
+      <p>Resultatet ger för <b>Sverige</b> θ ≈ 0,358, μ ≈ 2,83 %, σ ≈ 0,80 %, och för <b>Indien</b> θ ≈ 0,489, μ ≈ 6,80 %, σ ≈ 0,50 %. Dessa värden används sedan i Monte Carlo- och FDM-experimenten.</p>
+    </div>
+
     <div class="panel">
       <span class="badge">4</span>
       <h2>Sammanfattning</h2>
