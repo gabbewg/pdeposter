@@ -450,10 +450,11 @@
 
     <div class="panel">
       <span class="badge">5</span>
-      <h2>Sammanfattning</h2>
-      <div class="sub">Projektöversikt och frågeställning</div>
-      <p>Vi studerar Ornstein–Uhlenbeck-processen en stokastisk differentialekvation som drar ett system mot ett medelvärde under brus och samtidigt har en fullständig analytisk lösning.</p>
-      <p>Den analytiska strukturen gör OU till en naturlig utgångspunkt för att förstå mean reversion och för att koppla teorin till Vasicek-modellen för korta räntor inom finansiell matematik.</p>
+      <h2>Slutsats</h2>
+      <div class="sub">Från stokastisk process till obligationspris</div>
+      <p>Projektet har följt en röd tråd från fysik till finans: vi har utgått från Ornstein–Uhlenbeck-processen som ett av få stokastiska system med fullständig analytisk lösning, härlett dess Fokker–Planck-ekvation och löst den numeriskt med finita differenser. Överensstämmelsen mellan den numeriska och den exakta tätheten validerar metoden och ger oss ett tillförlitligt verktyg för mer generella problem där analytiska uttryck saknas.</p>
+      <p>Genom att tolka OU-processen som en modell för korträntan under det riskneutrala måttet — Vasicek-modellen — har vi sedan kombinerat tre byggstenar (FTAP, Feynman–Kac och en exponentiellt-affin ansats) till ett konkret sätt att räkna ut priset på en nollkupongsobligation. Resultatet är en sluten formel <i>P</i>(<i>t</i>,<i>T</i>) = exp(<i>A</i> − <i>B r</i>) där hela räntestrukturen kan läsas av direkt ur de skattade parametrarna θ, μ och σ.</p>
+      <p>Med AR(1)-anpassning av svenska och indiska statsobligationsräntor har vi visat att modellen kan kalibreras mot riktig marknadsdata, och att den analytiska ytan stämmer väl överens med FDM-lösningen av samma PDE. Vasicek-modellen är därmed inte bara ett pedagogiskt referensfall — den utgör en arbetsmetod för obligationsprissättning som kombinerar teoretisk transparens med praktisk användbarhet, samtidigt som dess kända begränsning (möjligheten till negativa räntor) pekar fram mot mer avancerade modeller som CIR och Hull–White.</p>
     </div>
 
   </div>
