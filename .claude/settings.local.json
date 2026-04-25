@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python *)"
+      "Bash(python *)",
+      "Bash(MPLBACKEND=Agg python fdm.py)"
     ]
   }
 }

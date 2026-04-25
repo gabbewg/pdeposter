@@ -96,17 +96,19 @@ Eftersom Wiener-inkrementen är oberoende och normalfördelade, och $f(s_i)$ är
 
 \section{Härledning av lösningen}
 
-\subsection*{Steg 1: Val av integrerande faktor}
+\subsection*{Steg 1: Integrerande faktor}
 
-Strategin är densamma som för linjära ordinära differentialekvationer: vi söker en transformation som eliminerar driften. Sätt
+Vi vill eliminera den linjära driften i \eqref{eq:ou-sde} och prövar samma grepp som för en linjär ODE: integrerande faktor. Betrakta först det deterministiska fallet $\dot X + \theta X = \theta\mu$. Multiplikation med $e^{\theta t}$ samlar vänsterledet till en ren tidsderivata,
+\[
+    \frac{\dd}{\dd t}\!\left[e^{\theta t}(X - \mu)\right]
+    = e^{\theta t}\bigl(\dot X + \theta(X - \mu)\bigr) = 0,
+\]
+så storheten $e^{\theta t}(X - \mu)$ bevaras av ODE-flödet. Detta motiverar att i det stokastiska fallet studera den motsvarande processen
 \begin{equation}
     Y_t \coloneqq e^{\theta t}(X_t - \mu).
     \label{eq:Y-def}
 \end{equation}
-
-\begin{remark}
-Motivationen är att om man försummar bruset reduceras \eqref{eq:ou-sde} till ODE:n $\dot X = \theta(\mu - X)$ med lösning $X_t - \mu = (x_0 - \mu)e^{-\theta t}$. Storheten $e^{\theta t}(X_t - \mu)$ är då \emph{konstant}. Med brus förväntar vi oss att $Y_t$ blir en ren martingal --- ingen drift.
-\end{remark}
+Frågan är om Itôs lemma ger en lika ren reduktion av $\dd Y_t$ --- det vill säga, om driften försvinner även stokastiskt. Vi kontrollerar det i nästa steg.
 
 \subsection*{Steg 2: Tillämpa Itôs lemma}
 
@@ -219,7 +221,7 @@ oberoende av startvärdet $x_0$. Detta uttrycker OU-processens \emph{ergodicitet
 
 \section{Sammanfattning}
 
-Genom transformationen $Y_t = e^{\theta t}(X_t - \mu)$, som elimineras driften via Itôs lemma, har vi härlett att OU-processen ges av
+Genom integrerande faktorn $e^{\theta t}$ och transformationen $Y_t = e^{\theta t}(X_t - \mu)$, som eliminerar driften via Itôs lemma, har vi härlett att OU-processen ges av
 \[
     X_t = \mu + (x_0 - \mu)e^{-\theta t} + \sigma \int_0^t e^{-\theta(t-s)}\,\dd W_s,
 \]

@@ -249,6 +249,14 @@
     height: auto;
     border-radius: 2mm;
   }
+  .panel .figure .cap {
+    margin-top: 2mm;
+    font-size: 9.5pt;
+    line-height: 1.25;
+    color: #5f6b84;
+    text-align: center;
+    font-weight: 600;
+  }
   .panel .eq {
     margin: 3mm 0 4mm 0;
     padding: 4mm 5mm;
@@ -265,7 +273,7 @@
 
   /* radial positions */
   .panel.top { left: calc(50% - 84mm); top: 0mm; }
-  .panel.upR { right: 8mm;  top: 80mm; min-height: 190mm; }
+  .panel.upR { right: 8mm;  top: 80mm; min-height: 210mm; }
   .panel.upL { left:  8mm;  top: 162mm; }
 
   /* full-width bottom panel (Vasicek) */
@@ -294,6 +302,9 @@
     padding-bottom: 3.5mm;
   }
   .panel.bottom .grid.analytic .eq.left { text-align: left; }
+  .panel.bottom .grid.analytic .figure {
+    margin-top: 4mm;
+  }
   .panel.bottom::after {
     width: 32mm; height: 32mm;
     right: 6mm; bottom: 6mm;
@@ -398,6 +409,8 @@
       <div class="sub">Mean-reverting process med analytisk lösning</div>
       <p>En ”återställande kraft” drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
       <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
+      <p>Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
+      <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
       <p><i>X<sub>t</sub></i>: processens värde vid tiden <i>t</i>.<br><i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde.<br><i>θ</i>: hastigheten i återgången mot medelvärdet.<br><i>μ</i>: processens långsiktiga medelvärde.<br><i>σ</i>: brusets styrka.<br><i>W<sub>t</sub></i>: en standard-Brownsk rörelse.</p>
       <div class="figure">
         <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
@@ -426,12 +439,20 @@
           <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>), &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = <i>B</i>(<i>T</i>,<i>T</i>) = 0.</div>
           <p><b>System av ODE:er.</b> Insättning i PDE:n och separation efter potenser av <i>r</i> reducerar PDE:n till två frikopplade ODE:er i <i>t</i>,</p>
           <div class="eq left"><i>B</i><sub>t</sub> = θ<i>B</i> − 1, &nbsp; <i>B</i>(<i>T</i>,<i>T</i>) = 0,<br><i>A</i><sub>t</sub> = θμ<i>B</i> − ½σ²<i>B</i><sup>2</sup>, &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = 0.</div>
+          <div class="figure">
+            <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige">
+            <div class="cap">Sverige: analytisk obligationsyta för den kalibrerade Vasicek-modellen.</div>
+          </div>
         </div>
 
         <div class="col">
           <p><b>Lösning.</b> Med <i>τ</i> = <i>T</i> − <i>t</i> och <i>R</i><sub>∞</sub> = μ − σ²/(2θ²) ger direkt integration den slutna Vasicek-formeln</p>
           <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>).</div>
           <div class="eq left"><i>B</i>(<i>t</i>,<i>T</i>) = (1 − <i>e</i><sup>−θ<i>τ</i></sup>)/θ,<br><i>A</i>(<i>t</i>,<i>T</i>) = (<i>B</i>(<i>t</i>,<i>T</i>) − <i>τ</i>)<i>R</i><sub>∞</sub> − σ²<i>B</i>(<i>t</i>,<i>T</i>)<sup>2</sup>/(4θ).</div>
+          <div class="figure">
+            <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien">
+            <div class="cap">Indien: analytisk obligationsyta för den kalibrerade Vasicek-modellen.</div>
+          </div>
         </div>
       </div>
     </div>

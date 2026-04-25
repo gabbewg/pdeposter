@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 
 # --- Parametrar ---------------------------------------------------------
-theta = 0.35
-mu = 0.0283
-sigma = 0.008
+theta = 0.488935
+mu = 0.068000
+sigma = 0.004988
 
 R_inf = mu - sigma**2 / (2.0 * theta**2)
 
