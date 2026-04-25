@@ -29,6 +29,8 @@
     background: #f0f4fa;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   /* subtle dot grid on body */
   body::before {
@@ -45,7 +47,7 @@
     display: flex;
     align-items: center;
     gap: 18mm;
-    padding: 13mm 26mm 13mm 26mm;
+    padding: 8mm 26mm 8mm 26mm;
     background: var(--kth-dark);
     position: relative;
     z-index: 2;
@@ -108,8 +110,10 @@
   .stack {
     display: flex;
     flex-direction: column;
-    gap: 24mm;
-    padding: 9mm 22mm 0 22mm;
+    flex: 1;
+    min-height: 0;
+    gap: 5mm;
+    padding: 5mm 18mm 20mm 18mm;
     position: relative;
     z-index: 2;
   }
@@ -126,7 +130,7 @@
     box-sizing: border-box;
     background: var(--paper);
     border-radius: 0;
-    padding: 9mm 11mm 9mm 11mm;
+    padding: 5mm 11mm 5mm 11mm;
     overflow: visible;
   }
   /* no ribbon, no arc */
@@ -178,7 +182,7 @@
     display: block;
     width: 100%;
     height: auto;
-    max-height: 75mm;
+    max-height: 100mm;
     object-fit: contain;
   }
   .panel .figure .cap {
@@ -319,39 +323,66 @@
 
     <!-- 2+3. Bakgrund & OU-processen side by side -->
 
-    <div class="panel">
-      <h2>Bakgrund</h2>
-      <div class="sub">Stokastiska processer mellan fysik och finans</div>
-      <p>Inom fysik och finansiell matematik används stokastiska differentialekvationer (SDE:er) för att beskriva storheter som utvecklas slumpmässigt över tid. En SDE kombinerar en deterministisk driftterm med en stokastisk diffusionsterm driven av en Brownsk rörelse, och utgör därmed ett naturligt ramverk för att modellera system med inneboende osäkerhet.</p>
-      <p>Ornstein–Uhlenbeck-processen introducerades 1930 av Leonard Ornstein och George Uhlenbeck för att modellera hastigheten hos en partikel som påverkas av friktion och slumpmässiga kollisioner — ett problem inom statistisk mekanik känt som Brownsk rörelse med friktion. Processens centrala egenskap är <i>medelvärdesåtergång</i>: en återställande kraft drar systemet mot ett långsiktigt jämviktsläge, vilket gör den distinkt från en vanlig slumpvandring.</p>
-      <p>OU-processen är ett av få stokastiska system med en fullständig analytisk lösning, vilket gör den till ett naturligt referensfall för att validera numeriska metoder. I detta projekt löser vi den tillhörande Fokker–Planck-ekvationen numeriskt med finita differenser och jämför resultatet med den exakta lösningen.</p>
-      <p>Som finansiell tillämpning studerar vi <i>Vasicek-modellen</i> (1977), där OU-dynamik används för att beskriva den korta räntan under ett riskneutralt mått. Modellen var den första att ge en sluten formel för prissättning av nollkupongobligationer och är fortfarande ett centralt referensexempel inom räntemodellering, trots att den tillåter negativa räntor.</p>
-    </div>
-
-    <!-- OU-processen -->
-    <div class="panel">
-      <h2>OU-processen</h2>
-      <div class="sub">Mean-reverting process med analytisk lösning</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10mm; align-items:start;">
-        <!-- Left: text + equations -->
-        <div>
-          <p style="margin-bottom:1.5mm;">En "återställande kraft" drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
-          <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
-          <p style="margin-bottom:1.5mm;">Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
-          <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
-          <p style="margin-top:2mm;"><i>X<sub>t</sub></i>: processens värde vid <i>t</i>. &nbsp; <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde. &nbsp; <i>θ</i>: återgångshastighet. &nbsp; <i>μ</i>: långsiktigt medelvärde. &nbsp; <i>σ</i>: brusets styrka. &nbsp; <i>W<sub>t</sub></i>: Brownsk rörelse.</p>
+    <div>
+      <h2 style="color:var(--kth-dark); font-size:18pt; font-weight:700; margin:0 0 3mm 0; letter-spacing:-0.2pt;">Abstract</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:5mm;">
+        <div class="panel">
+          <div class="sub" style="margin-top:0;">1. Problemformulering</div>
+          <p>Ornstein–Uhlenbeck-processen (OU), introducerad 1930, beskriver system med medelvärdesåtergång och är ett av få stokastiska processer med fullständig analytisk lösning. Vi studerar dess Fokker–Planck-ekvation numeriskt och tillämpar OU-dynamiken på räntemodellering via Vasicek-modellen (1977), där korträntan modelleras under det riskneutrala måttet <i>Q</i>.</p>
         </div>
-        <!-- Right: image -->
-        <div class="figure" style="margin-top:0;">
-          <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
-          <div class="cap">Tätheten <i>p(x,t)</i> för OU-processen. SDE:n beskriver enskilda banor; PDE:n beskriver hur sannolikhetsfördelningen utvecklas över tid.</div>
+        <div class="panel">
+          <div class="sub" style="margin-top:0;">2. Resultat</div>
+          <p>FDM-lösaren (Crank–Nicolson) uppnår 𝒪(<i>h</i>²)-konvergens med maxfel från ≈ 10⁻⁵ till ≈ 10⁻⁹. Via FTAP, Feynman–Kac och en exponentiellt-affin ansats härleds den slutna formeln <i>P</i>(<i>t</i>,<i>T</i>) = exp(<i>A</i> − <i>Br</i>). AR(1)-anpassning ger Sverige: θ ≈ 0,36, μ ≈ 2,83 %, σ ≈ 0,80 % och Indien: θ ≈ 0,49, μ ≈ 6,80 %, σ ≈ 0,50 %.</p>
+        </div>
+        <div class="panel">
+          <div class="sub" style="margin-top:0;">3. Slutsats</div>
+          <p>Den analytiska obligationsytan stämmer väl med FDM-lösningen, vilket validerar numeriken. Ländernas skilda parametrar speglar deras räntemiljöer. Projektet illustrerar hur analytisk teori och numeriska metoder kompletterar varandra — från Brownsk rörelse till prissättning av räntederivat.</p>
         </div>
       </div>
     </div>
 
+    <!-- OU-processen + Data side by side -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5mm;">
+
+      <div class="panel">
+        <h2>OU-processen</h2>
+        <div class="sub">Mean-reverting process med analytisk lösning</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6mm; align-items:start;">
+          <div>
+            <p style="margin-bottom:1.5mm;">En "återställande kraft" drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
+            <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
+            <p style="margin-bottom:1.5mm;">Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
+            <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
+            <p style="margin-top:2mm;"><i>X<sub>t</sub></i>: processens värde vid <i>t</i>. &nbsp; <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde. &nbsp; <i>θ</i>: återgångshastighet. &nbsp; <i>μ</i>: långsiktigt medelvärde. &nbsp; <i>σ</i>: brusets styrka. &nbsp; <i>W<sub>t</sub></i>: Brownsk rörelse.</p>
+          </div>
+          <div class="figure" style="margin-top:0;">
+            <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
+            <div class="cap">Tätheten <i>p(x,t)</i> för OU-processen. SDE:n beskriver enskilda banor; PDE:n beskriver hur sannolikhetsfördelningen utvecklas över tid.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Data och parameterskattning</h2>
+        <div class="sub">AR(1)-anpassning av räntedata</div>
+        <p>Korträntor approximeras av historiska räntor på 10-åriga statsobligationer för Sverige och Indien (period 2020–2026), hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} med tidssteg Δ<i>t</i> ≈ 7 dagar diskretiseras som en AR(1)-process, varifrån Vasicek-parametrarna skattas:</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8mm; margin-bottom:3mm;">
+          <div>
+            <p style="margin-bottom:1.5mm;">AR(1)-processen (exakt övergångsfördelning för tidsdiskretiserad OU):</p>
+            <div class="eq"><i>r</i><sub><i>k</i>+1</sub> = α + β <i>r<sub>k</sub></i> + ε<sub><i>k</i></sub>, &nbsp; ε<sub><i>k</i></sub> ~ 𝒩(0, <i>s</i>²)</div>
+          </div>
+          <div>
+            <p style="margin-bottom:1.5mm;">Vasicek-parametrar via minsta-kvadrat-anpassning av α, β och <i>s</i>²:</p>
+            <div class="eq">θ = −ln β / Δ<i>t</i>, &nbsp; μ = α/(1−β), &nbsp; σ = √( <i>s</i>² · 2θ / (1−<i>e</i><sup>−2θΔ<i>t</i></sup>) )</div>
+          </div>
+        </div>
+        <p>Resultatet ger för <b>Sverige</b> θ ≈ 0,358, μ ≈ 2,83 %, σ ≈ 0,80 %, och för <b>Indien</b> θ ≈ 0,489, μ ≈ 6,80 %, σ ≈ 0,50 %. Dessa värden används sedan i Monte Carlo- och FDM-experimenten.</p>
+      </div>
+
+    </div><!-- end OU + Data row -->
 
     <!-- 4. Vasicek-modellen -->
-    <div class="panel">
+    <div class="panel" style="flex:1; min-height:0; display:flex; flex-direction:column;">
       <h2>Vasicek-modellen</h2>
       <div class="sub">Härledning av obligationspriset</div>
 
@@ -396,23 +427,26 @@
       <div class="sub" style="margin-top:3mm;">Resultat och konvergens</div>
 
       <!-- 2×3 results grid -->
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:auto auto; gap:7mm; margin-top:4mm;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:auto auto; gap:2mm; margin-top:3mm;">
 
         <!-- Row 1, Col 1: Both analytical plots side by side -->
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:3mm;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1mm;">
           <div class="figure" style="margin-top:0;">
-            <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:48mm;">
+            <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:80mm;">
             <div class="cap">Sverige: analytisk.</div>
           </div>
           <div class="figure" style="margin-top:0;">
-            <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:48mm;">
+            <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:80mm;">
             <div class="cap">Indien: analytisk.</div>
           </div>
         </div>
 
-        <!-- Row 1, Col 2: Future plot placeholder -->
-        <div style="background:var(--tint); border:1pt dashed var(--hair); display:flex; align-items:center; justify-content:center; min-height:70mm; box-sizing:border-box;">
-          <span style="color:var(--kth-soft); font-size:9pt; font-weight:600; letter-spacing:0.5pt; text-transform:uppercase;">Kommande plot</span>
+        <!-- Row 1, Col 2: Monte Carlo surface Sweden -->
+        <div>
+          <div class="figure" style="margin-top:0;">
+            <img src="se_vasicek_mc_surface.png" alt="Monte Carlo-yta för Sverige" style="max-height:80mm;">
+            <div class="cap">Sverige: Monte Carlo-simulerad obligationsyta.</div>
+          </div>
         </div>
 
         <!-- Row 1, Col 3: FDM Sweden -->
@@ -434,53 +468,36 @@
           <div class="eq left" style="font-size:10pt;"><i>B</i> = (1 − <i>e</i><sup>−θτ</sup>)/θ<br><i>A</i> = (<i>B</i> − τ)<i>R</i><sub>∞</sub> − σ²<i>B</i><sup>2</sup>/(4θ)</div>
         </div>
 
-        <!-- Row 2, Col 2: Convergence study -->
+        <!-- Row 2, Col 2: MC convergence -->
+        <div>
+          <div class="sub" style="margin-top:0; margin-bottom:2mm;">Monte Carlo-konvergens</div>
+          <div class="figure" style="margin-top:0;">
+            <img src="vasicek_mc_convergence.png" alt="Monte Carlo-konvergens" style="max-height:110mm;">
+            <div class="cap">Konvergens för Monte Carlo-metoden mot analytisk Vasicek-lösning.</div>
+          </div>
+        </div>
+
+        <!-- Row 2, Col 3: FDM convergence study -->
         <div>
           <div class="sub" style="margin-top:0; margin-bottom:2mm;">Konvergensstudie — Crank–Nicolson 𝒪(<i>h</i>²)</div>
           <p style="font-size:9.5pt;">FDM-lösaren körs på en sekvens rutnät där Δ<i>r</i> och Δ<i>t</i> halveras successivt. Log-log-diagrammet följer slope-2-referensen tätt, från ≈ 10⁻⁵ (grovt) till ≈ 10⁻⁹ (fint), vilket bekräftar 𝒪(<i>h</i>²)-konvergens.</p>
           <div class="figure" style="margin-top:3mm;">
-            <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height:75mm;">
+            <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height:110mm;">
             <div class="cap">Sverige 10Y: maxfel FDM vs. analytisk som funktion av Δ<i>r</i>.</div>
           </div>
         </div>
 
-        <!-- Row 2, Col 3: Future convergence placeholder -->
-        <div style="background:var(--tint); border:1pt dashed var(--hair); display:flex; align-items:center; justify-content:center; box-sizing:border-box;">
-          <span style="color:var(--kth-soft); font-size:9pt; font-weight:600; letter-spacing:0.5pt; text-transform:uppercase;">Kommande konvergensstudie</span>
-        </div>
-
       </div>
     </div>
 
-    <!-- Data och parameterskattning -->
-    <div class="panel">
-      <h2>Data och parameterskattning</h2>
-      <div class="sub">AR(1)-anpassning av räntedata</div>
-      <p>Korträntor approximeras av historiska räntor på 10-åriga statsobligationer för Sverige och Indien (period 2020–2026), hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} med tidssteg Δ<i>t</i> ≈ 7 dagar diskretiseras som en AR(1)-process, varifrån Vasicek-parametrarna skattas:</p>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8mm; margin-bottom:3mm;">
-        <div>
-          <p style="margin-bottom:1.5mm;">AR(1)-processen (exakt övergångsfördelning för tidsdiskretiserad OU):</p>
-          <div class="eq"><i>r</i><sub><i>k</i>+1</sub> = α + β <i>r<sub>k</sub></i> + ε<sub><i>k</i></sub>, &nbsp; ε<sub><i>k</i></sub> ~ 𝒩(0, <i>s</i>²)</div>
-        </div>
-        <div>
-          <p style="margin-bottom:1.5mm;">Vasicek-parametrar via minsta-kvadrat-anpassning av α, β och <i>s</i>²:</p>
-          <div class="eq">θ = −ln β / Δ<i>t</i>, &nbsp; μ = α/(1−β), &nbsp; σ = √( <i>s</i>² · 2θ / (1−<i>e</i><sup>−2θΔ<i>t</i></sup>) )</div>
-        </div>
-      </div>
-      <p>Resultatet ger för <b>Sverige</b> θ ≈ 0,358, μ ≈ 2,83 %, σ ≈ 0,80 %, och för <b>Indien</b> θ ≈ 0,489, μ ≈ 6,80 %, σ ≈ 0,50 %. Dessa värden används sedan i Monte Carlo- och FDM-experimenten.</p>
-    </div>
-
-    <div class="panel">
-      <h2>Slutsats</h2>
-      <div class="sub">Från stokastisk process till obligationspris</div>
-      <p>Projektet har följt en röd tråd från fysik till finans. Vi har utgått från Ornstein–Uhlenbeck-processen som ett av få stokastiska system med fullständig analytisk lösning, härlett dess Fokker–Planck-ekvation och löst den numeriskt med finita differenser. Överensstämmelsen mellan den numeriska och den exakta tätheten validerar metoden och ger oss ett tillförlitligt verktyg för mer generella problem där analytiska uttryck saknas. Felet i FDM-lösningen avtar i förväntad ordning med rutnätssteget, vilket bekräftar att schemat är konsistent och stabilt under de använda CFL-villkoren.</p>
-      <p>Genom att tolka OU-processen som en modell för korträntan under det riskneutrala måttet, det vill säga Vasicek-modellen, har vi sedan kombinerat tre byggstenar (FTAP, Feynman–Kac och en exponentiellt-affin ansats) till ett konkret sätt att räkna ut priset på en nollkupongsobligation. Resultatet är en sluten formel <i>P</i>(<i>t</i>,<i>T</i>) = exp(<i>A</i> − <i>B r</i>) där hela räntestrukturen kan läsas av direkt ur de skattade parametrarna θ, μ och σ. Eftersom <i>A</i> och <i>B</i> beror endast av tid till förfall blir hela avkastningskurvan en affin funktion av <i>r</i>, vilket är just den egenskap som gör modellen så användbar i praktiken.</p>
-      <p>Med AR(1)-anpassning av svenska och indiska statsobligationsräntor har vi visat att modellen kan kalibreras mot riktig marknadsdata, och att den analytiska ytan stämmer väl överens med FDM-lösningen av samma PDE. Skillnaden mellan ländernas skattade parametrar visar tydligt hur Vasicek-modellen fångar olika räntemiljöers karaktär: en lågräntemarknad som Sverige får ett lågt μ och måttlig återgångshastighet, medan Indien uppvisar både högre jämviktsnivå och starkare mean reversion.</p>
-      <p>Vasicek-modellen är därmed inte bara ett pedagogiskt referensfall, utan en fullt användbar arbetsmetod för obligationsprissättning som kombinerar teoretisk transparens med praktisk användbarhet. Samtidigt påminner dess kända begränsning, möjligheten till negativa räntor, om att modellen är en första approximation och pekar fram mot mer avancerade ramverk som CIR och Hull–White, där positivitet respektive perfekt kalibrering mot dagens räntekurva återställs. Den röda tråden från Brownsk rörelse till räntederivat illustrerar samtidigt hur samma matematiska struktur återkommer i vitt skilda tillämpningar, och hur numeriska metoder fungerar som en bro mellan analytisk teori och datadriven praktik.</p>
-    </div>
 
   </div>
 
-  
+  <!-- ── FOOTER ── -->
+  <div class="foot">
+    <span>Datakälla: <i>investing.com</i> — historiska 10-åriga statsobligationsräntor, Sverige &amp; Indien (2020–2026). Parametrar skattade via AR(1)-anpassning med minsta-kvadratmetoden.</span>
+    <span><span class="pill">KTH</span> SF2522 Numeriska metoder för SDE:er · Vårterminen 2026</span>
+  </div>
+
 </body>
 </html>
