@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.11)  25 APR 2026 10:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.11)  25 APR 2026 10:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -528,97 +528,11 @@ File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 raries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
-(/usr/local/texlive/2025basic/texmf-dist/tex/latex/tools/multicol.sty
-Package: multicol 2024/09/14 v1.9i multicolumn formatting (FMi)
-\c@tracingmulticols=\count308
-\mult@box=\box65
-\multicol@leftmargin=\dimen269
-\c@unbalance=\count309
-\c@collectmore=\count310
-\doublecol@number=\count311
-\multicoltolerance=\count312
-\multicolpretolerance=\count313
-\full@width=\dimen270
-\page@free=\dimen271
-\premulticols=\dimen272
-\postmulticols=\dimen273
-\multicolsep=\skip54
-\multicolbaselineskip=\skip55
-\partial@page=\box66
-\last@line=\box67
-\mc@boxedresult=\box68
-\maxbalancingoverflow=\dimen274
-\mult@rightbox=\box69
-\mult@grightbox=\box70
-\mult@firstbox=\box71
-\mult@gfirstbox=\box72
-\@tempa=\box73
-\@tempa=\box74
-\@tempa=\box75
-\@tempa=\box76
-\@tempa=\box77
-\@tempa=\box78
-\@tempa=\box79
-\@tempa=\box80
-\@tempa=\box81
-\@tempa=\box82
-\@tempa=\box83
-\@tempa=\box84
-\@tempa=\box85
-\@tempa=\box86
-\@tempa=\box87
-\@tempa=\box88
-\@tempa=\box89
-\@tempa=\box90
-\@tempa=\box91
-\@tempa=\box92
-\@tempa=\box93
-\@tempa=\box94
-\@tempa=\box95
-\@tempa=\box96
-\@tempa=\box97
-\@tempa=\box98
-\@tempa=\box99
-\@tempa=\box100
-\@tempa=\box101
-\@tempa=\box102
-\@tempa=\box103
-\@tempa=\box104
-\@tempa=\box105
-\@tempa=\box106
-\@tempa=\box107
-\@tempa=\box108
-\c@minrows=\count314
-\c@columnbadness=\count315
-\c@finalcolumnbadness=\count316
-\last@try=\dimen275
-\multicolovershoot=\dimen276
-\multicolundershoot=\dimen277
-\mult@nat@firstbox=\box109
-\colbreak@box=\box110
-\mc@col@check@num=\count317
+(/usr/local/texlive/2025basic/texmf-dist/tex/generic/pgf/frontendlayer/tikz/lib
+raries/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-(/usr/local/texlive/2025basic/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen278
-\lightrulewidth=\dimen279
-\cmidrulewidth=\dimen280
-\belowrulesep=\dimen281
-\belowbottomsep=\dimen282
-\aboverulesep=\dimen283
-\abovetopsep=\dimen284
-\cmidrulesep=\dimen285
-\cmidrulekern=\dimen286
-\defaultaddspace=\dimen287
-\@cmidla=\count318
-\@cmidlb=\count319
-\@aboverulesep=\dimen288
-\@belowrulesep=\dimen289
-\@thisruleclass=\count320
-\@lastruleclass=\count321
-\@thisrulewidth=\dimen290
-)
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 4
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 3
 5.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/lm/t1lmss.fd
@@ -627,25 +541,25 @@ File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/l3backend/l3backend-pdftex.d
 ef
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count322
-\l__pdf_internal_box=\box111
+\l__color_backend_stack_int=\count308
+\l__pdf_internal_box=\box65
 ) (./poster.aux)
 \openout1 = `poster.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -655,22 +569,22 @@ LaTeX Font Info:    ... okay on input line 45.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(71.13188pt, 1547.82993pt, 71.13188pt)
-* v-part:(T,H,B)=(71.13188pt, 2250.613pt, 71.13188pt)
+* h-part:(L,W,R)=(56.9055pt, 1576.28268pt, 56.9055pt)
+* v-part:(T,H,B)=(56.9055pt, 2279.06577pt, 56.9055pt)
 * \paperwidth=1690.09369pt
 * \paperheight=2392.87677pt
-* \textwidth=1547.82993pt
-* \textheight=2250.613pt
-* \oddsidemargin=-1.1381pt
-* \evensidemargin=-1.1381pt
-* \topmargin=-51.1381pt
+* \textwidth=1576.28268pt
+* \textheight=2279.06577pt
+* \oddsidemargin=-15.36449pt
+* \evensidemargin=-15.36449pt
+* \topmargin=-65.36449pt
 * \headheight=20.0pt
 * \headsep=30.0pt
 * \topskip=20.0pt
 * \footskip=35.0pt
 * \marginparwidth=0.0pt
 * \marginparsep=15.0pt
-* \columnsep=56.9055pt
+* \columnsep=10.0pt
 * \skip\footins=16.0pt plus 6.0pt minus 3.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
@@ -683,16 +597,16 @@ LaTeX Font Info:    ... okay on input line 45.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count323
-\scratchdimen=\dimen291
-\scratchbox=\box112
-\nofMPsegments=\count324
-\nofMParguments=\count325
+\scratchcounter=\count309
+\scratchdimen=\dimen269
+\scratchbox=\box66
+\nofMPsegments=\count310
+\nofMParguments=\count311
 \everyMPshowfont=\toks38
-\MPscratchCnt=\count326
-\MPscratchDim=\dimen292
-\MPnumerator=\count327
-\makeMPintoPDFobject=\count328
+\MPscratchCnt=\count312
+\MPscratchDim=\dimen270
+\MPnumerator=\count313
+\makeMPintoPDFobject=\count314
 \everyMPtoPDFconversion=\toks39
 )
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.s
@@ -708,98 +622,96 @@ e
 <kth.png, id=4, 106.3975pt x 105.39375pt>
 File: kth.png Graphic file (type png)
 <use kth.png>
-Package pdftex.def Info: kth.png  used on input line 50.
+Package pdftex.def Info: kth.png  used on input line 40.
 (pdftex.def)             Requested size: 241.84842pt x 239.58136pt.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 5
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 4
 1.
  (/usr/local/texlive/2025basic/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 5
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 4
 1.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-51.
+41.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-51.
+41.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <20.74> on input line 51.
+(Font)              <20.74> on input line 41.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 51.
+(Font)              <14.4> on input line 41.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 51.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
+(Font)              <12> on input line 41.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 41.
 
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 41.
 
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <20.74> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 92.
-LaTeX Font Info:    Trying to load font information for TS1+lmss on input line 
-122.
+LaTeX Font Info:    Calculating math sizes for size <29.86> on input line 87.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <29.86> on input line 87.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <20.9019> on input line 87.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.93> on input line 87.
 
-(/usr/local/texlive/2025basic/texmf-dist/tex/latex/lm/ts1lmss.fd
-File: ts1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <17.28> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 177.
+Overfull \hbox (2.28644pt too wide) detected at line 133
+\OML/lmm/m/it/20.74 X[] \OMS/lmsy/m/n/20.74 ^^X N  [] \OML/lmm/m/it/20.74 :
+ []
+
 
 
 [1
 
 {/usr/local/texlive/2025basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/us
 r/local/texlive/2025basic/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/t
-exlive/2025basic/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
-25basic/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025bas
-ic/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025basic/te
-xmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2025basic/texmf-d
-ist/fonts/enc/dvips/lm/lm-ts1.enc} <./kth.png>] (./poster.aux)
+exlive/2025basic/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texliv
+e/2025basic/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/202
+5basic/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2025basic/te
+xmf-dist/fonts/enc/dvips/lm/lm-mathex.enc} <./kth.png>] (./poster.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15314 strings out of 474662
- 304735 string characters out of 5751108
- 691771 words of memory out of 5000000
- 38073 multiletter control sequences out of 15000+600000
- 608821 words of font info for 68 fonts, out of 8000000 for 9000
+ 15287 strings out of 474662
+ 305051 string characters out of 5751108
+ 678354 words of memory out of 5000000
+ 38058 multiletter control sequences out of 15000+600000
+ 612085 words of font info for 79 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 84i,6n,87p,408b,275s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,10n,87p,408b,792s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/lm/lmex10.pfb></u
 sr/local/texlive/2025basic/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/lo
 cal/texlive/2025basic/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/te
 xlive/2025basic/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/
-2025basic/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2025b
-asic/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2025basic/
-texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2025basic/tex
-mf-dist/fonts/type1/public/lm/lmsso17.pfb></usr/local/texlive/2025basic/texmf-d
-ist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025basic/texmf-dist/f
-onts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025basic/tex
+2025basic/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2025b
+asic/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2025basi
+c/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025basic/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on poster.pdf (1 page, 194183 bytes).
+Output written on poster.pdf (1 page, 145009 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 59 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 
