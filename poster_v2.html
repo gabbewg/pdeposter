@@ -332,20 +332,20 @@
     <div class="panel">
       <h2>OU-processen</h2>
       <div class="sub">Mean-reverting process med analytisk lösning</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8mm; margin-bottom:3mm;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10mm; align-items:start;">
+        <!-- Left: text + equations -->
         <div>
           <p style="margin-bottom:1.5mm;">En "återställande kraft" drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
           <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
-        </div>
-        <div>
           <p style="margin-bottom:1.5mm;">Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
           <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
+          <p style="margin-top:2mm;"><i>X<sub>t</sub></i>: processens värde vid <i>t</i>. &nbsp; <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde. &nbsp; <i>θ</i>: återgångshastighet. &nbsp; <i>μ</i>: långsiktigt medelvärde. &nbsp; <i>σ</i>: brusets styrka. &nbsp; <i>W<sub>t</sub></i>: Brownsk rörelse.</p>
         </div>
-      </div>
-      <p><i>X<sub>t</sub></i>: processens värde vid tiden <i>t</i>. &nbsp; <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde. &nbsp; <i>θ</i>: hastigheten i återgången mot medelvärdet. &nbsp; <i>μ</i>: processens långsiktiga medelvärde. &nbsp; <i>σ</i>: brusets styrka. &nbsp; <i>W<sub>t</sub></i>: en standard-Brownsk rörelse.</p>
-      <div class="figure">
-        <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
-        <div class="cap">Tätheten <i>p(x,t)</i> för OU-processen. SDE:n beskriver enskilda banor; PDE:n beskriver hur sannolikhetsfördelningen utvecklas över tid.</div>
+        <!-- Right: image -->
+        <div class="figure" style="margin-top:0;">
+          <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
+          <div class="cap">Tätheten <i>p(x,t)</i> för OU-processen. SDE:n beskriver enskilda banor; PDE:n beskriver hur sannolikhetsfördelningen utvecklas över tid.</div>
+        </div>
       </div>
     </div>
 
@@ -393,50 +393,62 @@
         </div>
       </div>
 
-      <div class="sub" style="margin-top:3mm;">Analytisk lösning via exponentiellt-affin ansats</div>
+      <div class="sub" style="margin-top:3mm;">Resultat och konvergens</div>
 
-      <div class="analytic-grid">
-        <div>
-          <p><b>Ansats.</b> Eftersom drift och diffusion är affina i <i>r</i> söker vi en exponentiellt-affin lösning,</p>
-          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>), &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = <i>B</i>(<i>T</i>,<i>T</i>) = 0.</div>
-          <p><b>System av ODE:er.</b> Insättning i PDE:n ger två frikopplade ODE:er,</p>
-          <div class="eq left"><i>B</i><sub>t</sub> = θ<i>B</i> − 1, &nbsp; <i>B</i>(<i>T</i>,<i>T</i>) = 0,<br><i>A</i><sub>t</sub> = θμ<i>B</i> − ½σ²<i>B</i><sup>2</sup>, &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = 0.</div>
-        </div>
-        <div>
-          <p><b>Lösning.</b> Med <i>τ</i> = <i>T</i> − <i>t</i> och <i>R</i><sub>∞</sub> = μ − σ²/(2θ²) ger direkt integration</p>
-          <div class="eq left"><i>B</i>(<i>t</i>,<i>T</i>) = (1 − <i>e</i><sup>−θ<i>τ</i></sup>)/θ,<br><i>A</i>(<i>t</i>,<i>T</i>) = (<i>B</i> − <i>τ</i>)<i>R</i><sub>∞</sub> − σ²<i>B</i><sup>2</sup>/(4θ).</div>
-        </div>
-      </div>
+      <!-- 2×3 results grid -->
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:auto auto; gap:7mm; margin-top:4mm;">
 
-      <div class="plot-row">
-        <div class="figure">
-          <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige">
-          <div class="cap">Sverige: analytisk obligationsyta.</div>
+        <!-- Row 1, Col 1: Both analytical plots side by side -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:3mm;">
+          <div class="figure" style="margin-top:0;">
+            <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:48mm;">
+            <div class="cap">Sverige: analytisk.</div>
+          </div>
+          <div class="figure" style="margin-top:0;">
+            <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:48mm;">
+            <div class="cap">Indien: analytisk.</div>
+          </div>
         </div>
-        <div class="figure">
-          <img src="swefdmfinal.png" alt="FDM-lösning för Sverige">
-          <div class="cap">Sverige: FDM-lösning (finita differenser).</div>
-        </div>
-        <div class="figure">
-          <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien">
-          <div class="cap">Indien: analytisk obligationsyta.</div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Konvergensstudie -->
-    <div class="panel">
-      <h2>Konvergensstudie</h2>
-      <div class="sub">Empirisk verifiering av Crank–Nicolson-ordning</div>
-      <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap: 14mm; align-items: center; margin-top: 2mm;">
+        <!-- Row 1, Col 2: Future plot placeholder -->
+        <div style="background:var(--tint); border:1pt dashed var(--hair); display:flex; align-items:center; justify-content:center; min-height:70mm; box-sizing:border-box;">
+          <span style="color:var(--kth-soft); font-size:9pt; font-weight:600; letter-spacing:0.5pt; text-transform:uppercase;">Kommande plot</span>
+        </div>
+
+        <!-- Row 1, Col 3: FDM Sweden -->
         <div>
-          <p>För att verifiera att Crank–Nicolson-schemat har den förväntade andra ordningens noggrannhet körs FDM-lösaren på en sekvens av rutnät där både Δ<i>r</i> och Δ<i>t</i> halveras successivt. För varje rutnät registreras det maximala absoluta felet jämfört med den slutna Vasicek-formeln.</p>
-          <p>Resultaten i log-log-diagrammet följer slope-2-referensen tätt över hela rutnätsintervallet, vilket bekräftar att schemat är konvergent av ordning 𝒪(<i>h</i>²) i både rums- och tidsvariabel. Felet minskar med en faktor ≈ 4 vid varje halvering av rutnätssteget — från ≈ 10⁻⁵ vid det grövsta rutnätet ned till ≈ 10⁻⁹ vid det finaste. Detta visar att numerisk diffusion hålls under kontroll och att schemat förblir stabilt under de använda CFL-villkoren, samt att FDM-lösningen kan användas som ett tillförlitligt referensverktyg när analytiska uttryck saknas.</p>
+          <div class="figure" style="margin-top:0;">
+            <img src="swefdmfinal.png" alt="FDM-lösning för Sverige">
+            <div class="cap">Sverige: FDM-lösning (finita differenser).</div>
+          </div>
         </div>
-        <div class="figure" style="margin-top:0;">
-          <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height: 95mm;">
-          <div class="cap">Sverige 10Y: maxfel mellan FDM och analytisk lösning som funktion av Δ<i>r</i> (med Δ<i>t</i> ∝ Δ<i>r</i>).</div>
+
+        <!-- Row 2, Col 1: Analytical solution -->
+        <div>
+          <div class="sub" style="margin-top:0; margin-bottom:2mm;">Analytisk lösning — exponentiellt-affin ansats</div>
+          <p style="font-size:9.5pt;"><b>Ansats.</b> Affin drift och diffusion ger</p>
+          <div class="eq" style="font-size:10pt;"><i>P</i> = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>)</div>
+          <p style="font-size:9.5pt;"><b>ODE-system.</b> Insättning i Vasicek-PDE ger</p>
+          <div class="eq left" style="font-size:10pt;"><i>B</i><sub>t</sub> = θ<i>B</i> − 1, &nbsp; <i>B</i>(<i>T</i>,<i>T</i>) = 0<br><i>A</i><sub>t</sub> = θμ<i>B</i> − ½σ²<i>B</i><sup>2</sup>, &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = 0</div>
+          <p style="font-size:9.5pt;"><b>Lösning.</b> Med τ = <i>T</i>−<i>t</i>, <i>R</i><sub>∞</sub> = μ − σ²/(2θ²):</p>
+          <div class="eq left" style="font-size:10pt;"><i>B</i> = (1 − <i>e</i><sup>−θτ</sup>)/θ<br><i>A</i> = (<i>B</i> − τ)<i>R</i><sub>∞</sub> − σ²<i>B</i><sup>2</sup>/(4θ)</div>
         </div>
+
+        <!-- Row 2, Col 2: Convergence study -->
+        <div>
+          <div class="sub" style="margin-top:0; margin-bottom:2mm;">Konvergensstudie — Crank–Nicolson 𝒪(<i>h</i>²)</div>
+          <p style="font-size:9.5pt;">FDM-lösaren körs på en sekvens rutnät där Δ<i>r</i> och Δ<i>t</i> halveras successivt. Log-log-diagrammet följer slope-2-referensen tätt, från ≈ 10⁻⁵ (grovt) till ≈ 10⁻⁹ (fint), vilket bekräftar 𝒪(<i>h</i>²)-konvergens.</p>
+          <div class="figure" style="margin-top:3mm;">
+            <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height:75mm;">
+            <div class="cap">Sverige 10Y: maxfel FDM vs. analytisk som funktion av Δ<i>r</i>.</div>
+          </div>
+        </div>
+
+        <!-- Row 2, Col 3: Future convergence placeholder -->
+        <div style="background:var(--tint); border:1pt dashed var(--hair); display:flex; align-items:center; justify-content:center; box-sizing:border-box;">
+          <span style="color:var(--kth-soft); font-size:9pt; font-weight:600; letter-spacing:0.5pt; text-transform:uppercase;">Kommande konvergensstudie</span>
+        </div>
+
       </div>
     </div>
 
