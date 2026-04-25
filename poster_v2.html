@@ -298,6 +298,15 @@
     letter-spacing: 0.4pt;
   }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$',  right: '$',  display: false}
+    ]
+  });"></script>
 </head>
 <body>
 
@@ -333,8 +342,17 @@
           <p>Problemet är att räntan ändrar sig hela tiden och vi vet inte vad den blir i framtiden. Eftersom statsobligationer handlas för enorma belopp på världens marknader är det viktigt att kunna prissätta dem korrekt, små prisfel får stora konsekvenser för både investerare och stat.</p>
         </div>
         <div class="panel">
-          <div class="sub" style="margin-top:0;">2. Resultat</div>
-          <p>FDM-lösaren (Crank–Nicolson) uppnår 𝒪(<i>h</i>²)-konvergens med maxfel från ≈ 10⁻⁵ till ≈ 10⁻⁹. Via FTAP, Feynman–Kac och en exponentiellt-affin ansats härleds den slutna formeln <i>P</i>(<i>t</i>,<i>T</i>) = exp(<i>A</i> − <i>Br</i>). AR(1)-anpassning ger Sverige: θ ≈ 0,36, μ ≈ 2,83 %, σ ≈ 0,80 % och Indien: θ ≈ 0,49, μ ≈ 6,80 %, σ ≈ 0,50 %.</p>
+          <div class="sub" style="margin-top:0;">2. Modellering</div>
+          <p>Aktiekurser kan oftast modelleras som en geometrisk Brownsk rörelse. En aktie saknar naturlig nivå att återvända till, det finns ingen ekonomisk mekanism som drar priset mot ett specifikt värde, eftersom aktiens "rätta" nivå i sig förändras med bolagets framtida kassaflöden.</p>
+
+<p>Den korta räntan delar grundidén att rörelser kan beskrivas med en stokastisk term driven av en Brownsk rörelse, men skiljer sig på en avgörande punkt: den har en naturlig nivå att återvända till. Empiriskt rör sig räntor tillbaka mot en långsiktig nivå istället för att driva iväg. Detta beror på penningpolitiken — centralbanker som Riksbanken och ECB har explicita inflationsmål (oftast två procent) och styr den korta räntan för att hålla inflationen nära målet. Det är denna egenskap, <em>mean reversion</em>, som gör Ornstein–Uhlenbeck-processen till en naturlig utgångspunkt.</p>
+
+<p>$$dr_t = \kappa(\theta - r_t)\,dt + \sigma\,dW_t$$</p>
+
+<p>Parametrarna diskuteras mer i detalj nedan, men det centrala man kan utläsa direkt är att förändringen i räntan på ett kort tidssteg är proportionell mot avståndet $(\theta - r_t)$ mellan nuvarande räntan och den långsiktiga nivån. Är vi långt under $\theta$ blir driften positiv och räntan dras uppåt; är vi långt över blir den negativ och räntan dras nedåt. Konstanten $\kappa > 0$ styr hur snabbt återgången sker.</p>
+
+<p>Denna modellering av räntan låter oss härleda en partiell differentialekvation för obligationspriset $P(r,t)$ som sedan kan lösas på flera sätt. Vi löser den först analytiskt med en smart ansats, sedan med Monte Carlo-simuleringar och slutligen med finita differensmetoden över ett rutnät.</p>
+        
         </div>
         <div class="panel">
           <div class="sub" style="margin-top:0;">3. Slutsats</div>
