@@ -16,64 +16,44 @@ Outputs:
 
 import numpy as np
 from scipy.sparse import diags, eye as speye
-from scipy.sparse.linalg import spsolve
+from scipy.sparse.linalg import spsolve, splu
 from scipy.interpolate import RegularGridInterpolator
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
 
-def solve_and_plot(label, a, b, sigma, r0, T=10.0,
-                   r_min=0.0, r_max=0.08, I=200, N=500,
-                   tag=None):
-    """Solve the Vasicek PDE with Crank-Nicolson and produce the 3D plots."""
-    tag = tag or label.lower()
-
-    # ------------------------------------------------------------------
-    # Closed form (used for boundary conditions and verification)
-    # ------------------------------------------------------------------
+def solve_fdm(a, b, sigma, T, r_min, r_max, I, N):
+    """Run Crank-Nicolson on the Vasicek PDE. Returns r_grid, t_grid, P, abs_err."""
     def closed_form(r, t):
         tau = T - t
-        B   = (1.0 - np.exp(-a * tau)) / a
+        B = (1.0 - np.exp(-a * tau)) / a
         log_A = (B - tau) * (b - sigma**2 / (2 * a**2)) - (sigma**2 / (4 * a)) * B**2
         return np.exp(log_A - B * r)
 
-    # ------------------------------------------------------------------
-    # Grid setup
-    # ------------------------------------------------------------------
     dr = (r_max - r_min) / I
     dt = T / N
     r_grid = np.linspace(r_min, r_max, I + 1)
     t_grid = np.linspace(0.0, T, N + 1)
 
-    # ------------------------------------------------------------------
-    # Spatial operator on the interior (I-1 unknowns)
-    # ------------------------------------------------------------------
     r_int = r_grid[1:-1]
     drift = a * (b - r_int)
-
     alpha = -drift / (2 * dr) + sigma**2 / (2 * dr**2)
     beta  = -sigma**2 / dr**2 - r_int
     gamma =  drift / (2 * dr) + sigma**2 / (2 * dr**2)
 
-    L = diags([alpha[1:], beta, gamma[:-1]],
-              offsets=[-1, 0, 1], format="csc")
-
-    n_int = I - 1
-    Imat  = speye(n_int, format="csc")
+    L = diags([alpha[1:], beta, gamma[:-1]], offsets=[-1, 0, 1], format="csc")
+    Imat  = speye(I - 1, format="csc")
     A_lhs = (Imat - 0.5 * dt * L).tocsc()
     B_rhs = (Imat + 0.5 * dt * L).tocsc()
+    solve_lhs = splu(A_lhs).solve   # factor once, reuse every timestep
 
-    # ------------------------------------------------------------------
-    # Time-stepping (backward in t == forward in tau = T - t)
-    # ------------------------------------------------------------------
     P = np.empty((N + 1, I + 1))
-    P[N, :] = 1.0                             # terminal condition
+    P[N, :] = 1.0
 
     for n in range(N, 0, -1):
         t_curr, t_next = t_grid[n], t_grid[n - 1]
         P_L_curr, P_R_curr = closed_form(r_min, t_curr), closed_form(r_max, t_curr)
         P_L_next, P_R_next = closed_form(r_min, t_next), closed_form(r_max, t_next)
-
         P[n,     0]  = P_L_curr
         P[n,    -1]  = P_R_curr
         P[n - 1, 0]  = P_L_next
@@ -82,20 +62,25 @@ def solve_and_plot(label, a, b, sigma, r0, T=10.0,
         rhs = B_rhs @ P[n, 1:-1]
         rhs[0]  += 0.5 * dt * alpha[0]  * (P_L_curr + P_L_next)
         rhs[-1] += 0.5 * dt * gamma[-1] * (P_R_curr + P_R_next)
+        P[n - 1, 1:-1] = solve_lhs(rhs)
 
-        P[n - 1, 1:-1] = spsolve(A_lhs, rhs)
-
-    # ------------------------------------------------------------------
-    # Verify against closed form
-    # ------------------------------------------------------------------
     R, Tg = np.meshgrid(r_grid, t_grid, indexing="xy")
-    P_exact = closed_form(R, Tg)
-    abs_err = np.abs(P - P_exact)
+    abs_err = np.abs(P - closed_form(R, Tg))
+    return r_grid, t_grid, P, abs_err
+
+
+def solve_and_plot(label, a, b, sigma, r0, T=10.0,
+                   r_min=0.0, r_max=0.08, I=200, N=500,
+                   tag=None):
+    """Solve the Vasicek PDE and produce the 3D plots."""
+    tag = tag or label.lower()
+    r_grid, t_grid, P, abs_err = solve_fdm(a, b, sigma, T, r_min, r_max, I, N)
+    R, Tg = np.meshgrid(r_grid, t_grid, indexing="xy")
 
     print("=" * 60)
     print(f"{label}:  a={a:.5f}  b={b:.5f}  sigma={sigma:.5f}  r0={r0:.5f}")
     print(f"Grid: {I+1} points in r, {N+1} points in t")
-    print(f"  dr = {dr:.5f},  dt = {dt:.5f}")
+    print(f"  dr = {(r_max-r_min)/I:.5f},  dt = {T/N:.5f}")
     print(f"max |P_FDM - P_exact|        = {abs_err.max():.3e}")
     print(f"max |P_FDM - P_exact| at t=0 = {abs_err[0].max():.3e}")
     print()
@@ -185,6 +170,52 @@ def solve_and_plot(label, a, b, sigma, r0, T=10.0,
     print(f"Saved:\n  {surface_name}\n  {error_name}\n")
 
 
+def study_convergence(label, a, b, sigma, T=10.0, r_min=0.0, r_max=0.08,
+                      grids=((25, 60), (50, 125), (100, 250), (200, 500),
+                             (400, 1000), (800, 2000), (1600, 4000),
+                             (3200, 8000), (6400, 16000)),
+                      tag=None):
+    """Run FDM at successively halved (dr, dt) and plot max error vs h on log-log."""
+    tag = tag or label.lower()
+    drs, dts, errs = [], [], []
+    print(f"Convergence study ({label}):")
+    print(f"{'I':>5} {'N':>6} {'dr':>10} {'dt':>10} {'max err':>12}")
+    for I, N in grids:
+        _, _, _, abs_err = solve_fdm(a, b, sigma, T, r_min, r_max, I, N)
+        dr, dt = (r_max - r_min) / I, T / N
+        e = abs_err.max()
+        drs.append(dr); dts.append(dt); errs.append(e)
+        print(f"{I:>5} {N:>6} {dr:>10.5f} {dt:>10.5f} {e:>12.3e}")
+    drs, dts, errs = map(np.array, (drs, dts, errs))
+
+    # Empirical order from successive refinement
+    orders = np.log2(errs[:-1] / errs[1:])
+    print(f"  empirical order (log2 ratio): {np.array2string(orders, precision=2)}")
+    print(f"  final tolerance (finest grid): {errs[-1]:.3e}")
+    print(f"  best   tolerance (any grid)  : {errs.min():.3e} "
+          f"at (I, N) = {grids[int(np.argmin(errs))]}")
+    print()
+
+    fig, ax = plt.subplots(figsize=(7.5, 5.5))
+    ax.loglog(drs, errs, "o-", color="#1954A6", lw=1.8, ms=7,
+              label=r"max $|P_{\mathrm{FDM}} - P_{\mathrm{exact}}|$")
+    # Reference slope-2 line, anchored at the coarsest point
+    ref = errs[0] * (drs / drs[0]) ** 2
+    ax.loglog(drs, ref, "k--", lw=1.2, alpha=0.7,
+              label=r"slope $2$ reference ($\mathcal{O}(h^2)$)")
+    ax.set_xlabel(r"grid spacing $\Delta r$ (log scale; $\Delta t \propto \Delta r$)")
+    ax.set_ylabel(r"max error vs.\ closed form (log scale)")
+    ax.set_title(f"Crank-Nicolson FDM convergence ({label}) -- log-log", pad=10)
+    ax.grid(True, which="major", ls="-",  lw=0.6, alpha=0.45)
+    ax.grid(True, which="minor", ls=":",  lw=0.5, alpha=0.25)
+    ax.legend(loc="upper right", framealpha=0.95)
+    ax.invert_xaxis()    # finer grids to the right
+    fig.tight_layout()
+    out_name = f"fig7_fdm_convergence_{tag}.png"
+    fig.savefig(out_name, dpi=200, bbox_inches="tight")
+    print(f"Saved:\n  {out_name}\n")
+
+
 # ----------------------------------------------------------------------
 # Run for both countries (parameters from estimate_ou.py, fit 2020-2026)
 # ----------------------------------------------------------------------
@@ -200,6 +231,12 @@ solve_and_plot(
     label="India 10Y",
     a=0.488935, b=0.068000, sigma=0.004988, r0=0.069330,
     tag="india",
+)
+
+study_convergence(
+    label="Sweden 10Y",
+    a=0.357848, b=0.028277, sigma=0.007999,
+    tag="sweden",
 )
 
 plt.show()
