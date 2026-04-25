@@ -46,7 +46,7 @@
     align-items: center;
     gap: 18mm;
     padding: 13mm 26mm 13mm 26mm;
-    background: linear-gradient(120deg, var(--kth-dark) 0%, #1a4a8a 60%, #1e5299 100%);
+    background: var(--kth-dark);
     position: relative;
     z-index: 2;
     overflow: hidden;
@@ -142,9 +142,7 @@
     background: var(--paper);
     border-radius: 5mm;
     padding: 9mm 11mm 9mm 11mm;
-    box-shadow: 0 1mm 5mm rgba(14,30,65,0.09), 0 0 0 1pt rgba(200,215,235,0.7);
     overflow: visible;
-    border-top: 3pt solid var(--kth);
   }
   /* no ribbon, no arc */
   .panel::before { display: none; }
@@ -319,7 +317,6 @@
   <div class="banner">
     <img src="kth.png" alt="KTH">
     <div class="titlewrap">
-      <span class="eyebrow">Projektarbete · SF1693 · Vt 2026</span>
       <div class="title">Ornstein–Uhlenbeck-processen</div>
       <div class="subtitle">Analytisk lösning och Vasicek-modellen</div>
       <div class="authors">
