@@ -445,14 +445,33 @@
     </div>
 
     <div class="panel">
+<<<<<<< HEAD
       <h2>Sammanfattning</h2>
       <div class="sub">Projektöversikt och frågeställning</div>
       <p>Vi studerar Ornstein–Uhlenbeck-processen en stokastisk differentialekvation som drar ett system mot ett medelvärde under brus och samtidigt har en fullständig analytisk lösning.</p>
       <p>Den analytiska strukturen gör OU till en naturlig utgångspunkt för att förstå mean reversion och för att koppla teorin till Vasicek-modellen för korta räntor inom finansiell matematik.</p>
+=======
+      <span class="badge">5</span>
+      <h2>Slutsats</h2>
+      <div class="sub">Från stokastisk process till obligationspris</div>
+      <p>Projektet har följt en röd tråd från fysik till finans. Vi har utgått från Ornstein–Uhlenbeck-processen som ett av få stokastiska system med fullständig analytisk lösning, härlett dess Fokker–Planck-ekvation och löst den numeriskt med finita differenser. Överensstämmelsen mellan den numeriska och den exakta tätheten validerar metoden och ger oss ett tillförlitligt verktyg för mer generella problem där analytiska uttryck saknas. Felet i FDM-lösningen avtar i förväntad ordning med rutnätssteget, vilket bekräftar att schemat är konsistent och stabilt under de använda CFL-villkoren.</p>
+      <p>Genom att tolka OU-processen som en modell för korträntan under det riskneutrala måttet, det vill säga Vasicek-modellen, har vi sedan kombinerat tre byggstenar (FTAP, Feynman–Kac och en exponentiellt-affin ansats) till ett konkret sätt att räkna ut priset på en nollkupongsobligation. Resultatet är en sluten formel <i>P</i>(<i>t</i>,<i>T</i>) = exp(<i>A</i> − <i>B r</i>) där hela räntestrukturen kan läsas av direkt ur de skattade parametrarna θ, μ och σ. Eftersom <i>A</i> och <i>B</i> beror endast av tid till förfall blir hela avkastningskurvan en affin funktion av <i>r</i>, vilket är just den egenskap som gör modellen så användbar i praktiken.</p>
+      <p>Med AR(1)-anpassning av svenska och indiska statsobligationsräntor har vi visat att modellen kan kalibreras mot riktig marknadsdata, och att den analytiska ytan stämmer väl överens med FDM-lösningen av samma PDE. Skillnaden mellan ländernas skattade parametrar visar tydligt hur Vasicek-modellen fångar olika räntemiljöers karaktär: en lågräntemarknad som Sverige får ett lågt μ och måttlig återgångshastighet, medan Indien uppvisar både högre jämviktsnivå och starkare mean reversion.</p>
+      <p>Vasicek-modellen är därmed inte bara ett pedagogiskt referensfall, utan en fullt användbar arbetsmetod för obligationsprissättning som kombinerar teoretisk transparens med praktisk användbarhet. Samtidigt påminner dess kända begränsning, möjligheten till negativa räntor, om att modellen är en första approximation och pekar fram mot mer avancerade ramverk som CIR och Hull–White, där positivitet respektive perfekt kalibrering mot dagens räntekurva återställs. Den röda tråden från Brownsk rörelse till räntederivat illustrerar samtidigt hur samma matematiska struktur återkommer i vitt skilda tillämpningar, och hur numeriska metoder fungerar som en bro mellan analytisk teori och datadriven praktik.</p>
+>>>>>>> eb828b37db62c44be0a1222527c5ae7630a4af63
     </div>
 
   </div>
 
+  <!-- ── FOOTER ── -->
+  <div class="foot">
+    <span>
+      <span class="pill">SF1693</span>
+      <span class="pill">Numeriska PDE:er</span>
+      <span class="pill">Finansiell matematik</span>
+    </span>
+    <span>KTH · Vårterminen 2026</span>
+  </div>
 
 </body>
 </html>
