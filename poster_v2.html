@@ -318,7 +318,7 @@
    
 
     <!-- 2+3. Bakgrund & OU-processen side by side -->
-    <div class="row">
+
     <div class="panel">
       <h2>Bakgrund</h2>
       <div class="sub">Stokastiska processer mellan fysik och finans</div>
@@ -332,17 +332,23 @@
     <div class="panel">
       <h2>OU-processen</h2>
       <div class="sub">Mean-reverting process med analytisk lösning</div>
-      <p>En "återställande kraft" drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
-      <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
-      <p>Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
-      <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8mm; margin-bottom:3mm;">
+        <div>
+          <p style="margin-bottom:1.5mm;">En "återställande kraft" drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
+          <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
+        </div>
+        <div>
+          <p style="margin-bottom:1.5mm;">Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
+          <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
+        </div>
+      </div>
       <p><i>X<sub>t</sub></i>: processens värde vid tiden <i>t</i>. &nbsp; <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde. &nbsp; <i>θ</i>: hastigheten i återgången mot medelvärdet. &nbsp; <i>μ</i>: processens långsiktiga medelvärde. &nbsp; <i>σ</i>: brusets styrka. &nbsp; <i>W<sub>t</sub></i>: en standard-Brownsk rörelse.</p>
       <div class="figure">
         <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
         <div class="cap">Tätheten <i>p(x,t)</i> för OU-processen. SDE:n beskriver enskilda banor; PDE:n beskriver hur sannolikhetsfördelningen utvecklas över tid.</div>
       </div>
     </div>
-    </div><!-- end .row -->
+
 
     <!-- 4. Vasicek-modellen -->
     <div class="panel">
@@ -422,10 +428,17 @@
     <div class="panel">
       <h2>Data och parameterskattning</h2>
       <div class="sub">AR(1)-anpassning av räntedata</div>
-      <p>Korträntor approximeras av historiska räntor på 10-åriga statsobligationer för Sverige och Indien (period 2020–2026), hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} med tidssteg Δ<i>t</i> ≈ 7 dagar diskretiseras som en AR(1)-process,</p>
-      <div class="eq"><i>r</i><sub><i>k</i>+1</sub> = α + β <i>r<sub>k</sub></i> + ε<sub><i>k</i></sub>, &nbsp; ε<sub><i>k</i></sub> ~ 𝒩(0, <i>s</i>²)</div>
-      <p>vilket är den exakta övergångsfördelningen för den tidsdiskretiserade OU-processen. Minsta-kvadrat-anpassning ger α, β och <i>s</i>², varifrån Vasicek-parametrarna fås via</p>
-      <div class="eq">θ = −ln β / Δ<i>t</i>, &nbsp; μ = α/(1−β), &nbsp; σ = √( <i>s</i>² · 2θ / (1−<i>e</i><sup>−2θΔ<i>t</i></sup>) )</div>
+      <p>Korträntor approximeras av historiska räntor på 10-åriga statsobligationer för Sverige och Indien (period 2020–2026), hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} med tidssteg Δ<i>t</i> ≈ 7 dagar diskretiseras som en AR(1)-process, varifrån Vasicek-parametrarna skattas:</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8mm; margin-bottom:3mm;">
+        <div>
+          <p style="margin-bottom:1.5mm;">AR(1)-processen (exakt övergångsfördelning för tidsdiskretiserad OU):</p>
+          <div class="eq"><i>r</i><sub><i>k</i>+1</sub> = α + β <i>r<sub>k</sub></i> + ε<sub><i>k</i></sub>, &nbsp; ε<sub><i>k</i></sub> ~ 𝒩(0, <i>s</i>²)</div>
+        </div>
+        <div>
+          <p style="margin-bottom:1.5mm;">Vasicek-parametrar via minsta-kvadrat-anpassning av α, β och <i>s</i>²:</p>
+          <div class="eq">θ = −ln β / Δ<i>t</i>, &nbsp; μ = α/(1−β), &nbsp; σ = √( <i>s</i>² · 2θ / (1−<i>e</i><sup>−2θΔ<i>t</i></sup>) )</div>
+        </div>
+      </div>
       <p>Resultatet ger för <b>Sverige</b> θ ≈ 0,358, μ ≈ 2,83 %, σ ≈ 0,80 %, och för <b>Indien</b> θ ≈ 0,489, μ ≈ 6,80 %, σ ≈ 0,50 %. Dessa värden används sedan i Monte Carlo- och FDM-experimenten.</p>
     </div>
 
