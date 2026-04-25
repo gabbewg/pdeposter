@@ -265,7 +265,7 @@
 
   /* radial positions */
   .panel.top { left: calc(50% - 84mm); top: 0mm; }
-  .panel.upR { right: 8mm;  top: 80mm; min-height: 190mm; }
+  .panel.upR { right: 8mm;  top: 80mm; min-height: 210mm; }
   .panel.upL { left:  8mm;  top: 162mm; }
 
   /* full-width bottom panel (Vasicek) */
@@ -398,6 +398,8 @@
       <div class="sub">Mean-reverting process med analytisk lösning</div>
       <p>En ”återställande kraft” drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
       <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
+      <p>Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
+      <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
       <p><i>X<sub>t</sub></i>: processens värde vid tiden <i>t</i>.<br><i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde.<br><i>θ</i>: hastigheten i återgången mot medelvärdet.<br><i>μ</i>: processens långsiktiga medelvärde.<br><i>σ</i>: brusets styrka.<br><i>W<sub>t</sub></i>: en standard-Brownsk rörelse.</p>
       <div class="figure">
         <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
