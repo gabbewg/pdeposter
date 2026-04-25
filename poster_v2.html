@@ -424,6 +424,22 @@
       </div>
     </div>
 
+    <!-- Konvergensstudie -->
+    <div class="panel">
+      <h2>Konvergensstudie</h2>
+      <div class="sub">Empirisk verifiering av Crank–Nicolson-ordning</div>
+      <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap: 14mm; align-items: center; margin-top: 2mm;">
+        <div>
+          <p>För att verifiera att Crank–Nicolson-schemat har den förväntade andra ordningens noggrannhet körs FDM-lösaren på en sekvens av rutnät där både Δ<i>r</i> och Δ<i>t</i> halveras successivt. För varje rutnät registreras det maximala absoluta felet jämfört med den slutna Vasicek-formeln.</p>
+          <p>Resultaten i log-log-diagrammet följer slope-2-referensen tätt över hela rutnätsintervallet, vilket bekräftar att schemat är konvergent av ordning 𝒪(<i>h</i>²) i både rums- och tidsvariabel. Felet minskar med en faktor ≈ 4 vid varje halvering av rutnätssteget — från ≈ 10⁻⁵ vid det grövsta rutnätet ned till ≈ 10⁻⁹ vid det finaste. Detta visar att numerisk diffusion hålls under kontroll och att schemat förblir stabilt under de använda CFL-villkoren, samt att FDM-lösningen kan användas som ett tillförlitligt referensverktyg när analytiska uttryck saknas.</p>
+        </div>
+        <div class="figure" style="margin-top:0;">
+          <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height: 95mm;">
+          <div class="cap">Sverige 10Y: maxfel mellan FDM och analytisk lösning som funktion av Δ<i>r</i> (med Δ<i>t</i> ∝ Δ<i>r</i>).</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Data och parameterskattning -->
     <div class="panel">
       <h2>Data och parameterskattning</h2>
