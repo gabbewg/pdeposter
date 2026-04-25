@@ -1,0 +1,44 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{parskip}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\E}{\mathbb{E}}
+
+\begin{document}
+
+\textbf{Modell.} I Vasicek-modellen följer korträntan under det riskneutrala måttet $\mathbb{Q}$ en Ornstein--Uhlenbeck-process,
+\[
+    \dd r_t = \theta(\mu - r_t)\,\dd t + \sigma\,\dd W_t,
+\]
+och priset på en nollkupongsobligation med förfall $T$ ges av $P(t,T,r) = \E^{\mathbb{Q}}\!\bigl[e^{-\int_t^T r_s\,\dd s}\,\big|\,r_t = r\bigr]$. Feynman--Kac visar att $P$ löser PDE:n $P_t + \theta(\mu-r)P_r + \tfrac12\sigma^2 P_{rr} - rP = 0$ med $P(T,T,r)=1$.
+
+\textbf{Ansats.} Eftersom drift och diffusion är affina i $r$ söker vi en exponentiellt-affin lösning,
+\[
+    P(t,T,r) \;=\; \exp\!\bigl(A(t,T) - B(t,T)\,r\bigr), \qquad A(T,T)=B(T,T)=0.
+\]
+
+\textbf{System av ODE:n.} Insättning i PDE:n och separation efter potenser av $r$ reducerar PDE:n till två frikopplade ODE:n i $t$,
+\[
+    \begin{cases}
+        B_t = \theta B - 1, & B(T,T) = 0, \\[2pt]
+        A_t = \theta\mu B - \tfrac12\sigma^2 B^2, & A(T,T) = 0.
+    \end{cases}
+\]
+
+\textbf{Lösning.} Med $\tau = T-t$ och $R_\infty = \mu - \sigma^2/(2\theta^2)$ ger direkt integration den slutna Vasicek-formeln
+\[
+    P(t,T,r) = \exp\!\bigl(A(t,T) - B(t,T)\,r\bigr), \qquad
+    \begin{aligned}
+        B(t,T) &= \frac{1 - e^{-\theta\tau}}{\theta}, \\[2pt]
+        A(t,T) &= \bigl(B(t,T) - \tau\bigr) R_\infty - \frac{\sigma^2 B(t,T)^2}{4\theta}.
+    \end{aligned}
+\]
+
+\end{document}
