@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage[swedish]{babel}
+
+\begin{document}
+
+\section*{Härledning av Vasicek-obligationspriset}
+
+\subsection*{1. Bankkonto och diskonteringsfaktor}
+
+Låt $B_t = $ pengar i konto vid tid $t$. Vid fix ränta $r$ som betalas ut $n$ gånger per år gäller
+\[
+B_t = \left(1 + \tfrac{r}{n}\right)^{nt} \;\xrightarrow{n \to \infty}\; e^{rt}.
+\]
+För varierande (stokastisk) ränta $r_s$ generaliseras detta till
+\begin{equation}
+B_t = e^{\int_0^t r_s\,ds}. \tag{$\star$}
+\end{equation}
+
+\subsection*{2. OU-modell för korträntan}
+
+Antag att korträntan följer en Ornstein--Uhlenbeck-process under det riskneutrala måttet $\mathbb{Q}$:
+\begin{equation}
+dr_t = \theta(\mu - r_t)\,dt + \sigma\,dW_t^{\mathbb{Q}}.
+\end{equation}
+
+\subsection*{3. FTAP: obligationspriset som väntevärde}
+
+Enligt finansens fundamentalsats (FTAP) ges priset på en nollkupongsobligation med förfall $T$ av det diskonterade väntevärdet under $\mathbb{Q}$:
+\[
+P(t,T) = \mathbb{E}^{\mathbb{Q}}\!\left[\, \frac{B_t}{B_T} \;\Big|\; \mathcal{F}_t \,\right]
+       = \mathbb{E}^{\mathbb{Q}}\!\left[\, e^{-\int_t^T r_s\,ds} \;\Big|\; \mathcal{F}_t \,\right].
+\]
+Eftersom $r_t$ är en Markovprocess reduceras betingningen:
+\begin{equation}
+P(t,T) = \mathbb{E}^{\mathbb{Q}}\!\left[\, e^{-\int_t^T r_s\,ds} \;\Big|\; r_t \,\right].
+\end{equation}
+
+\subsection*{4. Feynman--Kac: från väntevärde till PDE}
+
+Definiera
+\begin{equation}
+u(t,r) = \mathbb{E}^{\mathbb{Q}}\!\left[\, e^{-\int_t^T r_s\,ds} \;\Big|\; r_t = r \,\right],
+\end{equation}
+så att $P(t,T) = u(t, r_t)$. Feynman--Kac-satsen ger då att $u$ löser
+\[
+\partial_t u + a(r,t)\,\partial_r u + \tfrac{1}{2} b(r,t)\,\partial_r^2 u - r u = 0,
+\qquad u(T,r) = 1,
+\]
+där koefficienterna avläses från (1):
+\[
+a(r,t) = \theta(\mu - r), \qquad b(r,t) = \sigma^2.
+\]
+
+\subsection*{5. Vasicek-PDE}
+
+Insättning ger obligationsprisets PDE:
+\[
+\boxed{\;\partial_t P + \theta(\mu - r)\,\partial_r P + \tfrac{1}{2}\sigma^2 \partial_{rr} P - r P = 0, \qquad P(T,T) = 1.\;}
+\]
+
+\end{document}
