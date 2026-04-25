@@ -50,6 +50,49 @@ $(r,t)$-rutnät, med Dirichlet-rand från den slutna formeln. Med
 parametrar skattade ur 10-åriga obligationsdata (Sverige och Indien)
 återges priset $P(r,t)$ med maximalt fel $\sim 2\cdot 10^{-7}$.
 
+\paragraph{Konvergens.}
+Rutnätet i $(r,t)$-domänen $[0,\,0{,}08]\times[0,\,10]$ består av $I+1$
+punkter i $r$ och $N+1$ punkter i $t$. Stegintervallen är
+\[
+    \Delta r = \frac{r_{\max}-r_{\min}}{I} = \frac{0{,}08}{I},
+    \qquad
+    \Delta t = \frac{T}{N} = \frac{10}{N}.
+\]
+För att verifiera den teoretiska noggrannhetsordningen körs schemat på
+en sekvens av rutnät där både $\Delta r$ och $\Delta t$ halveras
+(med fast förhållande $\Delta t = 50\,\Delta r$, dvs. $N = 2{,}5\,I$).
+Maximalt fel mot den slutna formeln plottas i log-log mot $\Delta r$.
+Datapunkterna ligger exakt på en linje med lutning $2$, och den
+empiriska kvoten $e_k/e_{k+1}$ är $\approx 4$ vid varje förfining ---
+vilket bekräftar Crank--Nicolsons förväntade ordning
+$\mathcal{O}(\Delta r^2 + \Delta t^2)$. På det finaste rutnätet
+($I = 6400$, $N = 16\,000$, dvs.\ $\Delta r \approx 1{,}25\cdot 10^{-5}$
+och $\Delta t \approx 6{,}25\cdot 10^{-4}$) ligger felet på
+$\sim 2{,}3\cdot 10^{-10}$, fortfarande på lutning-2-linjen utan tecken
+på golvet från flyttalsavrundning.
+
+\paragraph{Data och parameterskattning.}
+Korträntor approximeras av historiska räntor på 10-åriga statsobligationer
+för Sverige och Indien (period 2020--2026), hämtade från
+\textit{investing.com}. Tidsserierna $\{r_k\}$ med tidssteg
+$\Delta t \approx 7$ dagar diskretiseras som en AR(1)-process,
+\[
+    r_{k+1} = \alpha + \beta\, r_k + \varepsilon_k,
+    \qquad \varepsilon_k \sim \mathcal{N}(0, s^2),
+\]
+vilket är den exakta övergångsfördelningen för den tidsdiskretiserade
+OU-processen. Minsta-kvadrat\-anpassning ger $\alpha$, $\beta$ och $s^2$,
+varifrån Vasicek-parametrarna fås via
+\[
+    \theta = -\frac{\ln \beta}{\Delta t}, \qquad
+    \mu = \frac{\alpha}{1-\beta}, \qquad
+    \sigma = \sqrt{\,s^2 \cdot \frac{2\theta}{1-e^{-2\theta\Delta t}}\,}.
+\]
+Resultatet ger för Sverige $\theta\approx 0{,}358$, $\mu\approx 2{,}83\%$,
+$\sigma\approx 0{,}80\%$, och för Indien $\theta\approx 0{,}489$,
+$\mu\approx 6{,}80\%$, $\sigma\approx 0{,}50\%$. Dessa värden används
+sedan i Monte Carlo- och FDM-experimenten.
+
 \paragraph{Slutsats.}
 OU-processen kopplar fysik och finans: en SDE med ren analytisk
 lösning, en tillhörande PDE för tätheten, och en finansiell tillämpning
