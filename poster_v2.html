@@ -364,19 +364,13 @@
 
       <div class="panel">
         <h2>Data och parameterskattning</h2>
-        <div class="sub">AR(1)-anpassning av räntedata</div>
-        <p>Korträntor approximeras av historiska räntor på 10-åriga statsobligationer för Sverige och Indien (period 2020–2026), hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} med tidssteg Δ<i>t</i> ≈ 7 dagar diskretiseras som en AR(1)-process, varifrån Vasicek-parametrarna skattas:</p>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8mm; margin-bottom:3mm;">
-          <div>
-            <p style="margin-bottom:1.5mm;">AR(1)-processen (exakt övergångsfördelning för tidsdiskretiserad OU):</p>
-            <div class="eq"><i>r</i><sub><i>k</i>+1</sub> = α + β <i>r<sub>k</sub></i> + ε<sub><i>k</i></sub>, &nbsp; ε<sub><i>k</i></sub> ~ 𝒩(0, <i>s</i>²)</div>
-          </div>
-          <div>
-            <p style="margin-bottom:1.5mm;">Vasicek-parametrar via minsta-kvadrat-anpassning av α, β och <i>s</i>²:</p>
-            <div class="eq">θ = −ln β / Δ<i>t</i>, &nbsp; μ = α/(1−β), &nbsp; σ = √( <i>s</i>² · 2θ / (1−<i>e</i><sup>−2θΔ<i>t</i></sup>) )</div>
-          </div>
-        </div>
-        <p>Resultatet ger för <b>Sverige</b> θ ≈ 0,358, μ ≈ 2,83 %, σ ≈ 0,80 %, och för <b>Indien</b> θ ≈ 0,489, μ ≈ 6,80 %, σ ≈ 0,50 %. Dessa värden används sedan i Monte Carlo- och FDM-experimenten.</p>
+        <div class="sub"></div>
+        <p><b>Data.</b> Vasicek-modellen är formulerad i termer av <i>korta räntan</i> <i>r<sub>t</sub></i> som beskriver den nuvarande räntenivån för lån med bestämd löptid d<i>t</i>. Vi approximerar den med veckovisa <i>stängnings avkastningen</i> i perioden 2020-2026 för 10-år långa statsobligationer utgivna av svenska respektive indiska staten, hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} har tidssteg Δ<i>t</i> ≈ 7 dagar och uttrycks i procent per år. Länderna är valda för att representera två olika räntemiljöer</p>
+        <p><b>Skattning.</b> Vid jämna tidssteg Δ<i>t</i> följer OU-processens samplade värden {<i>r<sub>k</sub></i>} exakt en autoregressiv process av ordning ett, alltså är varje nytt värde är en linjär funktion av det föregående plus en oberoende gaussisk slumpterm:</p>
+        <div class="eq" style="margin-bottom:3mm;"><i>r</i><sub><i>k</i>+1</sub> = α + β <i>r<sub>k</sub></i> + ε<sub><i>k</i></sub>, &nbsp; ε<sub><i>k</i></sub> ~ 𝒩(0, <i>s</i>²) oberoende.</div>
+        <p>Koefficienterna (α, β, <i>s</i>²) skattas via minsta-kvadratmetoden: vi minimerar Σ<sub><i>k</i></sub> (<i>r</i><sub><i>k</i>+1</sub> − α − β<i>r<sub>k</sub></i>)<sup>2</sup> i α och β, och tar <i>s</i>² som stickprovsvariansen av residualerna ε<sub><i>k</i></sub>. De tidskontinuerliga Vasicek-parametrarna (θ, μ, σ) återfås sedan genom inversion av <i>transition density</i>-sambanden:</p>
+        <div class="eq" style="margin-bottom:3mm;">θ = −ln β / Δ<i>t</i>, &nbsp; μ = α / (1−β), &nbsp; σ = √( <i>s</i>² · 2θ / (1−<i>e</i><sup>−2θΔ<i>t</i></sup>) ).</div>
+        <p>För <b>Sverige</b> hittar vi θ ≈ 0,358, μ ≈ 2,83 %, σ ≈ 0,80 %, och för <b>Indien</b> θ ≈ 0,489, μ ≈ 6,80 %, σ ≈ 0,50 %. Dessa kalibrerade värden används som indata i de efterföljande Monte Carlo- och FDM-experimenten.</p>
       </div>
 
     </div><!-- end OU + Data row -->
