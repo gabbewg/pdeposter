@@ -375,14 +375,16 @@
         <div class="deriv-step">
           <div class="sn">1</div>
           <div class="sh">Bankkonto</div>
-          <p>Vid kontinuerlig, varierande ränta <i>r<sub>s</sub></i> ges bankkontot av</p>
+          <p>En riskfri investering växer med den kortfristiga räntan <i>r<sub>s</sub></i>. Vid fast ränta gäller <i>B<sub>t</sub></i> = <i>e</i><sup><i>rt</i></sup>, men med stokastisk ränta generaliseras detta till en integrerad tillväxtfaktor:</p>
           <div class="eq"><i>B<sub>t</sub></i> = <i>e</i><sup>∫<sub>0</sub><sup><i>t</i></sup> <i>r<sub>s</sub></i> d<i>s</i></sup></div>
+          <p>Bankkontot tjänar som numeraire — alla priser uttrycks relativt <i>B<sub>t</sub></i>.</p>
         </div>
         <div class="deriv-step">
           <div class="sn">2</div>
           <div class="sh">Kortränta (OU)</div>
-          <p>Korträntan <i>r<sub>t</sub></i> antas följa OU-processen under det riskneutrala måttet <i>Q</i>:</p>
+          <p>Vasicek antar att korträntan <i>r<sub>t</sub></i> följer en OU-process under det riskneutrala måttet <i>Q</i>. Parametern θ styr återgångshastigheten, μ är det långsiktiga jämviktsläget och σ är volatiliteten:</p>
           <div class="eq">d<i>r<sub>t</sub></i> = θ(μ − <i>r<sub>t</sub></i>) d<i>t</i> + σ d<i>W<sub>t</sub><sup>Q</sup></i></div>
+          <p>Under <i>Q</i> är driften justerad för marknadens riskpremie via Girsanov-satsen.</p>
         </div>
         <div class="deriv-step">
           <div class="sn">3</div>
@@ -394,14 +396,16 @@
         <div class="deriv-step">
           <div class="sn">4</div>
           <div class="sh">Feynman–Kac</div>
-          <p>Med <i>u</i>(<i>t</i>,<i>r</i>) = <i>P</i> och Markov-egenskapen ger Feynman–Kac-satsen PDE:n:</p>
+          <p>Feynman–Kac-satsen kopplar stokastiska väntevärden till deterministiska PDE:er. Definiera <i>u</i>(<i>t</i>,<i>r</i>) = <i>P</i>(<i>t</i>,<i>T</i>) med <i>r<sub>t</sub></i> = <i>r</i>. Satsens tillämpning på steg 3 ger att <i>u</i> löser bakåt-PDE:n med diskonteringsterm −<i>ru</i>:</p>
           <div class="eq">∂<sub><i>t</i></sub><i>u</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>u</i> + ½σ²∂<sub><i>rr</i></sub><i>u</i> − <i>ru</i> = 0</div>
+          <p>med terminalvillkor <i>u</i>(<i>T</i>,<i>r</i>) = 1 (obligationen löses in till 1 kr).</p>
         </div>
         <div class="deriv-step">
           <div class="sn">5</div>
           <div class="sh">Vasicek-PDE</div>
-          <p>Med <i>a</i> = θ(μ−<i>r</i>), <i>b</i> = σ² och terminalvillkor <i>P</i>(<i>T</i>,<i>T</i>) = 1:</p>
+          <p>Koefficienter från OU-modellen: drift <i>a</i>(<i>r</i>) = θ(μ−<i>r</i>) och diffusion <i>b</i> = σ². Insättning i Feynman–Kac ger den slutliga Vasicek-PDE:n som obligationspriset <i>P</i> måste uppfylla:</p>
           <div class="eq">∂<sub><i>t</i></sub><i>P</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>P</i> + ½σ²∂<sub><i>rr</i></sub><i>P</i> − <i>rP</i> = 0</div>
+          <p>Denna PDE löses analytiskt via en exponentiellt-affin ansats, se nedan.</p>
         </div>
       </div>
 
