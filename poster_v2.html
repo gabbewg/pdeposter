@@ -286,6 +286,14 @@
   }
   .panel.bottom .grid p { font-size: 12.5pt; }
   .panel.bottom .grid .eq { font-size: 14.5pt; }
+  .panel.bottom .grid.analytic p { font-size: 12pt; margin-bottom: 2.5mm; }
+  .panel.bottom .grid.analytic .eq {
+    font-size: 13pt;
+    line-height: 1.35;
+    padding-top: 3.5mm;
+    padding-bottom: 3.5mm;
+  }
+  .panel.bottom .grid.analytic .eq.left { text-align: left; }
   .panel.bottom::after {
     width: 32mm; height: 32mm;
     right: 6mm; bottom: 6mm;
@@ -410,23 +418,20 @@
     <div class="panel bottom">
       <span class="badge">3</span>
       <h2>Vasicek-modellen</h2>
-      <div class="sub">Räntedynamik, fördelning och obligationsprissättning</div>
+      <div class="sub">Analytisk lösning via exponentiellt-affin ansats</div>
 
-      <div class="grid">
+      <div class="grid analytic">
         <div class="col">
-          <p>Vasicek-modellen (1977) tolkar OU-processen som den korta räntan <i>r<sub>t</sub></i> och blev en av de första arbitragefria räntemodellerna inom kvantitativ finans. Räntan dras mot långsiktigt jämviktsläge <span style="text-decoration:overline">r</span> med hastighet κ:</p>
-          <div class="eq">d<i>r</i><sub>t</sub> = κ(<span style="text-decoration:overline">r</span> − <i>r</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
-          <p>Eftersom dynamiken är linjär blir räntan vid en framtida tidpunkt gaussisk med kända moment:</p>
-          <div class="eq"><i>r</i><sub>t</sub> ∼ 𝒩(<span style="text-decoration:overline">r</span> + (<i>r</i><sub>0</sub>−<span style="text-decoration:overline">r</span>) <i>e</i><sup>−κ<i>t</i></sup>,&nbsp; (σ²/2κ)(1 − <i>e</i><sup>−2κ<i>t</i></sup>))</div>
-          <p>I gränsen <i>t</i> → ∞ erhålls den stationära fördelningen 𝒩(<span style="text-decoration:overline">r</span>, σ²/2κ) — räntan har ändlig varians och negativ autokorrelation, till skillnad från en ren Brownsk drift.</p>
+          <p><b>Ansats.</b> Eftersom drift och diffusion är affina i <i>r</i> söker vi en exponentiellt-affin lösning,</p>
+          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>), &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = <i>B</i>(<i>T</i>,<i>T</i>) = 0.</div>
+          <p><b>System av ODE:er.</b> Insättning i PDE:n och separation efter potenser av <i>r</i> reducerar PDE:n till två frikopplade ODE:er i <i>t</i>,</p>
+          <div class="eq left"><i>B</i><sub>t</sub> = θ<i>B</i> − 1, &nbsp; <i>B</i>(<i>T</i>,<i>T</i>) = 0,<br><i>A</i><sub>t</sub> = θμ<i>B</i> − ½σ²<i>B</i><sup>2</sup>, &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = 0.</div>
         </div>
 
         <div class="col">
-          <p>Priset på en nollkupongobligation med löptid <i>T</i> ges under den riskneutrala sannolikheten ℚ av</p>
-          <div class="eq">P(<i>t</i>,<i>T</i>) = 𝔼<sub>ℚ</sub>[exp(−∫<sub><i>t</i></sub><sup><i>T</i></sup> <i>r</i><sub><i>s</i></sub> d<i>s</i>) | ℱ<sub>t</sub>]</div>
-          <p>För Vasicek är denna förväntan affin i <i>r<sub>t</sub></i>, vilket ger den slutna formeln</p>
-          <div class="eq">P(<i>t</i>,<i>T</i>) = <i>A</i>(<i>t</i>,<i>T</i>) · exp(−<i>B</i>(<i>t</i>,<i>T</i>) <i>r<sub>t</sub></i>)</div>
-          <p>där <i>B</i>(<i>t</i>,<i>T</i>) = (1 − <i>e</i><sup>−κ(<i>T</i>−<i>t</i>)</sup>)/κ och <i>A</i> beror endast på modellparametrarna. Den affina strukturen gör att hela avkastningskurvan kan läsas av direkt från en enda observerad ränta — modellens praktiska kraft.</p>
+          <p><b>Lösning.</b> Med <i>τ</i> = <i>T</i> − <i>t</i> och <i>R</i><sub>∞</sub> = μ − σ²/(2θ²) ger direkt integration den slutna Vasicek-formeln</p>
+          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>).</div>
+          <div class="eq left"><i>B</i>(<i>t</i>,<i>T</i>) = (1 − <i>e</i><sup>−θ<i>τ</i></sup>)/θ,<br><i>A</i>(<i>t</i>,<i>T</i>) = (<i>B</i>(<i>t</i>,<i>T</i>) − <i>τ</i>)<i>R</i><sub>∞</sub> − σ²<i>B</i>(<i>t</i>,<i>T</i>)<sup>2</sup>/(4θ).</div>
         </div>
       </div>
     </div>
