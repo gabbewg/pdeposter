@@ -118,42 +118,46 @@ def solve_and_plot(label, a, b, sigma, r0, T=10.0,
     fig = plt.figure(figsize=(11, 7))
     ax  = fig.add_subplot(111, projection="3d")
 
+    # Plot against time-to-maturity tau = T - t (forward in tau: 0 at maturity, T today)
+    Tau = T - Tg
+    tau_grid = T - t_grid
+
     surf = ax.plot_surface(
-        R, Tg, P,
+        R, Tau, P,
         rstride=stride_t, cstride=stride_r,
         cmap=cm.viridis, alpha=0.85,
         linewidth=0, antialiased=True,
         edgecolor="none",
     )
     ax.plot_wireframe(
-        R, Tg, P,
+        R, Tau, P,
         rstride=stride_t, cstride=stride_r,
         color="white", linewidth=0.4, alpha=0.6,
     )
 
-    # Terminal condition edge: P(r, T) = 1
-    ax.plot(r_grid, np.full_like(r_grid, T), np.ones_like(r_grid),
+    # Terminal condition edge: P(r, tau=0) = 1
+    ax.plot(r_grid, np.zeros_like(r_grid), np.ones_like(r_grid),
             color="red", lw=2.0, alpha=0.7, zorder=10,
-            label=r"$P(r,\,T)=1$")
+            label=r"$P(r,\,\tau=0)=1$")
 
-    # Dashed line tracing P(r0, t) at today's short rate
+    # Dashed line tracing P(r0, tau) at today's short rate
     P_r0 = interp(np.column_stack([t_grid, np.full_like(t_grid, r0)]))
-    ax.plot(np.full_like(t_grid, r0), t_grid, P_r0,
+    ax.plot(np.full_like(tau_grid, r0), tau_grid, P_r0,
             color="black", lw=1.6, ls="--", alpha=0.65, zorder=10,
             label=rf"$r=r_0\approx{r0:.4f}$")
 
     ax.set_xlabel("short rate $r$", labelpad=10)
-    ax.set_ylabel("time $t$ (years)", labelpad=10)
-    ax.set_zlabel("$P(r, t)$", labelpad=8)
+    ax.set_ylabel(r"time to maturity $\tau$ (years)", labelpad=10)
+    ax.set_zlabel(r"$P(r, \tau)$", labelpad=8)
     ax.set_title(f"Vasicek bond price surface ({label}) from finite differences\n"
                  f"(Crank-Nicolson, max error vs. closed form: {abs_err.max():.1e})",
                  pad=15)
-    ax.view_init(elev=25, azim=-60)
+    ax.view_init(elev=10, azim=-72)
     ax.set_zlim(min(0.6, P.min() - 0.02), 1.05)
     ax.legend(loc="upper left", framealpha=0.95)
 
     cbar = fig.colorbar(surf, shrink=0.55, aspect=20, pad=0.08)
-    cbar.set_label("$P(r, t)$")
+    cbar.set_label(r"$P(r, \tau)$")
 
     fig.tight_layout()
     surface_name = f"fig5_fdm_surface_{tag}.png"
@@ -165,15 +169,15 @@ def solve_and_plot(label, a, b, sigma, r0, T=10.0,
     fig2 = plt.figure(figsize=(10, 6))
     ax2  = fig2.add_subplot(111, projection="3d")
     ax2.plot_surface(
-        R, Tg, np.log10(abs_err + 1e-16),
+        R, Tau, np.log10(abs_err + 1e-16),
         rstride=stride_t, cstride=stride_r,
         cmap=cm.magma, alpha=0.9, edgecolor="none",
     )
     ax2.set_xlabel("short rate $r$")
-    ax2.set_ylabel("time $t$ (years)")
+    ax2.set_ylabel(r"time to maturity $\tau$ (years)")
     ax2.set_zlabel(r"$\log_{10}\,|P_{\mathrm{FDM}} - P_{\mathrm{exact}}|$")
     ax2.set_title(f"Pointwise FDM error ({label}, log scale)", pad=15)
-    ax2.view_init(elev=20, azim=-130)
+    ax2.view_init(elev=10, azim=-72)
     fig2.tight_layout()
     error_name = f"fig6_fdm_error_{tag}.png"
     fig2.savefig(error_name, dpi=200, bbox_inches="tight")

@@ -305,6 +305,25 @@
   .panel.bottom .grid.analytic .figure {
     margin-top: 4mm;
   }
+  .panel.bottom .plot-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10mm;
+    margin-top: 6mm;
+  }
+  .panel.bottom .plot-row .figure {
+    margin-top: 0;
+  }
+  .panel.bottom .plot-row .figure img {
+    width: auto;
+    max-width: 100%;
+    max-height: 56mm;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+  .panel.bottom .plot-row .figure .cap {
+    font-size: 8.5pt;
+  }
   .panel.bottom::after {
     width: 32mm; height: 32mm;
     right: 6mm; bottom: 6mm;
@@ -331,6 +350,50 @@
     font-weight: 600;
     font-size: 9pt;
     letter-spacing: 0.5pt;
+  }
+
+  /* derivation steps — Vasicek panel */
+  .deriv-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3.5mm;
+    margin: 3mm 0 5mm 0;
+  }
+  .deriv-step {
+    background: var(--tint);
+    border: 0.7pt solid var(--tint-strong);
+    border-left: 2.4pt solid var(--kth-soft);
+    border-radius: 3mm;
+    padding: 3.5mm 4mm;
+    box-sizing: border-box;
+  }
+  .deriv-step .sn {
+    font-size: 7.5pt;
+    font-weight: 800;
+    color: var(--kth-soft);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    margin-bottom: 1mm;
+  }
+  .deriv-step .sh {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: var(--kth-dark);
+    margin-bottom: 2mm;
+    line-height: 1.15;
+  }
+  .deriv-step p {
+    font-size: 9pt;
+    color: var(--ink-soft);
+    margin: 0 0 2mm 0;
+    line-height: 1.35;
+  }
+  .deriv-step .eq {
+    font-size: 9.5pt;
+    padding: 2mm 3mm;
+    margin: 0;
+    line-height: 1.4;
+    text-align: left;
   }
 </style>
 </head>
@@ -431,7 +494,42 @@
     <div class="panel bottom">
       <span class="badge">3</span>
       <h2>Vasicek-modellen</h2>
-      <div class="sub">Analytisk lösning via exponentiellt-affin ansats</div>
+      <div class="sub">Härledning av obligationspriset</div>
+
+      <div class="deriv-steps">
+        <div class="deriv-step">
+          <div class="sn">Steg 1</div>
+          <div class="sh">Bankkonto</div>
+          <p>Vid kontinuerlig, varierande ränta <i>r<sub>s</sub></i> ges bankkontot av</p>
+          <div class="eq"><i>B<sub>t</sub></i> = <i>e</i><sup>∫<sub>0</sub><sup><i>t</i></sup> <i>r<sub>s</sub></i> d<i>s</i></sup></div>
+        </div>
+        <div class="deriv-step">
+          <div class="sn">Steg 2</div>
+          <div class="sh">Kortränta (OU)</div>
+          <p>Korträntan <i>r<sub>t</sub></i> antas följa OU-processen under det riskneutrala måttet <i>Q</i>:</p>
+          <div class="eq">d<i>r<sub>t</sub></i> = θ(μ − <i>r<sub>t</sub></i>) d<i>t</i> + σ d<i>W<sub>t</sub><sup>Q</sup></i></div>
+        </div>
+        <div class="deriv-step">
+          <div class="sn">Steg 3</div>
+          <div class="sh">FTAP</div>
+          <p>Finansens fundamentalsats ger obligationspriset som ett diskonterat väntevärde:</p>
+          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>) = 𝔼<sup><i>Q</i></sup>[<i>e</i><sup>−∫<sub><i>t</i></sub><sup><i>T</i></sup><i>r<sub>s</sub></i>d<i>s</i></sup> | <i>r<sub>t</sub></i>]</div>
+        </div>
+        <div class="deriv-step">
+          <div class="sn">Steg 4</div>
+          <div class="sh">Feynman–Kac</div>
+          <p>Med <i>u</i>(<i>t</i>,<i>r</i>) = <i>P</i> och Markov-egenskapen ger Feynman–Kac-satsen PDE:n:</p>
+          <div class="eq">∂<sub><i>t</i></sub><i>u</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>u</i> + ½σ²∂<sub><i>rr</i></sub><i>u</i> − <i>ru</i> = 0</div>
+        </div>
+        <div class="deriv-step">
+          <div class="sn">Steg 5</div>
+          <div class="sh">Vasicek-PDE</div>
+          <p>Med <i>a</i> = θ(μ−<i>r</i>), <i>b</i> = σ² och terminalvillkor <i>P</i>(<i>T</i>,<i>T</i>) = 1:</p>
+          <div class="eq">∂<sub><i>t</i></sub><i>P</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>P</i> + ½σ²∂<sub><i>rr</i></sub><i>P</i> − <i>rP</i> = 0</div>
+        </div>
+      </div>
+
+      <div class="sub" style="margin-top:4mm;">Analytisk lösning via exponentiellt-affin ansats</div>
 
       <div class="grid analytic">
         <div class="col">
@@ -439,20 +537,22 @@
           <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>), &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = <i>B</i>(<i>T</i>,<i>T</i>) = 0.</div>
           <p><b>System av ODE:er.</b> Insättning i PDE:n och separation efter potenser av <i>r</i> reducerar PDE:n till två frikopplade ODE:er i <i>t</i>,</p>
           <div class="eq left"><i>B</i><sub>t</sub> = θ<i>B</i> − 1, &nbsp; <i>B</i>(<i>T</i>,<i>T</i>) = 0,<br><i>A</i><sub>t</sub> = θμ<i>B</i> − ½σ²<i>B</i><sup>2</sup>, &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = 0.</div>
-          <div class="figure">
-            <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige">
-            <div class="cap">Sverige: analytisk obligationsyta för den kalibrerade Vasicek-modellen.</div>
-          </div>
         </div>
 
         <div class="col">
           <p><b>Lösning.</b> Med <i>τ</i> = <i>T</i> − <i>t</i> och <i>R</i><sub>∞</sub> = μ − σ²/(2θ²) ger direkt integration den slutna Vasicek-formeln</p>
           <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>).</div>
           <div class="eq left"><i>B</i>(<i>t</i>,<i>T</i>) = (1 − <i>e</i><sup>−θ<i>τ</i></sup>)/θ,<br><i>A</i>(<i>t</i>,<i>T</i>) = (<i>B</i>(<i>t</i>,<i>T</i>) − <i>τ</i>)<i>R</i><sub>∞</sub> − σ²<i>B</i>(<i>t</i>,<i>T</i>)<sup>2</sup>/(4θ).</div>
-          <div class="figure">
-            <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien">
-            <div class="cap">Indien: analytisk obligationsyta för den kalibrerade Vasicek-modellen.</div>
-          </div>
+        </div>
+      </div>
+      <div class="plot-row">
+        <div class="figure">
+          <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige">
+          <div class="cap">Sverige: analytisk obligationsyta.</div>
+        </div>
+        <div class="figure">
+          <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien">
+          <div class="cap">Indien: analytisk obligationsyta.</div>
         </div>
       </div>
     </div>
