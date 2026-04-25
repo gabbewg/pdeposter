@@ -203,12 +203,6 @@ def study_convergence(label, a, b, sigma, T=10.0, r_min=0.0, r_max=0.08,
     ref = errs[0] * (drs / drs[0]) ** 2
     ax.loglog(drs, ref, "k--", lw=1.2, alpha=0.7,
               label=r"slope $2$ reference ($\mathcal{O}(h^2)$)")
-    # Mark the best (lowest-error) point — the practical tolerance floor
-    i_best = int(np.argmin(errs))
-    ax.loglog(drs[i_best], errs[i_best], "o", ms=12, mfc="none",
-              mec="#C8102E", mew=2.0,
-              label=rf"floor $\approx {errs[i_best]:.1e}$")
-
     ax.set_xlabel(r"grid spacing $\Delta r$ (log scale; $\Delta t \propto \Delta r$)")
     ax.set_ylabel(r"max error vs.\ closed form (log scale)")
     ax.set_title(f"Crank-Nicolson FDM convergence ({label}) -- log-log", pad=10)
