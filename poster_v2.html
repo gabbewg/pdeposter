@@ -351,7 +351,7 @@
         <div class="sub">Mean-reverting process med analytisk lösning</div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6mm; align-items:start;">
           <div>
-            <p style="margin-bottom:1.5mm;">En "återställande kraft" drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
+            <p style="margin-bottom:1.5mm;">Ornstein–Uhlenbeck-processen beskrivs av en stokastisk differentialekvation med två delar. Driftstermen θ(μ − <i>X<sub>t</sub></i>) är proportionell mot avståndet till jämviktsnivån μ och drar processen tillbaka mot μ med en hastighet som bestäms av θ. Diffusionstermen σ d<i>W<sub>t</sub></i> tillför slumpmässiga störningar via en Brownsk rörelse, med amplitud skalad av σ. För varje fixt <i>t</i> är <i>X<sub>t</sub></i> normalfördelad: väntevärdet närmar sig μ exponentiellt och variansen växer mot ett stationärt värde σ²/(2θ), oberoende av startvärdet. Processen fluktuerar därför kring μ utan att driva iväg, en egenskap som kallas <i>mean reversion</i>. Detta gör OU-processen lämplig för att modellera storheter med en stabil långsiktig nivå, exempelvis räntor.</p>
             <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
             <p style="margin-bottom:1.5mm;">Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
             <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
