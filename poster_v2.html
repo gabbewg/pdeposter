@@ -190,8 +190,6 @@
     margin-top: 3mm;
     border-radius: 3mm;
     overflow: hidden;
-    background: var(--tint);
-    border: 1pt solid var(--tint-strong);
   }
   .panel .figure img {
     display: block;
@@ -260,7 +258,7 @@
   .deriv-step .sn {
     display: inline-flex;
     align-items: center; justify-content: center;
-    width: 5.5mm; height: 5.5mm;
+    width: 7mm; height: 7mm;
     border-radius: 50%;
     background: var(--kth);
     color: #fff;
@@ -374,31 +372,31 @@
 
       <div class="deriv-steps">
         <div class="deriv-step">
-          <div class="sn">Steg 1</div>
+          <div class="sn">1</div>
           <div class="sh">Bankkonto</div>
           <p>Vid kontinuerlig, varierande ränta <i>r<sub>s</sub></i> ges bankkontot av</p>
           <div class="eq"><i>B<sub>t</sub></i> = <i>e</i><sup>∫<sub>0</sub><sup><i>t</i></sup> <i>r<sub>s</sub></i> d<i>s</i></sup></div>
         </div>
         <div class="deriv-step">
-          <div class="sn">Steg 2</div>
+          <div class="sn">2</div>
           <div class="sh">Kortränta (OU)</div>
           <p>Korträntan <i>r<sub>t</sub></i> antas följa OU-processen under det riskneutrala måttet <i>Q</i>:</p>
           <div class="eq">d<i>r<sub>t</sub></i> = θ(μ − <i>r<sub>t</sub></i>) d<i>t</i> + σ d<i>W<sub>t</sub><sup>Q</sup></i></div>
         </div>
         <div class="deriv-step">
-          <div class="sn">Steg 3</div>
+          <div class="sn">3</div>
           <div class="sh">FTAP</div>
           <p>Finansens fundamentalsats ger obligationspriset som ett diskonterat väntevärde:</p>
           <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>) = 𝔼<sup><i>Q</i></sup>[<i>e</i><sup>−∫<sub><i>t</i></sub><sup><i>T</i></sup><i>r<sub>s</sub></i>d<i>s</i></sup> | <i>r<sub>t</sub></i>]</div>
         </div>
         <div class="deriv-step">
-          <div class="sn">Steg 4</div>
+          <div class="sn">4</div>
           <div class="sh">Feynman–Kac</div>
           <p>Med <i>u</i>(<i>t</i>,<i>r</i>) = <i>P</i> och Markov-egenskapen ger Feynman–Kac-satsen PDE:n:</p>
           <div class="eq">∂<sub><i>t</i></sub><i>u</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>u</i> + ½σ²∂<sub><i>rr</i></sub><i>u</i> − <i>ru</i> = 0</div>
         </div>
         <div class="deriv-step">
-          <div class="sn">Steg 5</div>
+          <div class="sn">5</div>
           <div class="sh">Vasicek-PDE</div>
           <p>Med <i>a</i> = θ(μ−<i>r</i>), <i>b</i> = σ² och terminalvillkor <i>P</i>(<i>T</i>,<i>T</i>) = 1:</p>
           <div class="eq">∂<sub><i>t</i></sub><i>P</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>P</i> + ½σ²∂<sub><i>rr</i></sub><i>P</i> − <i>rP</i> = 0</div>
@@ -438,7 +436,7 @@
 
     <!-- Data och parameterskattning -->
     <div class="panel">
-      <span class="badge">5</span>
+      <span class="badge">4</span>
       <h2>Data och parameterskattning</h2>
       <div class="sub">AR(1)-anpassning av räntedata</div>
       <p>Korträntor approximeras av historiska räntor på 10-åriga statsobligationer för Sverige och Indien (period 2020–2026), hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} med tidssteg Δ<i>t</i> ≈ 7 dagar diskretiseras som en AR(1)-process,</p>
@@ -449,10 +447,10 @@
     </div>
 
     <div class="panel">
-      <span class="badge">4</span>
+      <span class="badge">5</span>
       <h2>Sammanfattning</h2>
       <div class="sub">Projektöversikt och frågeställning</div>
-      <p>Vi studerar Ornstein–Uhlenbeck-processen — en stokastisk differentialekvation som drar ett system mot ett medelvärde under brus och samtidigt har en fullständig analytisk lösning.</p>
+      <p>Vi studerar Ornstein–Uhlenbeck-processen en stokastisk differentialekvation som drar ett system mot ett medelvärde under brus och samtidigt har en fullständig analytisk lösning.</p>
       <p>Den analytiska strukturen gör OU till en naturlig utgångspunkt för att förstå mean reversion och för att koppla teorin till Vasicek-modellen för korta räntor inom finansiell matematik.</p>
     </div>
 
