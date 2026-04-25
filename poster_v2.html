@@ -342,9 +342,10 @@
       <span class="badge">1</span>
       <h2>Bakgrund</h2>
       <div class="sub">Stokastiska processer mellan fysik och finans</div>
-      <p>Inom fysik och finansiell matematik används stokastiska differentialekvationer för att beskriva storheter som utvecklas slumpmässigt över tid. OU-processen introducerades 1930 för att modellera hastigheten hos en partikel som påverkas av friktion och slumpmässiga stötar, och är ett klassiskt exempel på en SDE med explicit analytisk lösning.</p>
-      <p>Därför utgör OU-processen ett naturligt referensfall inom stokastisk analys och numerisk modellering. Modellen är särskilt användbar när man vill jämföra teori med numeriska approximationer och studera medelvärdesåtergång i ett sammanhang där egenskaperna är väl kända.</p>
-      <p>Som finansiell tillämpning studerar vi Vasicek-modellen, där OU-dynamik används för att beskriva den korta räntan. Modellen är ett klassiskt exempel på hur stokastiska processer kan användas för att analysera räntedynamik och prissättning av nollkupongobligationer.</p>
+      <p>Inom fysik och finansiell matematik används stokastiska differentialekvationer (SDE:er) för att beskriva storheter som utvecklas slumpmässigt över tid. En SDE kombinerar en deterministisk driftterm med en stokastisk diffusionsterm driven av en Brownsk rörelse, och utgör därmed ett naturligt ramverk för att modellera system med inneboende osäkerhet.</p>
+      <p>Ornstein–Uhlenbeck-processen introducerades 1930 av Leonard Ornstein och George Uhlenbeck för att modellera hastigheten hos en partikel som påverkas av friktion och slumpmässiga kollisioner — ett problem inom statistisk mekanik känt som Brownsk rörelse med friktion. Processens centrala egenskap är <i>medelvärdesåtergång</i>: en återställande kraft drar systemet mot ett långsiktigt jämviktsläge, vilket gör den distinkt från en vanlig slumpvandring.</p>
+      <p>OU-processen är ett av få stokastiska system med en fullständig analytisk lösning, vilket gör den till ett naturligt referensfall för att validera numeriska metoder. I detta projekt löser vi den tillhörande Fokker–Planck-ekvationen numeriskt med finita differenser och jämför resultatet med den exakta lösningen.</p>
+      <p>Som finansiell tillämpning studerar vi <i>Vasicek-modellen</i> (1977), där OU-dynamik används för att beskriva den korta räntan under ett riskneutralt mått. Modellen var den första att ge en sluten formel för prissättning av nollkupongobligationer och är fortfarande ett centralt referensexempel inom räntemodellering, trots att den tillåter negativa räntor.</p>
     </div>
 
     <!-- OU-processen -->
@@ -386,8 +387,9 @@
         <div class="deriv-step">
           <div class="sn">3</div>
           <div class="sh">FTAP</div>
-          <p>Finansens fundamentalsats ger obligationspriset som ett diskonterat väntevärde:</p>
-          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>) = 𝔼<sup><i>Q</i></sup>[<i>e</i><sup>−∫<sub><i>t</i></sub><sup><i>T</i></sup><i>r<sub>s</sub></i>d<i>s</i></sup> | <i>r<sub>t</sub></i>]</div>
+          <p>Finansens fundamentalsats (FTAP) säger att i en arbitragefri marknad finns ett riskneutralt mått <i>Q</i> under vilket alla diskonterade tillgångspriser är martingaler. Priset på en nollkupongsobligation med förfall <i>T</i> ges därmed av det <i>Q</i>-diskonterade väntevärdet av utbetalningen, betingat på nuvarande information:</p>
+          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>) = 𝔼<sup><i>Q</i></sup>[<i>B<sub>t</sub></i>/<i>B<sub>T</sub></i> | ℱ<sub><i>t</i></sub>] = 𝔼<sup><i>Q</i></sup>[<i>e</i><sup>−∫<sub><i>t</i></sub><sup><i>T</i></sup><i>r<sub>s</sub></i>d<i>s</i></sup> | <i>r<sub>t</sub></i>]</div>
+          <p>Betingningen förenklas till <i>r<sub>t</sub></i> tack vare Markov-egenskapen hos OU-processen.</p>
         </div>
         <div class="deriv-step">
           <div class="sn">4</div>
