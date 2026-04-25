@@ -328,7 +328,9 @@
       <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:5mm;">
         <div class="panel">
           <div class="sub" style="margin-top:0;">1. Problemformulering</div>
-          <p>Ornstein–Uhlenbeck-processen (OU), introducerad 1930, beskriver system med medelvärdesåtergång och är ett av få stokastiska processer med fullständig analytisk lösning. Vi studerar dess Fokker–Planck-ekvation numeriskt och tillämpar OU-dynamiken på räntemodellering via Vasicek-modellen (1977), där korträntan modelleras under det riskneutrala måttet <i>Q</i>.</p>
+          <p>En statsobligation är ett lån till staten där investeraren betalar ett pris idag och får tillbaka ett bestämt belopp vid förfallodatumet <i>T</i>, oftast tillsammans med löpande ränteutbetalningar (kuponger) under tiden. I det här projektet studerar vi det enklaste fallet, en nollkupongsobligation som bara betalar ut beloppet vid förfall. Priset <i>P</i>(<i>r</i>, τ) beror på räntan <i>r</i> och hur lång tid som är kvar till förfall, τ = <i>T−t</i>.</p>
+          <p>Räntan spelar roll eftersom investeraren alltid har ett alternativ: att istället sätta in pengarna på ett riskfritt bankkonto, som växer med den riskfria räntan <i>r</i>. För att en obligation ska vara värd att köpa måste den ge minst lika mycket som banken, annars skulle ingen välja den. Priset idag motsvarar alltså det belopp man skulle behöva sätta in på banken nu för att vid tid <i>T</i> ha exakt det utlovade beloppet. Ju högre ränta och ju längre tid kvar till förfall, desto lägre pris.</p>
+          <p>Problemet är att räntan ändrar sig hela tiden och vi vet inte vad den blir i framtiden. Eftersom statsobligationer handlas för enorma belopp på världens marknader är det viktigt att kunna prissätta dem korrekt, små prisfel får stora konsekvenser för både investerare och stat.</p>
         </div>
         <div class="panel">
           <div class="sub" style="margin-top:0;">2. Resultat</div>
