@@ -10,11 +10,18 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 INPUT="${1:-"$SCRIPT_DIR/poster_v2.html"}"
 OUTPUT="${2:-"${INPUT%.html}.pdf"}"
 
-# Locate Chrome (Windows first, then macOS).
+# Locate Chrome (Git Bash, WSL, then macOS).
 CHROME_CANDIDATES=(
     "/c/Program Files/Google/Chrome/Application/chrome.exe"
     "/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
     "$LOCALAPPDATA/Google/Chrome/Application/chrome.exe"
+    "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+    "/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+    "/mnt/c/Users/$USER/AppData/Local/Google/Chrome/Application/chrome.exe"
+    "/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+    "/c/Program Files/Microsoft/Edge/Application/msedge.exe"
+    "/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+    "/mnt/c/Program Files/Microsoft/Edge/Application/msedge.exe"
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 )
 CHROME=""
@@ -32,17 +39,31 @@ if [ ! -f "$INPUT" ]; then
 fi
 
 # Build a file:// URL Chrome accepts on this platform.
-case "$(uname -s)" in
+UNAME_S="$(uname -s)"
+IS_WSL=0
+if [ "$UNAME_S" = "Linux" ] && grep -qi microsoft /proc/version 2>/dev/null; then
+    IS_WSL=1
+fi
+
+case "$UNAME_S" in
     MINGW*|MSYS*|CYGWIN*)
-        # Convert /c/Users/... -> C:/Users/...
+        # Git Bash / Cygwin: convert /c/Users/... -> C:/Users/...
         WIN_INPUT="$(cygpath -m "$INPUT" 2>/dev/null || echo "$INPUT")"
         WIN_OUTPUT="$(cygpath -m "$OUTPUT" 2>/dev/null || echo "$OUTPUT")"
         URL="file:///$WIN_INPUT"
         OUT_ARG="$WIN_OUTPUT"
         ;;
     *)
-        URL="file://$INPUT"
-        OUT_ARG="$OUTPUT"
+        if [ "$IS_WSL" = "1" ]; then
+            # WSL: convert /mnt/c/Users/... -> C:/Users/... for chrome.exe
+            WIN_INPUT="$(wslpath -m "$INPUT" 2>/dev/null || echo "$INPUT")"
+            WIN_OUTPUT="$(wslpath -m "$OUTPUT" 2>/dev/null || echo "$OUTPUT")"
+            URL="file:///$WIN_INPUT"
+            OUT_ARG="$WIN_OUTPUT"
+        else
+            URL="file://$INPUT"
+            OUT_ARG="$OUTPUT"
+        fi
         ;;
 esac
 
