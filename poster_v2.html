@@ -236,6 +236,19 @@
     line-height: 1.4;
     color: var(--ink-soft);
   }
+  .panel .figure {
+    margin-top: 4mm;
+    padding: 3mm;
+    background: linear-gradient(180deg, var(--tint) 0%, #ffffff 100%);
+    border: 0.7pt solid var(--tint-strong);
+    border-radius: 3mm;
+  }
+  .panel .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2mm;
+  }
   .panel .eq {
     margin: 3mm 0 4mm 0;
     padding: 4mm 5mm;
@@ -252,7 +265,7 @@
 
   /* radial positions */
   .panel.top { left: calc(50% - 84mm); top: 0mm; }
-  .panel.upR { right: 8mm;  top: 162mm; }
+  .panel.upR { right: 8mm;  top: 80mm; min-height: 190mm; }
   .panel.upL { left:  8mm;  top: 162mm; }
 
   /* full-width bottom panel (Vasicek) */
@@ -365,20 +378,23 @@
       <span class="badge">1</span>
       <h2>Bakgrund</h2>
       <div class="sub">Stokastiska processer mellan fysik och finans</div>
-      <p>Inom fysik och finansiell matematik beskriver stokastiska differentialekvationer storheter som utvecklas slumpmässigt över tid. OU-processen formulerades 1930 för att modellera Brownsk rörelse hos en partikel under friktion och är en av få SDE:er med fullständig analytisk lösning — en mean-reverting Gauss-process.</p>
-      <p>Den analytiska lösningen gör OU-processen till ett centralt referensfall inom stokastisk analys och numerisk modellering. Det gör modellen särskilt användbar när man vill jämföra teori med approximationer och finansiella tillämpningar.</p>
-      <p>Projektet ingår i kursen SF1693 vid KTH, där fokus ligger på finita differensmetoder för partiella differentialekvationer. Som tillämpning studerar vi Vasicek-modellen — en av de tidigaste räntemodellerna inom kvantitativ finans, formulerad av Oldřich Vašíček 1977.</p>
+      <p>Inom fysik och finansiell matematik används stokastiska differentialekvationer för att beskriva storheter som utvecklas slumpmässigt över tid. OU-processen introducerades 1930 för att modellera hastigheten hos en partikel som påverkas av friktion och slumpmässiga stötar, och är ett klassiskt exempel på en SDE med explicit analytisk lösning.</p>
+      <p>Därför utgör OU-processen ett naturligt referensfall inom stokastisk analys och numerisk modellering. Modellen är särskilt användbar när man vill jämföra teori med numeriska approximationer och studera medelvärdesåtergång i ett sammanhang där egenskaperna är väl kända.</p>
+      <p>Som finansiell tillämpning studerar vi Vasicek-modellen, där OU-dynamik används för att beskriva den korta räntan. Modellen är ett klassiskt exempel på hur stokastiska processer kan användas för att analysera räntedynamik och prissättning av nollkupongobligationer.</p>
     </div>
 
     <!-- ============ 3 — UPPER RIGHT : OU-processen ============ -->
     <div class="panel upR">
       <span class="badge">2</span>
       <h2>OU-processen</h2>
-      <div class="sub">Mean-reverting Gauss-process med analytisk lösning</div>
-      <p>En ”återställande kraft” drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under gaussiskt brus:</p>
+      <div class="sub">Mean-reverting process med analytisk lösning</div>
+      <p>En ”återställande kraft” drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
       <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
-      <p>Med <i>X</i><sub>0</sub> = <i>x</i><sub>0</sub> är <i>X<sub>t</sub></i> gaussisk:</p>
-      <div class="eq"><i>X</i><sub>t</sub> ∼ 𝒩(μ + (<i>x</i><sub>0</sub>−μ)<i>e</i><sup>−θ<i>t</i></sup>,&nbsp; (σ²/2θ)(1 − <i>e</i><sup>−2θ<i>t</i></sup>))</div>
+      <p><i>X<sub>t</sub></i>: processens värde vid tiden <i>t</i>.<br><i>θ</i>: hastigheten i återgången mot medelvärdet.<br><i>μ</i>: processens långsiktiga medelvärde.<br><i>σ</i>: brusets styrka.<br><i>W<sub>t</sub></i>: en standard-Brownsk rörelse.</p>
+      <div class="figure">
+        <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
+      </div>
+      <p>Figuren visar tätheten <i>p(x,t)</i> för OU-processen, det vill säga lösningen till den tillhörande Fokker–Planck-ekvationen. SDE:n beskriver enskilda banor <i>X<sub>t</sub></i>, medan PDE:n beskriver hur sannolikhetsfördelningen för <i>X<sub>t</sub></i> utvecklas över tid; i projektet approximerar vi denna PDE numeriskt med finita differenser på ett rutnät i <i>x</i> och <i>t</i>, och jämför sedan med den explicita OU-fördelningen som referens.</p>
     </div>
 
     <!-- ============ 1 — UPPER LEFT : Sammanfattning ============ -->
