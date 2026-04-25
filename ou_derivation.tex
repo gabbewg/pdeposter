@@ -1,0 +1,232 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Paket ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!50!black,
+    urlcolor=blue!50!black
+}
+
+% --- Egna kommandon ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\dd}{\mathrm{d}}
+\DeclareMathOperator{\Cov}{Cov}
+
+% --- Satsmiljöer ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Sats}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Anmärkning}
+
+% --- Titel ---
+\title{Härledning av den analytiska lösningen \\ till Ornstein--Uhlenbeck-processen}
+\author{Projektarbete SF1693}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Problemformulering}
+
+Vi betraktar Ornstein--Uhlenbeck-processen (OU-processen), definierad av den stokastiska differentialekvationen
+\begin{equation}
+    \dd X_t = \theta(\mu - X_t)\,\dd t + \sigma\,\dd W_t, \qquad X_0 = x_0,
+    \label{eq:ou-sde}
+\end{equation}
+där $\theta > 0$ är återgångshastigheten, $\mu \in \R$ är långtidsmedelvärdet, $\sigma > 0$ är volatiliteten, och $\{W_t\}_{t \geq 0}$ är en standard Wienerprocess. Målet är att härleda en explicit lösning $X_t$, samt bestämma dess fördelning.
+
+\section{Förberedande räkneregler}
+
+Innan vi löser \eqref{eq:ou-sde} sammanfattar vi de verktyg från Itôs kalkyl som kommer att användas.
+
+\begin{lemma}[Itôs lemma]
+\label{lem:ito}
+Antag att $X_t$ uppfyller en SDE av formen $\dd X_t = b_t\,\dd t + s_t\,\dd W_t$, och låt $f \in C^{2,1}(\R \times [0,\infty))$. Då gäller
+\begin{equation}
+    \dd f(X_t, t) = \frac{\partial f}{\partial t}\,\dd t + \frac{\partial f}{\partial x}\,\dd X_t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2}(\dd X_t)^2,
+    \label{eq:ito}
+\end{equation}
+där $(\dd X_t)^2$ beräknas med räknereglerna
+\[
+    \dd t \cdot \dd t = 0, \qquad \dd t \cdot \dd W_t = 0, \qquad \dd W_t \cdot \dd W_t = \dd t.
+\]
+\end{lemma}
+
+\begin{lemma}[Itô-isometrin]
+\label{lem:isometri}
+För en deterministisk funktion $f \in L^2([0,t])$ gäller
+\[
+    \E\!\left[\left(\int_0^t f(s)\,\dd W_s\right)^{\!2}\,\right] = \int_0^t f(s)^2\,\dd s.
+\]
+\end{lemma}
+
+\begin{lemma}[Gaussianitet av Wiener-integraler]
+\label{lem:gauss}
+Om $f \colon [0,t] \to \R$ är deterministisk och kvadratiskt integrerbar, så är
+\[
+    \int_0^t f(s)\,\dd W_s \;\sim\; \mathcal{N}\!\left(0,\;\int_0^t f(s)^2\,\dd s\right).
+\]
+\end{lemma}
+
+\begin{proof}[Bevisskiss till lemma~\ref{lem:gauss}]
+Itô-integralen definieras som ett $L^2$-gränsvärde av Riemann-summor
+\[
+    S_n = \sum_{i=0}^{n-1} f(s_i)\bigl(W_{s_{i+1}} - W_{s_i}\bigr).
+\]
+Eftersom Wiener-inkrementen är oberoende och normalfördelade, och $f(s_i)$ är deterministisk, är varje $S_n$ en linjärkombination av oberoende gaussiska variabler --- alltså själv gaussisk. Klassen av gaussiska fördelningar är sluten under $L^2$-konvergens, så även gränsvärdet är gaussiskt. Medelvärde och varians följer av linjäritet respektive Itô-isometrin.
+\end{proof}
+
+\section{Härledning av lösningen}
+
+\subsection*{Steg 1: Val av integrerande faktor}
+
+Strategin är densamma som för linjära ordinära differentialekvationer: vi söker en transformation som eliminerar driften. Sätt
+\begin{equation}
+    Y_t \coloneqq e^{\theta t}(X_t - \mu).
+    \label{eq:Y-def}
+\end{equation}
+
+\begin{remark}
+Motivationen är att om man försummar bruset reduceras \eqref{eq:ou-sde} till ODE:n $\dot X = \theta(\mu - X)$ med lösning $X_t - \mu = (x_0 - \mu)e^{-\theta t}$. Storheten $e^{\theta t}(X_t - \mu)$ är då \emph{konstant}. Med brus förväntar vi oss att $Y_t$ blir en ren martingal --- ingen drift.
+\end{remark}
+
+\subsection*{Steg 2: Tillämpa Itôs lemma}
+
+Låt $f(x,t) = e^{\theta t}(x - \mu)$, så att $Y_t = f(X_t, t)$. De partiella derivatorna är
+\[
+    \frac{\partial f}{\partial t} = \theta e^{\theta t}(x - \mu), \qquad
+    \frac{\partial f}{\partial x} = e^{\theta t}, \qquad
+    \frac{\partial^2 f}{\partial x^2} = 0.
+\]
+Att andraderivatan är noll är avgörande: eftersom $f$ är linjär i $x$ försvinner Itô-korrektionen. Lemma~\ref{lem:ito} ger
+\begin{equation}
+    \dd Y_t = \theta e^{\theta t}(X_t - \mu)\,\dd t + e^{\theta t}\,\dd X_t.
+    \label{eq:dY-step1}
+\end{equation}
+Sätt in SDE:n \eqref{eq:ou-sde} för $\dd X_t$:
+\begin{align}
+    \dd Y_t &= \theta e^{\theta t}(X_t - \mu)\,\dd t + e^{\theta t}\bigl[\theta(\mu - X_t)\,\dd t + \sigma\,\dd W_t\bigr] \nonumber \\
+    &= \underbrace{\theta e^{\theta t}(X_t - \mu)\,\dd t - \theta e^{\theta t}(X_t - \mu)\,\dd t}_{= \,0} + \sigma e^{\theta t}\,\dd W_t.
+    \label{eq:dY-cancel}
+\end{align}
+Drifttermerna kancellerar exakt --- precis som väntat. Vi har nu
+\begin{equation}
+    \boxed{\dd Y_t = \sigma e^{\theta t}\,\dd W_t.}
+    \label{eq:dY-final}
+\end{equation}
+
+\subsection*{Steg 3: Integrera}
+
+Ekvation \eqref{eq:dY-final} är drivlös med deterministisk diffusionskoefficient. Integrera direkt från $0$ till $t$:
+\begin{equation}
+    Y_t - Y_0 = \int_0^t \sigma e^{\theta s}\,\dd W_s = \sigma \int_0^t e^{\theta s}\,\dd W_s.
+    \label{eq:Y-integral}
+\end{equation}
+Eftersom $Y_0 = e^{0}(X_0 - \mu) = x_0 - \mu$ följer
+\begin{equation}
+    Y_t = (x_0 - \mu) + \sigma \int_0^t e^{\theta s}\,\dd W_s.
+    \label{eq:Y-explicit}
+\end{equation}
+
+\subsection*{Steg 4: Lös ut $X_t$}
+
+Från definitionen \eqref{eq:Y-def} har vi $X_t = \mu + e^{-\theta t} Y_t$. Insättning av \eqref{eq:Y-explicit} ger
+\begin{align}
+    X_t &= \mu + e^{-\theta t}\!\left[(x_0 - \mu) + \sigma \int_0^t e^{\theta s}\,\dd W_s\right] \nonumber \\
+    &= \mu + (x_0 - \mu)e^{-\theta t} + \sigma e^{-\theta t}\int_0^t e^{\theta s}\,\dd W_s.
+\end{align}
+Eftersom $e^{-\theta t}$ är oberoende av integrationsvariabeln $s$ kan den föras in i integralen:
+\begin{equation}
+    \boxed{X_t = \mu + (x_0 - \mu)e^{-\theta t} + \sigma \int_0^t e^{-\theta(t-s)}\,\dd W_s.}
+    \label{eq:ou-solution}
+\end{equation}
+Detta är OU-processens analytiska lösning.
+
+\section{Fördelningen av $X_t$}
+
+\subsection*{Medelvärde}
+
+Itô-integralen av en deterministisk integrand är en martingal som startar i noll, så
+\[
+    \E\!\left[\int_0^t e^{-\theta(t-s)}\,\dd W_s\right] = 0.
+\]
+Av \eqref{eq:ou-solution} följer
+\begin{equation}
+    \E[X_t] = \mu + (x_0 - \mu)e^{-\theta t}.
+    \label{eq:mean}
+\end{equation}
+När $t \to \infty$ konvergerar medelvärdet exponentiellt mot $\mu$ med hastighet $\theta$.
+
+\subsection*{Varians}
+
+Endast Itô-integralen i \eqref{eq:ou-solution} bidrar till variansen, eftersom övriga termer är deterministiska. Eftersom integralen har medelvärde noll gäller
+\begin{align}
+    \Var(X_t) &= \sigma^2 \,\E\!\left[\left(\int_0^t e^{-\theta(t-s)}\,\dd W_s\right)^{\!2}\,\right] \nonumber \\
+    &= \sigma^2 \int_0^t e^{-2\theta(t-s)}\,\dd s \quad\text{(Itô-isometrin)}.
+\end{align}
+Substitutionen $u = t - s$, $\dd u = -\dd s$, ger
+\[
+    \int_0^t e^{-2\theta(t-s)}\,\dd s = \int_0^t e^{-2\theta u}\,\dd u = \left[-\frac{e^{-2\theta u}}{2\theta}\right]_0^t = \frac{1 - e^{-2\theta t}}{2\theta}.
+\]
+Således
+\begin{equation}
+    \boxed{\Var(X_t) = \frac{\sigma^2}{2\theta}\bigl(1 - e^{-2\theta t}\bigr).}
+    \label{eq:variance}
+\end{equation}
+
+\subsection*{Fördelning}
+
+Itô-integralen i \eqref{eq:ou-solution} är gaussisk enligt lemma~\ref{lem:gauss}, eftersom integranden $e^{-\theta(t-s)}$ är deterministisk. Resten av uttrycket för $X_t$ är deterministiskt, så $X_t$ är en affin transformation av en gaussisk variabel --- och därmed själv gaussisk. Med medelvärdet \eqref{eq:mean} och variansen \eqref{eq:variance} har vi visat följande resultat.
+
+\begin{theorem}[Fördelningen för OU-processen]
+\label{thm:ou}
+Lösningen $X_t$ till \eqref{eq:ou-sde} med startvärde $X_0 = x_0$ är normalfördelad enligt
+\begin{equation}
+    X_t \mid X_0 = x_0 \;\sim\; \mathcal{N}\!\left(\mu + (x_0 - \mu)e^{-\theta t},\; \frac{\sigma^2}{2\theta}\bigl(1 - e^{-2\theta t}\bigr)\right).
+\end{equation}
+\end{theorem}
+
+\section{Stationär fördelning}
+
+När $t \to \infty$ ger \eqref{eq:mean} och \eqref{eq:variance}
+\[
+    \E[X_t] \to \mu, \qquad \Var(X_t) \to \frac{\sigma^2}{2\theta}.
+\]
+Den stationära fördelningen är därmed
+\begin{equation}
+    \pi = \mathcal{N}\!\left(\mu,\; \frac{\sigma^2}{2\theta}\right),
+    \label{eq:stationary}
+\end{equation}
+oberoende av startvärdet $x_0$. Detta uttrycker OU-processens \emph{ergodicitet}: oavsett var processen startar konvergerar dess fördelning mot $\pi$ med hastighet bestämd av $\theta$.
+
+\section{Sammanfattning}
+
+Genom transformationen $Y_t = e^{\theta t}(X_t - \mu)$, som elimineras driften via Itôs lemma, har vi härlett att OU-processen ges av
+\[
+    X_t = \mu + (x_0 - \mu)e^{-\theta t} + \sigma \int_0^t e^{-\theta(t-s)}\,\dd W_s,
+\]
+och att $X_t \sim \mathcal{N}\bigl(m(t), v(t)\bigr)$ med
+\[
+    m(t) = \mu + (x_0 - \mu)e^{-\theta t}, \qquad v(t) = \frac{\sigma^2}{2\theta}\bigl(1 - e^{-2\theta t}\bigr).
+\]
+Den stationära fördelningen är $\mathcal{N}\bigl(\mu, \sigma^2/(2\theta)\bigr)$. Dessa formler utgör referenslösningen som den numeriska lösaren av motsvarande Fokker--Planck-ekvation kommer att valideras mot.
+
+\end{document}
