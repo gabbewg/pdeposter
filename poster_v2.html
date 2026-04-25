@@ -390,11 +390,11 @@
       <div class="sub">Mean-reverting process med analytisk lösning</div>
       <p>En ”återställande kraft” drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
       <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
-      <p><i>X<sub>t</sub></i>: processens värde vid tiden <i>t</i>.<br><i>θ</i>: hastigheten i återgången mot medelvärdet.<br><i>μ</i>: processens långsiktiga medelvärde.<br><i>σ</i>: brusets styrka.<br><i>W<sub>t</sub></i>: en standard-Brownsk rörelse.</p>
+      <p><i>X<sub>t</sub></i>: processens värde vid tiden <i>t</i>.<br><i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde.<br><i>θ</i>: hastigheten i återgången mot medelvärdet.<br><i>μ</i>: processens långsiktiga medelvärde.<br><i>σ</i>: brusets styrka.<br><i>W<sub>t</sub></i>: en standard-Brownsk rörelse.</p>
       <div class="figure">
         <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
       </div>
-      <p>Figuren visar tätheten <i>p(x,t)</i> för OU-processen, det vill säga lösningen till den tillhörande Fokker–Planck-ekvationen. SDE:n beskriver enskilda banor <i>X<sub>t</sub></i>, medan PDE:n beskriver hur sannolikhetsfördelningen för <i>X<sub>t</sub></i> utvecklas över tid; i projektet approximerar vi denna PDE numeriskt med finita differenser på ett rutnät i <i>x</i> och <i>t</i>, och jämför sedan med den explicita OU-fördelningen som referens.</p>
+      <p>Figuren visar tätheten <i>p(x,t)</i> för OU-processen med begynnelsevillkoret <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>. Denna täthet är lösningen till den tillhörande Fokker–Planck-ekvationen med initialdata <i>p(x,0)</i> = δ(<i>x</i> − <i>x</i><sub>0</sub>). SDE:n beskriver enskilda banor <i>X<sub>t</sub></i>, medan PDE:n beskriver hur sannolikhetsfördelningen för <i>X<sub>t</sub></i> utvecklas över tid; i projektet approximerar vi PDE:n numeriskt med finita differenser och jämför den numeriska lösningen med den explicita referenstätheten.</p>
     </div>
 
     <!-- ============ 1 — UPPER LEFT : Sammanfattning ============ -->
