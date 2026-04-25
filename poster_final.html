@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>OU-poster v3</title>
+<style>
+  /* A1 portrait: 594 x 841 mm */
+  @page { size: 594mm 841mm; margin: 0; }
+  html, body { margin: 0; padding: 0; }
+
+  :root {
+    --kth:        #1954A6;
+    --kth-dark:   #0e376e;
+    --kth-mid:    #2a6fc4;
+    --kth-soft:   #6292BE;
+    --ink:        #14213d;
+    --ink-soft:   #2c3754;
+    --paper:      #ffffff;
+    --tint:       #f3f7fc;
+    --tint-strong:#e2ecf8;
+    --accent:     #c9a23a;   /* warm gold accent */
+    --accent-dk:  #9c7c1f;
+    --hair:       #c9d3e5;
+  }
+
+  body {
+    width: 594mm; height: 841mm;
+    font-family: "Inter", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 50% 28%, #f7faff 0%, #ffffff 55%, #f4f6fb 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  /* faint dot grid */
+  body::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, var(--kth) 0.55px, transparent 0.55px);
+    background-size: 12mm 12mm;
+    opacity: 0.045;
+    pointer-events: none;
+  }
+  /* deep corner glow flourishes */
+  body::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(360mm 200mm at -10% -8%, rgba(25,84,166,0.07), transparent 60%),
+      radial-gradient(360mm 200mm at 110% 108%, rgba(201,162,58,0.07), transparent 60%);
+    pointer-events: none;
+  }
+
+  /* ---------- TOP BANNER ---------- */
+  .banner {
+    display: flex;
+    align-items: center;
+    gap: 22mm;
+    padding: 22mm 28mm 0 28mm;
+    position: relative;
+    z-index: 3;
+  }
+  .banner .logo {
+    width: 72mm; flex-shrink: 0;
+    padding: 4mm 6mm;
+    background: var(--paper);
+    border: 1pt solid var(--hair);
+    border-radius: 4mm;
+    box-shadow: 0 3mm 8mm rgba(20,33,61,0.06);
+  }
+  .banner .logo img { width: 100%; display: block; }
+  .titlewrap { flex: 1; text-align: center; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12pt;
+    letter-spacing: 4pt;
+    text-transform: uppercase;
+    color: var(--accent-dk);
+    background: linear-gradient(90deg, transparent, rgba(201,162,58,0.18), transparent);
+    padding: 1.5mm 8mm;
+    border-radius: 999px;
+    margin-bottom: 4mm;
+    font-weight: 600;
+  }
+  .title {
+    color: var(--kth);
+    font-weight: 800;
+    font-size: 50pt;
+    line-height: 1.02;
+    letter-spacing: -0.6pt;
+  }
+  .subtitle {
+    color: var(--kth-mid);
+    font-weight: 600;
+    font-size: 26pt;
+    margin-top: 5mm;
+    line-height: 1.1;
+  }
+  .authors {
+    margin-top: 8mm;
+    font-size: 15pt;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .authors .sep { color: var(--accent); margin: 0 6pt; font-weight: 700; }
+  .course {
+    margin-top: 2.5mm;
+    font-size: 12pt;
+    color: #6b7280;
+    letter-spacing: 0.4pt;
+  }
+
+  .rule-wrap {
+    margin: 12mm 28mm 0 28mm;
+    height: 5pt;
+    border-radius: 3pt;
+    background: linear-gradient(90deg, var(--kth) 0%, var(--kth-soft) 50%, var(--kth) 100%);
+    position: relative;
+  }
+  .rule-wrap::after {
+    content: "";
+    position: absolute; left: 0; right: 0; top: 7pt; height: 1pt;
+    background: linear-gradient(90deg, transparent, var(--accent) 40%, var(--accent) 60%, transparent);
+    opacity: 0.6;
+  }
+
+  /* ---------- RADIAL CANVAS ---------- */
+  .canvas {
+    position: absolute;
+    left: 0; top: 196mm;
+    width: 594mm;
+    height: 620mm;
+    z-index: 2;
+  }
+  svg.spokes {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+
+  /* hub */
+  .hub {
+    position: absolute;
+    width: 110mm; height: 110mm;
+    left: calc(50% - 55mm);
+    top: calc(50% - 55mm);
+    background: radial-gradient(circle at 35% 30%, #3680d0 0%, var(--kth) 55%, var(--kth-dark) 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow:
+      0 0 0 5pt rgba(25,84,166,0.10),
+      0 0 0 10pt rgba(25,84,166,0.06),
+      0 0 0 15pt rgba(201,162,58,0.10),
+      0 10mm 22mm rgba(25,84,166,0.25);
+    text-align: center;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+  .hub .lab {
+    font-size: 28pt; letter-spacing: 1pt;
+    text-shadow: 0 1pt 0 rgba(0,0,0,0.15);
+  }
+  .hub .arrow {
+    font-size: 16pt; opacity: 0.85; margin: 1.5mm 0;
+    color: #ffd96a;
+  }
+
+  /* sections */
+  .panel {
+    position: absolute;
+    width: 168mm;
+    min-height: 138mm;
+    box-sizing: border-box;
+    background: var(--paper);
+    border: 1pt solid var(--hair);
+    border-radius: 7mm;
+    padding: 11mm 11mm 11mm 14mm;
+    box-shadow:
+      0 3mm 9mm rgba(20,33,61,0.08),
+      0 1pt 0 rgba(255,255,255,0.6) inset;
+  }
+  /* left accent ribbon */
+  .panel::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4.5mm;
+    background: linear-gradient(180deg, var(--kth) 0%, var(--kth-soft) 60%, var(--accent) 100%);
+  }
+  /* faint quarter-arc decoration (clipped via radius so no overflow needed) */
+  .panel::after {
+    content: "";
+    position: absolute;
+    right: 4mm; bottom: 4mm;
+    width: 22mm; height: 22mm;
+    border: 0.7pt solid var(--tint-strong);
+    border-radius: 50%;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .badge {
+    position: absolute;
+    top: -6mm; left: 9mm;
+    width: 13mm; height: 13mm;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.4pt solid var(--kth);
+    color: var(--kth);
+    font-weight: 800;
+    font-size: 14pt;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2mm 4mm rgba(20,33,61,0.10);
+  }
+
+  .panel h2 {
+    color: var(--kth);
+    font-size: 22pt;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.2pt;
+    line-height: 1.05;
+  }
+  .panel .sub {
+    color: var(--accent-dk);
+    font-size: 11pt;
+    font-weight: 600;
+    margin-top: 1.2mm;
+    margin-bottom: 4mm;
+    letter-spacing: 0.5pt;
+    text-transform: uppercase;
+  }
+  .panel p {
+    margin: 0 0 3mm 0;
+    font-size: 11.5pt;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+  .panel .figure {
+    margin-top: 4mm;
+    padding: 3mm;
+    background: linear-gradient(180deg, var(--tint) 0%, #ffffff 100%);
+    border: 0.7pt solid var(--tint-strong);
+    border-radius: 3mm;
+  }
+  .panel .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2mm;
+  }
+  .panel .figure .cap {
+    margin-top: 2mm;
+    font-size: 9.5pt;
+    line-height: 1.25;
+    color: #5f6b84;
+    text-align: center;
+    font-weight: 600;
+  }
+  .panel .eq {
+    margin: 3mm 0 4mm 0;
+    padding: 4mm 5mm;
+    text-align: center;
+    background: linear-gradient(180deg, var(--tint) 0%, #ffffff 100%);
+    border: 0.7pt solid var(--tint-strong);
+    border-left: 2.4pt solid var(--kth);
+    border-radius: 3mm;
+    font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", "Times New Roman", serif;
+    font-size: 13.5pt;
+    color: var(--kth-dark);
+  }
+  .panel .eq i { font-style: italic; }
+
+  /* radial positions */
+  .panel.top { left: calc(50% - 84mm); top: 0mm; }
+  .panel.upR { right: 8mm;  top: 80mm; min-height: 210mm; }
+  .panel.upL { left:  8mm;  top: 162mm; }
+
+  /* full-width bottom panel (Vasicek) */
+  .panel.bottom {
+    left: 22mm; right: 22mm;
+    width: auto;
+    top: 372mm;
+    min-height: 218mm;
+    padding: 12mm 16mm 12mm 19mm;
+  }
+  .panel.bottom h2 { font-size: 30pt; }
+  .panel.bottom .sub { font-size: 13pt; margin-bottom: 6mm; }
+  .panel.bottom .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12mm;
+    margin-top: 2mm;
+  }
+  .panel.bottom .grid p { font-size: 12.5pt; }
+  .panel.bottom .grid .eq { font-size: 14.5pt; }
+  .panel.bottom .grid.analytic p { font-size: 12pt; margin-bottom: 2.5mm; }
+  .panel.bottom .grid.analytic .eq {
+    font-size: 13pt;
+    line-height: 1.35;
+    padding-top: 3.5mm;
+    padding-bottom: 3.5mm;
+  }
+  .panel.bottom .grid.analytic .eq.left { text-align: left; }
+  .panel.bottom .grid.analytic .figure {
+    margin-top: 4mm;
+  }
+  .panel.bottom .plot-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10mm;
+    margin-top: 6mm;
+  }
+
+  .panel.bottom .plot-row .figure {
+    margin-top: 0;
+  }
+  .panel.bottom .plot-row .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .panel.bottom .plot-row .figure .cap {
+    font-size: 8.5pt;
+  }
+  .panel.bottom::after {
+    width: 32mm; height: 32mm;
+    right: 6mm; bottom: 6mm;
+  }
+
+  /* footer */
+  .foot {
+    position: absolute;
+    left: 28mm; right: 28mm; bottom: 12mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10pt; color: #6b7280;
+    border-top: 0.6pt solid var(--hair);
+    padding-top: 4mm;
+    z-index: 3;
+  }
+  .foot .pill {
+    display: inline-block;
+    background: var(--tint);
+    border: 0.6pt solid var(--tint-strong);
+    color: var(--kth);
+    border-radius: 999px;
+    padding: 1mm 4mm;
+    margin-right: 2mm;
+    font-weight: 600;
+    font-size: 9pt;
+    letter-spacing: 0.5pt;
+  }
+
+  /* derivation steps — Vasicek panel */
+  .deriv-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3.5mm;
+    margin: 3mm 0 5mm 0;
+  }
+  .deriv-step {
+    background: var(--tint);
+    border: 0.7pt solid var(--tint-strong);
+    border-left: 2.4pt solid var(--kth-soft);
+    border-radius: 3mm;
+    padding: 3.5mm 4mm;
+    box-sizing: border-box;
+  }
+  .deriv-step .sn {
+    font-size: 7.5pt;
+    font-weight: 800;
+    color: var(--kth-soft);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    margin-bottom: 1mm;
+  }
+  .deriv-step .sh {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: var(--kth-dark);
+    margin-bottom: 2mm;
+    line-height: 1.15;
+  }
+  .deriv-step p {
+    font-size: 9pt;
+    color: var(--ink-soft);
+    margin: 0 0 2mm 0;
+    line-height: 1.35;
+  }
+  .deriv-step .eq {
+    font-size: 9.5pt;
+    padding: 2mm 3mm;
+    margin: 0;
+    line-height: 1.4;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ TOP BANNER ============ -->
+  <div class="banner">
+    <div class="logo"><img src="kth.png" alt="KTH"></div>
+    <div class="titlewrap">
+      <span class="eyebrow">Projektarbete · SF1693 · Vt 2026</span>
+      <div class="title">Ornstein–Uhlenbeck-processen</div>
+      <div class="subtitle">Analytisk lösning och Vasicek-modellen</div>
+      <div class="authors">
+        Carl Gustaf Bril<span class="sep">·</span>Viggo Forsman<span class="sep">·</span>Hjalmar Lindström<span class="sep">·</span>Gabriel Svärdson Wächter
+      </div>
+      <div class="course">KTH Royal Institute of Technology · Vårterminen 2026</div>
+    </div>
+  </div>
+  <div class="rule-wrap"></div>
+
+  <!-- ============ RADIAL CANVAS ============ -->
+  <div class="canvas">
+
+    <svg class="spokes" viewBox="0 0 594 620" preserveAspectRatio="none">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#1954A6"/>
+        </marker>
+        <linearGradient id="spokeGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"  stop-color="#1954A6" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#6292BE" stop-opacity="0.55"/>
+        </linearGradient>
+      </defs>
+
+      <!-- decorative concentric guide rings -->
+      <g fill="none" stroke="#1954A6" stroke-opacity="0.06">
+        <circle cx="297" cy="310" r="80"/>
+        <circle cx="297" cy="310" r="155"/>
+        <circle cx="297" cy="310" r="225"/>
+        <circle cx="297" cy="310" r="290"/>
+      </g>
+      <!-- accent dotted quadrilateral connecting panel anchors -->
+      <polygon fill="none" stroke="#c9a23a" stroke-opacity="0.30"
+               stroke-width="0.5" stroke-dasharray="1.2 2.2"
+               points="297,78  498,222  297,478  96,222"/>
+
+      <!-- four spokes (top, upR, upL, bottom) -->
+      <g stroke="url(#spokeGrad)" stroke-width="1.0"
+         stroke-dasharray="2.4 2.4" fill="none" marker-end="url(#arr)">
+        <line x1="297" y1="310" x2="297" y2="80"/>
+        <line x1="297" y1="310" x2="496" y2="223"/>
+        <line x1="297" y1="310" x2="98"  y2="223"/>
+        <line x1="297" y1="310" x2="297" y2="478"/>
+      </g>
+    </svg>
+
+    <!-- center hub -->
+    <div class="hub">
+    </div>
+
+    <!-- ============ 2 — TOP : Bakgrund ============ -->
+    <div class="panel top">
+      <span class="badge">1</span>
+      <h2>Bakgrund</h2>
+      <div class="sub">Stokastiska processer mellan fysik och finans</div>
+      <p>Inom fysik och finansiell matematik används stokastiska differentialekvationer för att beskriva storheter som utvecklas slumpmässigt över tid. OU-processen introducerades 1930 för att modellera hastigheten hos en partikel som påverkas av friktion och slumpmässiga stötar, och är ett klassiskt exempel på en SDE med explicit analytisk lösning.</p>
+      <p>Därför utgör OU-processen ett naturligt referensfall inom stokastisk analys och numerisk modellering. Modellen är särskilt användbar när man vill jämföra teori med numeriska approximationer och studera medelvärdesåtergång i ett sammanhang där egenskaperna är väl kända.</p>
+      <p>Som finansiell tillämpning studerar vi Vasicek-modellen, där OU-dynamik används för att beskriva den korta räntan. Modellen är ett klassiskt exempel på hur stokastiska processer kan användas för att analysera räntedynamik och prissättning av nollkupongobligationer.</p>
+    </div>
+
+    <!-- ============ 3 — UPPER RIGHT : OU-processen ============ -->
+    <div class="panel upR">
+      <span class="badge">2</span>
+      <h2>OU-processen</h2>
+      <div class="sub">Mean-reverting process med analytisk lösning</div>
+      <p>En "återställande kraft" drar tillståndet <i>X<sub>t</sub></i> mot medelvärdet μ under stokastiskt brus:</p>
+      <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
+      <p>Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
+      <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
+      <p><i>X<sub>t</sub></i>: processens värde vid tiden <i>t</i>.<br><i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde.<br><i>θ</i>: hastigheten i återgången mot medelvärdet.<br><i>μ</i>: processens långsiktiga medelvärde.<br><i>σ</i>: brusets styrka.<br><i>W<sub>t</sub></i>: en standard-Brownsk rörelse.</p>
+      <div class="figure">
+        <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
+      </div>
+      <p>Figuren visar tätheten <i>p(x,t)</i> för OU-processen med begynnelsevillkoret <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>. Denna täthet är lösningen till den tillhörande Fokker–Planck-ekvationen med initialdata <i>p(x,0)</i> = δ(<i>x</i> − <i>x</i><sub>0</sub>). SDE:n beskriver enskilda banor <i>X<sub>t</sub></i>, medan PDE:n beskriver hur sannolikhetsfördelningen för <i>X<sub>t</sub></i> utvecklas över tid; i projektet approximerar vi PDE:n numeriskt med finita differenser och jämför den numeriska lösningen med den explicita referenstätheten.</p>
+    </div>
+
+    <!-- ============ 1 — UPPER LEFT : Sammanfattning ============ -->
+    <div class="panel upL">
+      <span class="badge">4</span>
+      <h2>Sammanfattning</h2>
+      <div class="sub">Projektöversikt och frågeställning</div>
+      <p>Vi studerar Ornstein–Uhlenbeck-processen — en stokastisk differentialekvation som drar ett system mot ett medelvärde under brus och samtidigt har en fullständig analytisk lösning.</p>
+      <p>Den analytiska strukturen gör OU till en naturlig utgångspunkt för att förstå mean reversion och för att koppla teorin till Vasicek-modellen för korta räntor inom finansiell matematik.</p>
+    </div>
+
+    <!-- ============ 4 — BOTTOM (full-width) : Vasicek ============ -->
+    <div class="panel bottom">
+      <span class="badge">3</span>
+      <h2>Vasicek-modellen</h2>
+      <div class="sub">Härledning av obligationspriset</div>
+
+      <div class="deriv-steps">
+        <div class="deriv-step">
+          <div class="sn">Steg 1</div>
+          <div class="sh">Bankkonto</div>
+          <p>Vid kontinuerlig, varierande ränta <i>r<sub>s</sub></i> ges bankkontot av</p>
+          <div class="eq"><i>B<sub>t</sub></i> = <i>e</i><sup>∫<sub>0</sub><sup><i>t</i></sup> <i>r<sub>s</sub></i> d<i>s</i></sup></div>
+        </div>
+        <div class="deriv-step">
+          <div class="sn">Steg 2</div>
+          <div class="sh">Kortränta (OU)</div>
+          <p>Korträntan <i>r<sub>t</sub></i> antas följa OU-processen under det riskneutrala måttet <i>Q</i>:</p>
+          <div class="eq">d<i>r<sub>t</sub></i> = θ(μ − <i>r<sub>t</sub></i>) d<i>t</i> + σ d<i>W<sub>t</sub><sup>Q</sup></i></div>
+        </div>
+        <div class="deriv-step">
+          <div class="sn">Steg 3</div>
+          <div class="sh">FTAP</div>
+          <p>Finansens fundamentalsats ger obligationspriset som ett diskonterat väntevärde:</p>
+          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>) = 𝔼<sup><i>Q</i></sup>[<i>e</i><sup>−∫<sub><i>t</i></sub><sup><i>T</i></sup><i>r<sub>s</sub></i>d<i>s</i></sup> | <i>r<sub>t</sub></i>]</div>
+        </div>
+        <div class="deriv-step">
+          <div class="sn">Steg 4</div>
+          <div class="sh">Feynman–Kac</div>
+          <p>Med <i>u</i>(<i>t</i>,<i>r</i>) = <i>P</i> och Markov-egenskapen ger Feynman–Kac-satsen PDE:n:</p>
+          <div class="eq">∂<sub><i>t</i></sub><i>u</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>u</i> + ½σ²∂<sub><i>rr</i></sub><i>u</i> − <i>ru</i> = 0</div>
+        </div>
+        <div class="deriv-step">
+          <div class="sn">Steg 5</div>
+          <div class="sh">Vasicek-PDE</div>
+          <p>Med <i>a</i> = θ(μ−<i>r</i>), <i>b</i> = σ² och terminalvillkor <i>P</i>(<i>T</i>,<i>T</i>) = 1:</p>
+          <div class="eq">∂<sub><i>t</i></sub><i>P</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>P</i> + ½σ²∂<sub><i>rr</i></sub><i>P</i> − <i>rP</i> = 0</div>
+        </div>
+      </div>
+
+      <div class="sub" style="margin-top:4mm;">Analytisk lösning via exponentiellt-affin ansats</div>
+
+      <div class="grid analytic">
+        <div class="col">
+          <p><b>Ansats.</b> Eftersom drift och diffusion är affina i <i>r</i> söker vi en exponentiellt-affin lösning,</p>
+          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>), &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = <i>B</i>(<i>T</i>,<i>T</i>) = 0.</div>
+          <p><b>System av ODE:er.</b> Insättning i PDE:n och separation efter potenser av <i>r</i> reducerar PDE:n till två frikopplade ODE:er i <i>t</i>,</p>
+          <div class="eq left"><i>B</i><sub>t</sub> = θ<i>B</i> − 1, &nbsp; <i>B</i>(<i>T</i>,<i>T</i>) = 0,<br><i>A</i><sub>t</sub> = θμ<i>B</i> − ½σ²<i>B</i><sup>2</sup>, &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = 0.</div>
+        </div>
+
+        <div class="col">
+          <p><b>Lösning.</b> Med <i>τ</i> = <i>T</i> − <i>t</i> och <i>R</i><sub>∞</sub> = μ − σ²/(2θ²) ger direkt integration den slutna Vasicek-formeln</p>
+          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>,<i>r</i>) = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>).</div>
+          <div class="eq left"><i>B</i>(<i>t</i>,<i>T</i>) = (1 − <i>e</i><sup>−θ<i>τ</i></sup>)/θ,<br><i>A</i>(<i>t</i>,<i>T</i>) = (<i>B</i>(<i>t</i>,<i>T</i>) − <i>τ</i>)<i>R</i><sub>∞</sub> − σ²<i>B</i>(<i>t</i>,<i>T</i>)<sup>2</sup>/(4θ).</div>
+        </div>
+      </div>
+      <div class="plot-row">
+        <div class="figure">
+          <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige">
+          <div class="cap">Sverige: analytisk obligationsyta.</div>
+        </div>
+        <div class="figure">
+          <img src="swefdmfinal.png" alt="FDM-lösning för Sverige">
+          <div class="cap">Sverige: FDM-lösning (finita differenser).</div>
+        </div>
+        <div class="figure">
+          <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien">
+          <div class="cap">Indien: analytisk obligationsyta.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div class="foot">
+    <span>
+      <span class="pill">SF1693</span>
+      <span class="pill">Numeriska PDE:er</span>
+      <span class="pill">Finansiell matematik</span>
+    </span>
+    <span>KTH · Vårterminen 2026</span>
+  </div>
+
+</body>
+</html>
