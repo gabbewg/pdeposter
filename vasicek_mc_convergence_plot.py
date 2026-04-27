@@ -42,6 +42,6 @@ ax.legend(fontsize=10, framealpha=0.9)
 ax.grid(True, which="both", ls=":", alpha=0.5)
 
 fig.tight_layout()
-plt.savefig("vasicek_mc_convergence.png", dpi=300, bbox_inches="tight")
+plt.savefig("vasicek_mc_convergence.png", dpi=300, bbox_inches="tight", pad_inches=0.18)
 print("Saved vasicek_mc_convergence.png")
 plt.show()
