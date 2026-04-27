@@ -318,8 +318,8 @@
   <div class="banner">
     <img src="kth.png" alt="KTH">
     <div class="titlewrap">
-      <div class="title">Ornstein–Uhlenbeck-processen</div>
-      <div class="subtitle">Analytisk lösning och Vasicek-modellen</div>
+      <div class="title">Prissättning av Statsobligationer</div>
+      <div class="subtitle">OU-processen, Vasicek-modellen och Historisk data </div>
       <div class="authors">
         Carl Gustaf Bril<span class="sep">·</span>Viggo Forsman<span class="sep">·</span>Hjalmar Lindström<span class="sep">·</span>Gabriel Svärdson Wächter
       </div>
@@ -336,24 +336,23 @@
 
     <!-- 2+3. Bakgrund & OU-processen side by side -->
 
-    <div>
-      <h2 style="color:var(--kth-dark); font-size:18pt; font-weight:700; margin:0 0 3mm 0; letter-spacing:-0.2pt;">Abstract</h2>
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:5mm;">
-        <div class="panel">
+    <div class="panel">
+      <h2>Abstract</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8mm; margin-top:3mm;">
+        <div>
           <div class="sub" style="margin-top:0;">1. Problemformulering</div>
           <p>En statsobligation är ett lån till staten där investeraren betalar ett pris idag och får tillbaka ett bestämt belopp vid förfallodatumet <i>T</i>, oftast tillsammans med löpande ränteutbetalningar (kuponger) under tiden. I det här projektet studerar vi det enklaste fallet, en nollkupongsobligation som bara betalar ut beloppet vid förfall. Priset <i>P</i>(<i>r</i>, τ) beror på räntan <i>r</i> och hur lång tid som är kvar till förfall, τ = <i>T−t</i>.</p>
           <p>Räntan spelar roll eftersom investeraren alltid har ett alternativ: att istället sätta in pengarna på ett riskfritt bankkonto, som växer med den riskfria räntan <i>r</i>. För att en obligation ska vara värd att köpa måste den ge minst lika mycket som banken, annars skulle ingen välja den. Priset idag motsvarar alltså det belopp man skulle behöva sätta in på banken nu för att vid tid <i>T</i> ha exakt det utlovade beloppet. Ju högre ränta och ju längre tid kvar till förfall, desto lägre pris.</p>
           <p>Problemet är att räntan ändrar sig hela tiden och vi vet inte vad den blir i framtiden. Eftersom statsobligationer handlas för enorma belopp på världens marknader är det viktigt att kunna prissätta dem korrekt, små prisfel får stora konsekvenser för både investerare och stat.</p>
           <p>Målet med projektet är att härleda och lösa en modell för att prissätta nollkupongsobligationer när räntan är stokastisk.</p>
         </div>
-        <div class="panel">
+        <div style="border-left: 1pt solid var(--hair); padding-left: 8mm;">
           <div class="sub" style="margin-top:0;">2. Modellering</div>
           <p>Aktiekurser modelleras oftast som en geometrisk Brownsk rörelse. En aktie saknar naturlig nivå att återvända till, det finns ingen ekonomisk mekanism som drar priset mot ett specifikt värde, eftersom aktiens "rätta" nivå i sig förändras med bolagets framtida kassaflöden.</p>
           <p>Vi modellerar istället den korta räntan <i>r</i><sub>t</sub>, den hypotetiska räntan vid tid <i>t</i> på ett lån vars löptid går mot noll. Den observeras inte direkt, men approximeras av räntor på korta statsobligationer med några månaders löptid (statsskuldväxlar). Den korta räntan delar grundidén att rörelser kan beskrivas med en stokastisk term driven av en Brownsk rörelse, men skiljer sig på en avgörande punkt: den har en naturlig nivå att återvända till. Empiriskt rör sig räntor tillbaka mot en långsiktig nivå istället för att driva iväg. Detta beror på penningpolitiken — centralbanker som Riksbanken och ECB har explicita inflationsmål (oftast två procent) och styr den korta räntan för att hålla inflationen nära målet. Det är denna egenskap, <em>mean reversion</em>, som gör Ornstein–Uhlenbeck-processen till en naturlig utgångspunkt.</p>
           <p>Denna modellering låter oss härleda en partiell differentialekvation för obligationspriset <i>P</i>(<i>r</i>,<i>t</i>) som sedan kan lösas på flera sätt. Vi löser den först analytiskt med en smart ansats, sedan med Monte Carlo-simuleringar och slutligen med finita differensmetoden över ett rutnät.</p>
-        
         </div>
-        <div class="panel">
+        <div style="border-left: 1pt solid var(--hair); padding-left: 8mm;">
           <div class="sub" style="margin-top:0;">3. Slutsats</div>
           <p>Den analytiska obligationsytan stämmer väl med FDM-lösningen, vilket validerar numeriken. Ländernas skilda parametrar speglar deras räntemiljöer. Projektet illustrerar hur analytisk teori och numeriska metoder kompletterar varandra — från Brownsk rörelse till prissättning av räntederivat.</p>
         </div>
@@ -519,7 +518,8 @@
       <div class="sub">Vasicek-modellen vs. svensk marknadsdata</div>
       <div style="display:grid; grid-template-columns: 1fr 1.6fr; gap:8mm; align-items:center;">
         <div>
-          <p>[Skriv din diskussionstext här.]</p>
+          <p><b>Vasicek-modellen mot marknadsdata.</b> Plotten till höger jämför Vasicek-priserna $P(r,\tau)$ för Sverige med Riksbankens marknadsdata, omräknade till diskonteringsfaktorer via $P=e^{-y\tau}$. När styrräntan $r_0$ ligger nära modellens långsiktiga jämvikt $R_\infty\approx 2{,}80\%$, som i juni 2022 ($r_0=0{,}00\%$) och april 2026 ($r_0=2{,}00\%$), följer modellen marknaden mycket väl. Vid årsskiftet 2024 stod styrräntan vid sin topp $r_0=4{,}00\%$ samtidigt som marknaden prisade in en kraftigt inverterad avkastningskurva. Här klarar Vasicek-modellen inte att följa med: en enda återgångshastighet ($\theta\approx 0{,}358$, halveringstid $\approx 1{,}9$ år) kan inte återskapa marknadens förväntan om snabb normalisering nedåt mot $R_\infty$, vilket är modellens centrala begränsning.</p>
+          <p><b>Sverige vs. Indien.</b> Ytan i mitten visar samma analytiska Vasicek-pris men med indiska parametrar ($\theta\approx 0{,}489$, $\mu\approx 6{,}80\%$, $\sigma\approx 0{,}50\%$). Det högre $\theta$-värdet ger snabbare mean reversion: faktorn $B(\tau)=(1-e^{-\theta\tau})/\theta$ mättas tidigare, vilket gör att priset avtar brantare med löptiden $\tau$, stabiliseras på en lägre nivå och blir mer okänsligt för den initiala räntan $r$ — ytan blir därmed mer parallell med $r$-axeln. Det högre $\mu$ förskjuter dessutom hela prisytan nedåt eftersom de långsiktiga räntorna är systematiskt högre i Indien.</p>
         </div>
         <div class="figure" style="margin-top:0;">
           <img src="vasicek_vs_market_sweden.png" alt="Vasicek-priskurva vs. svensk marknadsdata" style="max-height:75mm;">
