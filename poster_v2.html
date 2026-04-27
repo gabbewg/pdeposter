@@ -395,7 +395,7 @@
     </div><!-- end OU + Data row -->
 
     <!-- 4. Vasicek-modellen -->
-    <div class="panel" style="flex:1; min-height:0; display:flex; flex-direction:column;">
+    <div class="panel" style="display:flex; flex-direction:column;">
       <h2>Vasicek-modellen</h2>
       <div class="sub">Härledning av obligationspriset</div>
 
@@ -442,22 +442,18 @@
       <!-- 2×3 results grid -->
       <div style="display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:auto auto; gap:2mm; margin-top:3mm;">
 
-        <!-- Row 1, Col 1: Both analytical plots side by side -->
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1mm;">
+        <!-- Row 1, Col 1: Sweden analytical (matches MC/FDM size) -->
+        <div>
           <div class="figure notitle" style="margin-top:0;">
-            <img src="swedenanalfinal.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:80mm;">
+            <img src="swedenanalfinal.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:120mm;">
             <div class="cap">Sverige: analytisk.</div>
-          </div>
-          <div class="figure notitle" style="margin-top:0;">
-            <img src="indiaanalfinal.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:80mm;">
-            <div class="cap">Indien: analytisk.</div>
           </div>
         </div>
 
         <!-- Row 1, Col 2: Monte Carlo surface Sweden -->
         <div>
           <div class="figure notitle" style="margin-top:0;">
-            <img src="mcfinalgraf.png" alt="Monte Carlo-yta för Sverige" style="max-height:80mm;">
+            <img src="mcfinalgraf.png" alt="Monte Carlo-yta för Sverige" style="max-height:120mm;">
             <div class="cap">Sverige: Monte Carlo-simulerad obligationsyta.</div>
           </div>
         </div>
@@ -465,7 +461,7 @@
         <!-- Row 1, Col 3: FDM Sweden -->
         <div>
           <div class="figure notitle fdm-extra" style="margin-top:0;">
-            <img src="fdmfinalgraf.png" alt="FDM-lösning för Sverige" style="max-height:80mm;">
+            <img src="fdmfinalgraf.png" alt="FDM-lösning för Sverige" style="max-height:120mm;">
             <div class="cap">Sverige: FDM-lösning (finita differenser).</div>
           </div>
         </div>
@@ -486,7 +482,7 @@
           <div class="sub" style="margin-top:0; margin-bottom:2mm;">Monte Carlo-konvergens</div>
           <p style="font-size:9.5pt;">Vi kör Monte Carlo-metoden för ett antal olika N = [100, 200, 300, 500, 1 000, 2 000, 3 000, 5 000, 10 000] och beräknar max-felet över hela nätet jämfört med den analytiska lösningen. Eftersom Monte Carlo är stokastisk tar vi medelvärdet av max-felet över 10 oberoende simulationer för varje N. RMS-felet kan användas för en mindre pessimistisk uppskattning. I en log-log-plot ser vi att lutningen är −½, vilket ger konvergensordning ½.</p>
           <div class="figure notitle" style="margin-top:0;">
-            <img src="vasicek_mc_convergence.png" alt="Monte Carlo-konvergens" style="max-height:110mm;">
+            <img src="vasicek_mc_convergence.png" alt="Monte Carlo-konvergens" style="max-height:55mm;">
             <div class="cap">Konvergens för Monte Carlo-metoden mot analytisk Vasicek-lösning.</div>
           </div>
         </div>
@@ -496,11 +492,30 @@
           <div class="sub" style="margin-top:0; margin-bottom:2mm;">Konvergensstudie — Crank–Nicolson 𝒪(<i>h</i>²)</div>
           <p style="font-size:9.5pt;">FDM-lösaren körs på en sekvens rutnät där Δ<i>r</i> och Δ<i>t</i> halveras successivt. Log-log-diagrammet följer slope-2-referensen tätt, från ≈ 10⁻⁵ (grovt) till ≈ 10⁻⁹ (fint), vilket bekräftar 𝒪(<i>h</i>²)-konvergens.</p>
           <div class="figure notitle" style="margin-top:3mm;">
-            <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height:110mm;">
+            <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height:55mm;">
             <div class="cap">Sverige 10Y: maxfel FDM vs. analytisk som funktion av Δ<i>r</i>.</div>
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- 5. Diskussion -->
+    <div class="panel">
+      <h2>Diskussion</h2>
+      <div class="sub">Vasicek-modellen vs. svensk marknadsdata</div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1.6fr; gap:8mm; align-items:center;">
+        <div>
+          <p>[Skriv din diskussionstext här.]</p>
+        </div>
+        <div class="figure notitle" style="margin-top:0;">
+          <img src="indiaanalfinal.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:90mm;">
+          <div class="cap">Indien: analytisk obligationsyta.</div>
+        </div>
+        <div class="figure" style="margin-top:0;">
+          <img src="vasicek_vs_market_sweden.png" alt="Vasicek-priskurva vs. svensk marknadsdata" style="max-height:75mm;">
+          <div class="cap">Vasicek-implicerade obligationspriser $P(r,\tau)$ jämfört med svenska statsobligationspriser från Riksbanken vid tre tidpunkter.</div>
+        </div>
       </div>
     </div>
 
