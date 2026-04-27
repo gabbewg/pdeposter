@@ -12,6 +12,7 @@ At tau=0, P=1 exactly for all r.
 OU parameters (kappa, mu, sigma) are imported from estimate_ou.py.
 """
 
+from estimate_ou import load_csv, fit_vasicek, infer_dt
 import os
 import sys
 import numpy as np
@@ -19,7 +20,6 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from estimate_ou import load_csv, fit_vasicek, infer_dt
 
 # ---------------------------------------------------------------------------
 # Load OU parameters from Sweden data (same as se_analytisk_vasicek)
@@ -33,23 +33,29 @@ _dt_data = infer_dt(_dates)
 kappa, mu, sigma, _ = fit_vasicek(_r_data, _dt_data)
 r0 = 0.0282
 
-print(f"OU parameters (Sweden): kappa={kappa:.6f}  mu={mu:.6f}  sigma={sigma:.6f}")
+print(
+    f"OU parameters (Sweden): kappa={kappa:.6f}  mu={mu:.6f}  sigma={sigma:.6f}")
 print(f"Current short rate:      r0={r0:.6f}  ({r0*100:.3f}%)")
 print()
 
 # ---------------------------------------------------------------------------
 # Closed-form Vasicek (benchmark for error check)
 # ---------------------------------------------------------------------------
+
+
 def _B(tau):
     return (1.0 - np.exp(-kappa * tau)) / kappa
+
 
 def _A(tau):
     B = _B(tau)
     R_inf = mu - sigma**2 / (2.0 * kappa**2)
     return (B - tau) * R_inf - sigma**2 * B**2 / (4.0 * kappa)
 
+
 def vasicek_price(r, tau):
     return np.exp(_A(tau) - _B(tau) * r)
+
 
 # ---------------------------------------------------------------------------
 # Grid
@@ -59,7 +65,7 @@ N = 5000        # MC paths
 dt_sim = 0.01   # Euler-Maruyama step size
 Nr, Nt = 25, 25
 
-r_vals   = np.linspace(0.0, 0.12, Nr)
+r_vals = np.linspace(0.0, 0.12, Nr)
 # tau in [0, T] — tau=0 gives P=1 exactly; simulate only tau>0
 tau_vals = np.linspace(0.0, T, Nt)   # 25 points: 0, T/(Nt-1), …, T
 
@@ -68,33 +74,33 @@ tau_vals = np.linspace(0.0, T, Nt)   # 25 points: 0, T/(Nt-1), …, T
 # ---------------------------------------------------------------------------
 np.random.seed(42)
 
-P_MC   = np.zeros((Nr, Nt))
+P_MC = np.zeros((Nr, Nt))
 P_anal = np.zeros((Nr, Nt))
 
 print("Running Monte Carlo surface simulation …")
 for j, tau in enumerate(tau_vals):
     if tau == 0.0:
         # Terminal condition: bond matures now, price = 1 everywhere
-        P_MC[:, j]   = 1.0
+        P_MC[:, j] = 1.0
         P_anal[:, j] = 1.0
         continue
 
-    n_steps   = max(2, int(round(tau / dt_sim)))
-    dt_j      = tau / n_steps   # exact so paths span exactly tau
+    n_steps = max(2, int(round(tau / dt_sim)))
+    dt_j = tau / n_steps   # exact so paths span exactly tau
     sqrt_dt_j = np.sqrt(dt_j)
 
     # Shape (Nr, N): all r starting values × all paths simultaneously
     r_cur = np.tile(r_vals[:, np.newaxis], (1, N))   # (Nr, N)
-    acc   = 0.5 * r_cur.copy()                        # trapezoidal first half-weight
+    acc = 0.5 * r_cur.copy()                        # trapezoidal first half-weight
 
     for k in range(n_steps):
-        Z     = np.random.standard_normal((Nr, N))
+        Z = np.random.standard_normal((Nr, N))
         r_cur = r_cur + kappa * (mu - r_cur) * dt_j + sigma * sqrt_dt_j * Z
         # full weight for interior points, half weight for last
-        acc  += r_cur if k < n_steps - 1 else 0.5 * r_cur
+        acc += r_cur if k < n_steps - 1 else 0.5 * r_cur
 
-    integral     = dt_j * acc
-    P_MC[:, j]   = np.exp(-integral).mean(axis=1)
+    integral = dt_j * acc
+    P_MC[:, j] = np.exp(-integral).mean(axis=1)
     P_anal[:, j] = vasicek_price(r_vals, tau)
 
 print("Done.")
@@ -112,7 +118,7 @@ print(f"\nMax |P_MC - P_analytical| across grid (tau>0): {max_err:.4e}\n")
 R_grid, TAU_grid = np.meshgrid(r_vals, tau_vals, indexing="ij")   # (Nr, Nt)
 
 fig = plt.figure(figsize=(11, 7))
-ax  = fig.add_subplot(111, projection="3d")
+ax = fig.add_subplot(111, projection="3d")
 
 surf = ax.plot_surface(
     R_grid, TAU_grid, P_MC,
@@ -140,7 +146,7 @@ if r_vals[0] <= r0 <= r_vals[-1]:
             label=rf"$r=r_0\approx{r0:.4f}$")
 
 ax.set_xlabel("short rate $r$", labelpad=10)
-ax.set_ylabel(r"time to expiry $\tau = T - t$ (years)", labelpad=10)
+ax.set_ylabel(r"time to maturity $\tau$ (years)", labelpad=10)
 ax.set_zlabel(r"$P(r,\,\tau)$", labelpad=8)
 ax.set_title(
     "Vasicek bond price surface — Monte Carlo\n"
