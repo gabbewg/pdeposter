@@ -31,7 +31,7 @@ _csv = os.path.join(
 _dates, _r_data = load_csv(_csv)
 _dt_data = infer_dt(_dates)
 kappa, mu, sigma, _ = fit_vasicek(_r_data, _dt_data)
-r0 = 0.0282
+r0 = float(_r_data[-1])
 
 print(
     f"OU parameters (Sweden): kappa={kappa:.6f}  mu={mu:.6f}  sigma={sigma:.6f}")
@@ -153,7 +153,7 @@ ax.set_title(
     rf"($\kappa={kappa:.4f},\ \mu={mu:.4f},\ \sigma={sigma:.4f},\ T={T}$)",
     pad=15,
 )
-ax.view_init(elev=25, azim=-60)
+ax.view_init(elev=10, azim=30, roll=0)
 ax.set_zlim(min(0.6, P_MC.min() - 0.02), 1.05)
 ax.legend(loc="upper left", framealpha=0.95, fontsize=9)
 
@@ -163,4 +163,6 @@ cbar.set_label(r"$P(r,\,\tau)$")
 fig.tight_layout()
 plt.savefig("se_vasicek_mc_surface.png", dpi=300, bbox_inches="tight")
 print("Saved se_vasicek_mc_surface.png")
+fig.savefig("mcfinalgraf.png", dpi=100)
+print("Saved mcfinalgraf.png")
 plt.show()
