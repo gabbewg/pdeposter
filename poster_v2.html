@@ -340,18 +340,13 @@
           <p>En statsobligation är ett lån till staten där investeraren betalar ett pris idag och får tillbaka ett bestämt belopp vid förfallodatumet <i>T</i>, oftast tillsammans med löpande ränteutbetalningar (kuponger) under tiden. I det här projektet studerar vi det enklaste fallet, en nollkupongsobligation som bara betalar ut beloppet vid förfall. Priset <i>P</i>(<i>r</i>, τ) beror på räntan <i>r</i> och hur lång tid som är kvar till förfall, τ = <i>T−t</i>.</p>
           <p>Räntan spelar roll eftersom investeraren alltid har ett alternativ: att istället sätta in pengarna på ett riskfritt bankkonto, som växer med den riskfria räntan <i>r</i>. För att en obligation ska vara värd att köpa måste den ge minst lika mycket som banken, annars skulle ingen välja den. Priset idag motsvarar alltså det belopp man skulle behöva sätta in på banken nu för att vid tid <i>T</i> ha exakt det utlovade beloppet. Ju högre ränta och ju längre tid kvar till förfall, desto lägre pris.</p>
           <p>Problemet är att räntan ändrar sig hela tiden och vi vet inte vad den blir i framtiden. Eftersom statsobligationer handlas för enorma belopp på världens marknader är det viktigt att kunna prissätta dem korrekt, små prisfel får stora konsekvenser för både investerare och stat.</p>
+          <p>Målet med projektet är att härleda och lösa en modell för att prissätta nollkupongsobligationer när räntan är stokastisk.</p>
         </div>
         <div class="panel">
           <div class="sub" style="margin-top:0;">2. Modellering</div>
-          <p>Aktiekurser kan oftast modelleras som en geometrisk Brownsk rörelse. En aktie saknar naturlig nivå att återvända till, det finns ingen ekonomisk mekanism som drar priset mot ett specifikt värde, eftersom aktiens "rätta" nivå i sig förändras med bolagets framtida kassaflöden.</p>
-
-<p>Den korta räntan delar grundidén att rörelser kan beskrivas med en stokastisk term driven av en Brownsk rörelse, men skiljer sig på en avgörande punkt: den har en naturlig nivå att återvända till. Empiriskt rör sig räntor tillbaka mot en långsiktig nivå istället för att driva iväg. Detta beror på penningpolitiken — centralbanker som Riksbanken och ECB har explicita inflationsmål (oftast två procent) och styr den korta räntan för att hålla inflationen nära målet. Det är denna egenskap, <em>mean reversion</em>, som gör Ornstein–Uhlenbeck-processen till en naturlig utgångspunkt.</p>
-
-<p>$$dr_t = \kappa(\theta - r_t)\,dt + \sigma\,dW_t$$</p>
-
-<p>Parametrarna diskuteras mer i detalj nedan, men det centrala man kan utläsa direkt är att förändringen i räntan på ett kort tidssteg är proportionell mot avståndet $(\theta - r_t)$ mellan nuvarande räntan och den långsiktiga nivån. Är vi långt under $\theta$ blir driften positiv och räntan dras uppåt; är vi långt över blir den negativ och räntan dras nedåt. Konstanten $\kappa > 0$ styr hur snabbt återgången sker.</p>
-
-<p>Denna modellering av räntan låter oss härleda en partiell differentialekvation för obligationspriset $P(r,t)$ som sedan kan lösas på flera sätt. Vi löser den först analytiskt med en smart ansats, sedan med Monte Carlo-simuleringar och slutligen med finita differensmetoden över ett rutnät.</p>
+          <p>Aktiekurser modelleras oftast som en geometrisk Brownsk rörelse. En aktie saknar naturlig nivå att återvända till, det finns ingen ekonomisk mekanism som drar priset mot ett specifikt värde, eftersom aktiens "rätta" nivå i sig förändras med bolagets framtida kassaflöden.</p>
+          <p>Vi modellerar istället den korta räntan <i>r</i><sub>t</sub>, den hypotetiska räntan vid tid <i>t</i> på ett lån vars löptid går mot noll. Den observeras inte direkt, men approximeras av räntor på korta statsobligationer med några månaders löptid (statsskuldväxlar). Den korta räntan delar grundidén att rörelser kan beskrivas med en stokastisk term driven av en Brownsk rörelse, men skiljer sig på en avgörande punkt: den har en naturlig nivå att återvända till. Empiriskt rör sig räntor tillbaka mot en långsiktig nivå istället för att driva iväg. Detta beror på penningpolitiken — centralbanker som Riksbanken och ECB har explicita inflationsmål (oftast två procent) och styr den korta räntan för att hålla inflationen nära målet. Det är denna egenskap, <em>mean reversion</em>, som gör Ornstein–Uhlenbeck-processen till en naturlig utgångspunkt.</p>
+          <p>Denna modellering låter oss härleda en partiell differentialekvation för obligationspriset <i>P</i>(<i>r</i>,<i>t</i>) som sedan kan lösas på flera sätt. Vi löser den först analytiskt med en smart ansats, sedan med Monte Carlo-simuleringar och slutligen med finita differensmetoden över ett rutnät.</p>
         
         </div>
         <div class="panel">
@@ -362,18 +357,18 @@
     </div>
 
     <!-- OU-processen + Data side by side -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5mm;">
+    <div style="display:grid; grid-template-columns:2fr 1fr; gap:5mm;">
 
       <div class="panel">
         <h2>OU-processen</h2>
         <div class="sub">Mean-reverting process med analytisk lösning</div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6mm; align-items:start;">
           <div>
-            <p style="margin-bottom:1.5mm;">Ornstein–Uhlenbeck-processen beskrivs av en stokastisk differentialekvation med två delar. Driftstermen θ(μ − <i>X<sub>t</sub></i>) är proportionell mot avståndet till jämviktsnivån μ och drar processen tillbaka mot μ med en hastighet som bestäms av θ. Diffusionstermen σ d<i>W<sub>t</sub></i> tillför slumpmässiga störningar via en Brownsk rörelse, med amplitud skalad av σ. För varje fixt <i>t</i> är <i>X<sub>t</sub></i> normalfördelad: väntevärdet närmar sig μ exponentiellt och variansen växer mot ett stationärt värde σ²/(2θ), oberoende av startvärdet. Processen fluktuerar därför kring μ utan att driva iväg, en egenskap som kallas <i>mean reversion</i>. Detta gör OU-processen lämplig för att modellera storheter med en stabil långsiktig nivå, exempelvis räntor.</p>
-            <div class="eq">d<i>X</i><sub>t</sub> = θ(μ − <i>X</i><sub>t</sub>) d<i>t</i> + σ d<i>W</i><sub>t</sub></div>
-            <p style="margin-bottom:1.5mm;">Den tillhörande Fokker–Planck-ekvationen för tätheten <i>p(x,t)</i> är</p>
-            <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>x</sub>(θ(μ − <i>x</i>)<i>p</i>) + (σ²/2) ∂<sub>xx</sub><i>p</i></div>
-            <p style="margin-top:2mm;"><i>X<sub>t</sub></i>: processens värde vid <i>t</i>. &nbsp; <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde. &nbsp; <i>θ</i>: återgångshastighet. &nbsp; <i>μ</i>: långsiktigt medelvärde. &nbsp; <i>σ</i>: brusets styrka. &nbsp; <i>W<sub>t</sub></i>: Brownsk rörelse.</p>
+            <p style="margin-bottom:1.5mm;">Vi modellerar korträntan <i>r<sub>t</sub></i> som en Ornstein–Uhlenbeck-process. Processen beskrivs av en stokastisk differentialekvation där en liten förändring i räntan d<i>r<sub>t</sub></i> ges av två bidrag över ett kort tidssteg d<i>t</i>. Driftstermen θ(μ − <i>r<sub>t</sub></i>) d<i>t</i> är proportionell mot avståndet till jämviktsnivån μ och drar räntan tillbaka mot μ med en hastighet som bestäms av θ. Diffusionstermen σ d<i>W<sub>t</sub></i> tillför slumpmässiga störningar via en Brownsk rörelse <i>W<sub>t</sub></i>, där d<i>W<sub>t</sub></i> representerar en liten oförutsägbar förändring under tidssteget d<i>t</i> och σ styr störningens amplitud. För varje fixt <i>t</i> är <i>r<sub>t</sub></i> normalfördelad: väntevärdet närmar sig μ exponentiellt och variansen växer mot ett stationärt värde σ²/(2θ), oberoende av startvärdet. Räntan svänger alltså kring μ utan att driva iväg på sikt, vilket kallas <i>mean reversion</i>.</p>
+            <div class="eq">d<i>r<sub>t</sub></i> = θ(μ − <i>r<sub>t</sub></i>) d<i>t</i> + σ d<i>W<sub>t</sub></i></div>
+            <p style="margin-bottom:1.5mm;">Fokker–Planck-satsen säger att tätheten <i>p</i>(<i>r</i>,<i>t</i>) för <i>r<sub>t</sub></i> uppfyller en deterministisk PDE som beskriver hur sannolikhetsfördelningen utvecklas över tid:</p>
+            <div class="eq">∂<sub>t</sub><i>p</i> = −∂<sub>r</sub>(θ(μ − <i>r</i>)<i>p</i>) + (σ²/2) ∂<sub>rr</sub><i>p</i></div>
+            <p style="margin-top:2mm;"><i>r<sub>t</sub></i>: räntans värde vid <i>t</i>. &nbsp; <i>r</i><sub>0</sub>: begynnelsevärde. &nbsp; <i>θ</i>: återgångshastighet. &nbsp; <i>μ</i>: långsiktigt medelvärde. &nbsp; <i>σ</i>: brusets styrka. &nbsp; <i>W<sub>t</sub></i>: Brownsk rörelse.</p>
           </div>
           <div class="figure" style="margin-top:0;">
             <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
@@ -385,10 +380,10 @@
       <div class="panel">
         <h2>Data och parameterskattning</h2>
         <div class="sub"></div>
-        <p><b>Data.</b> Vasicek-modellen är formulerad i termer av <i>korta räntan</i> <i>r<sub>t</sub></i> som beskriver den nuvarande räntenivån för lån med bestämd löptid d<i>t</i>. Vi approximerar den med veckovisa <i>stängnings avkastningen</i> i perioden 2020-2026 för 10-år långa statsobligationer utgivna av svenska respektive indiska staten, hämtade från <i>investing.com</i>. Tidsserierna {<i>r<sub>k</sub></i>} har tidssteg Δ<i>t</i> ≈ 7 dagar och uttrycks i procent per år. Länderna är valda för att representera två olika räntemiljöer</p>
+        <p><b>Data.</b> Vasicek-modellen är formulerad i termer av korträntan <i>r<sub>t</sub></i>, men i praktiken finns ingen direkt observerbar motsvarighet. Strikt sett bör <i>r<sub>t</sub></i> approximeras med kortfristiga instrument som statsskuldväxlar, men dessa har glest med data och domineras av Riksbankens styrräntebeslut. Vi använder istället räntan på 10-åriga statsobligationer utgivna av svenska respektive indiska staten, mätt en gång i veckan under perioden 2020–2026 och hämtad från <i>investing.com</i>. Detta ger längre och renare data. Värdena {<i>r<sub>k</sub></i>} har tidssteg Δ<i>t</i> ≈ 7 dagar och uttrycks i procent per år. Länderna är valda för att representera två olika räntemiljöer.</p>
         <p><b>Skattning.</b> Vid jämna tidssteg Δ<i>t</i> följer OU-processens samplade värden {<i>r<sub>k</sub></i>} exakt en autoregressiv process av ordning ett, alltså är varje nytt värde är en linjär funktion av det föregående plus en oberoende gaussisk slumpterm:</p>
         <div class="eq" style="margin-bottom:3mm;"><i>r</i><sub><i>k</i>+1</sub> = α + β <i>r<sub>k</sub></i> + ε<sub><i>k</i></sub>, &nbsp; ε<sub><i>k</i></sub> ~ 𝒩(0, <i>s</i>²) oberoende.</div>
-        <p>Koefficienterna (α, β, <i>s</i>²) skattas via minsta-kvadratmetoden: vi minimerar Σ<sub><i>k</i></sub> (<i>r</i><sub><i>k</i>+1</sub> − α − β<i>r<sub>k</sub></i>)<sup>2</sup> i α och β, och tar <i>s</i>² som stickprovsvariansen av residualerna ε<sub><i>k</i></sub>. De tidskontinuerliga Vasicek-parametrarna (θ, μ, σ) återfås sedan genom inversion av <i>transition density</i>-sambanden:</p>
+        <p>Koefficienterna (α, β, <i>s</i>²) skattas via minsta-kvadratmetoden: vi minimerar Σ<sub><i>k</i></sub> (<i>r</i><sub><i>k</i>+1</sub> − α − β<i>r<sub>k</sub></i>)<sup>2</sup> i α och β, och tar <i>s</i>² som stickprovsvariansen av residualerna ε<sub><i>k</i></sub>. För att återfå parametrarna θ, μ, σ i OU-processen utnyttjar vi att processen har en analytisk lösning där koefficienterna kan identifieras som funktioner av α, β och <i>s</i>²:</p>
         <div class="eq" style="margin-bottom:3mm;">θ = −ln β / Δ<i>t</i>, &nbsp; μ = α / (1−β), &nbsp; σ = √( <i>s</i>² · 2θ / (1−<i>e</i><sup>−2θΔ<i>t</i></sup>) ).</div>
         <p>För <b>Sverige</b> hittar vi θ ≈ 0,358, μ ≈ 2,83 %, σ ≈ 0,80 %, och för <b>Indien</b> θ ≈ 0,489, μ ≈ 6,80 %, σ ≈ 0,50 %. Dessa kalibrerade värden används som indata i de efterföljande Monte Carlo- och FDM-experimenten.</p>
       </div>
