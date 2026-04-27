@@ -185,6 +185,10 @@
     max-height: 100mm;
     object-fit: contain;
   }
+  /* Crop the top (title strip) off a figure image */
+  .panel .figure.notitle { overflow: hidden; }
+  .panel .figure.notitle img { margin-top: -4%; }
+  .panel .figure.fdm-extra img { margin-top: -5%; }
   .panel .figure .cap {
     padding: 1.5mm 3mm 2mm;
     font-size: 8.5pt;
@@ -376,7 +380,7 @@
             <p style="margin-top:2mm;"><i>X<sub>t</sub></i>: processens värde vid <i>t</i>. &nbsp; <i>X<sub>0</sub></i> = <i>x</i><sub>0</sub>: begynnelsevärde. &nbsp; <i>θ</i>: återgångshastighet. &nbsp; <i>μ</i>: långsiktigt medelvärde. &nbsp; <i>σ</i>: brusets styrka. &nbsp; <i>W<sub>t</sub></i>: Brownsk rörelse.</p>
           </div>
           <div class="figure" style="margin-top:0;">
-            <img src="ou_exempel.png" alt="Exempelplot för OU-processen">
+            <img src="fpfinal.png" alt="Exempelplot för OU-processen">
             <div class="cap">Tätheten <i>p(x,t)</i> för OU-processen. SDE:n beskriver enskilda banor; PDE:n beskriver hur sannolikhetsfördelningen utvecklas över tid.</div>
           </div>
         </div>
@@ -445,28 +449,28 @@
 
         <!-- Row 1, Col 1: Both analytical plots side by side -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:1mm;">
-          <div class="figure" style="margin-top:0;">
-            <img src="se_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:80mm;">
+          <div class="figure notitle" style="margin-top:0;">
+            <img src="swedenanalfinal.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:80mm;">
             <div class="cap">Sverige: analytisk.</div>
           </div>
-          <div class="figure" style="margin-top:0;">
-            <img src="in_analytisk_vasicek.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:80mm;">
+          <div class="figure notitle" style="margin-top:0;">
+            <img src="indiaanalfinal.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:80mm;">
             <div class="cap">Indien: analytisk.</div>
           </div>
         </div>
 
         <!-- Row 1, Col 2: Monte Carlo surface Sweden -->
         <div>
-          <div class="figure" style="margin-top:0;">
-            <img src="se_vasicek_mc_surface.png" alt="Monte Carlo-yta för Sverige" style="max-height:80mm;">
+          <div class="figure notitle" style="margin-top:0;">
+            <img src="mcfinalgraf.png" alt="Monte Carlo-yta för Sverige" style="max-height:80mm;">
             <div class="cap">Sverige: Monte Carlo-simulerad obligationsyta.</div>
           </div>
         </div>
 
         <!-- Row 1, Col 3: FDM Sweden -->
         <div>
-          <div class="figure" style="margin-top:0;">
-            <img src="swefdmfinal.png" alt="FDM-lösning för Sverige">
+          <div class="figure notitle fdm-extra" style="margin-top:0;">
+            <img src="fdmfinalgraf.png" alt="FDM-lösning för Sverige" style="max-height:80mm;">
             <div class="cap">Sverige: FDM-lösning (finita differenser).</div>
           </div>
         </div>
@@ -486,7 +490,7 @@
         <div>
           <div class="sub" style="margin-top:0; margin-bottom:2mm;">Monte Carlo-konvergens</div>
           <p style="font-size:9.5pt;">Vi kör Monte Carlo-metoden för ett antal olika N = [100, 200, 300, 500, 1 000, 2 000, 3 000, 5 000, 10 000] och beräknar max-felet över hela nätet jämfört med den analytiska lösningen. Eftersom Monte Carlo är stokastisk tar vi medelvärdet av max-felet över 10 oberoende simulationer för varje N. RMS-felet kan användas för en mindre pessimistisk uppskattning. I en log-log-plot ser vi att lutningen är −½, vilket ger konvergensordning ½.</p>
-          <div class="figure" style="margin-top:0;">
+          <div class="figure notitle" style="margin-top:0;">
             <img src="vasicek_mc_convergence.png" alt="Monte Carlo-konvergens" style="max-height:110mm;">
             <div class="cap">Konvergens för Monte Carlo-metoden mot analytisk Vasicek-lösning.</div>
           </div>
@@ -496,7 +500,7 @@
         <div>
           <div class="sub" style="margin-top:0; margin-bottom:2mm;">Konvergensstudie — Crank–Nicolson 𝒪(<i>h</i>²)</div>
           <p style="font-size:9.5pt;">FDM-lösaren körs på en sekvens rutnät där Δ<i>r</i> och Δ<i>t</i> halveras successivt. Log-log-diagrammet följer slope-2-referensen tätt, från ≈ 10⁻⁵ (grovt) till ≈ 10⁻⁹ (fint), vilket bekräftar 𝒪(<i>h</i>²)-konvergens.</p>
-          <div class="figure" style="margin-top:3mm;">
+          <div class="figure notitle" style="margin-top:3mm;">
             <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height:110mm;">
             <div class="cap">Sverige 10Y: maxfel FDM vs. analytisk som funktion av Δ<i>r</i>.</div>
           </div>

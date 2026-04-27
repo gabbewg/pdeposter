@@ -10,15 +10,20 @@ sigma = 0.004988
 R_inf = mu - sigma**2 / (2.0 * theta**2)
 
 # --- Vasicek-koefficienter ----------------------------------------------
+
+
 def B_coef(tau):
     return (1.0 - np.exp(-theta * tau)) / theta
+
 
 def A_coef(tau):
     B = B_coef(tau)
     return (B - tau) * R_inf - sigma**2 * B**2 / (4.0 * theta)
 
+
 def vasicek_price(r, tau):
     return np.exp(A_coef(tau) - B_coef(tau) * r)
+
 
 # --- Rutnät --------------------------------------------------------------
 tau_min, tau_max = 0.0, 10.0   # löptid i år
@@ -53,8 +58,8 @@ ax.plot(np.full_like(tau_vals, R_inf), tau_vals, p_at_Rinf,
         color="black", lw=1.6, ls="--",
         label=rf"$r=R_\infty\approx{R_inf:.4f}$")
 
-ax.set_xlabel(r"$r$", labelpad=8)
-ax.set_ylabel(r"$\tau=T-t$", labelpad=8)
+ax.set_xlabel(r"short rate $r$", labelpad=10)
+ax.set_ylabel(r"time to maturity $\tau$ (years)", labelpad=10)
 ax.set_zlabel(r"$P(r,\,\tau)$", labelpad=6)
 ax.set_title(
     rf"Vasicek-obligationspris $P(r,\tau)=e^{{A(\tau)-B(\tau)r}}$:"
