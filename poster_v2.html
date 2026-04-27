@@ -170,8 +170,10 @@
   .panel p {
     margin: 0 0 2.5mm 0;
     font-size: 10.5pt;
-    line-height: 1.42;
+    line-height: 1.45;
     color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
   }
   .panel .figure {
     margin-top: 3mm;
@@ -192,7 +194,7 @@
   .panel .figure .cap {
     padding: 1.5mm 3mm 2mm;
     font-size: 8.5pt;
-    line-height: 1.2;
+    line-height: 1.45;
     color: #7080a0;
     text-align: center;
     font-weight: 500;
@@ -269,13 +271,15 @@
     font-size: 8.5pt;
     color: var(--ink-soft);
     margin: 0 0 1.5mm 0;
-    line-height: 1.3;
+    line-height: 1.45;
+    text-align: justify;
+    hyphens: auto;
   }
   .deriv-step .eq {
     font-size: 9pt;
     padding: 1.5mm 2.5mm;
     margin: 0 0 2mm 0;
-    line-height: 1.35;
+    line-height: 1.45;
     text-align: left;
     background: white;
     border-radius: 2mm;
@@ -286,9 +290,8 @@
   .foot {
     position: absolute;
     left: 22mm; right: 22mm; bottom: 9mm;
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: flex-end; align-items: center;
     font-size: 9pt; color: #8090aa;
-    border-top: 1pt solid var(--hair);
     padding-top: 3mm;
     z-index: 3;
   }
@@ -413,7 +416,7 @@
           <div class="sh">Kortränta (OU)</div>
           <p>Vasicek antar att korträntan <i>r<sub>t</sub></i> följer en Ornstein&ndash;Uhlenbeck-process. Parametern θ styr återgångshastigheten, μ är det långsiktiga jämviktsläget och σ är volatiliteten:</p>
           <div class="eq">d<i>r<sub>t</sub></i> = θ(μ &minus; <i>r<sub>t</sub></i>) d<i>t</i> + σ d<i>W<sub>t</sub></i> <sup>*</sup></div>
-          <p style="font-size:7.5pt; color:#7080a0; margin-top:auto; margin-bottom:0; line-height:1.25;">* Strikt sett gäller detta under ett justerat sannolikhetsmått Q som kompenserar för investerares riskaversion. Vi skattar parametrarna direkt från historisk data och bortser från denna justering.</p>
+          <p style="font-size:7.5pt; color:#7080a0; margin-top:auto; margin-bottom:0; line-height:1.45;">* Strikt sett gäller detta under ett justerat sannolikhetsmått Q som kompenserar för investerares riskaversion. Vi skattar parametrarna direkt från historisk data och bortser från denna justering.</p>
         </div>
         <div class="deriv-step">
           <div class="sn">3</div>
@@ -549,7 +552,6 @@
   <!-- ── FOOTER ── -->
   <div class="foot">
     <span>Datakälla: <i>investing.com</i> — historiska 10-åriga statsobligationsräntor, Sverige &amp; Indien (2020–2026). Parametrar skattade via AR(1)-anpassning med minsta-kvadratmetoden.</span>
-    <span><span class="pill">KTH</span> SF1693 Analytiska och Numeriska Metoder för Partiella Differentialekvationer och Transformer · VT 2026</span>
   </div>
 
 </body>
