@@ -244,6 +244,8 @@
     border-radius: 0;
     padding: 3mm 3.5mm;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
   .deriv-step .sn {
     display: inline-flex;
@@ -402,37 +404,40 @@
         <div class="deriv-step">
           <div class="sn">1</div>
           <div class="sh">Bankkonto</div>
-          <p>En riskfri investering växer med den kortfristiga räntan <i>r<sub>s</sub></i>. Vid fast ränta gäller <i>B<sub>t</sub></i> = <i>e</i><sup><i>rt</i></sup>, men med stokastisk ränta generaliseras detta till en integrerad tillväxtfaktor:</p>
+          <p>En riskfri investering växer med den korta räntan <i>r<sub>s</sub></i>. Vid konstant ränta gäller <i>B<sub>t</sub></i> = <i>e</i><sup><i>rt</i></sup>, men med stokastisk ränta generaliseras detta till en integrerad tillväxtfaktor:</p>
           <div class="eq"><i>B<sub>t</sub></i> = <i>e</i><sup>∫<sub>0</sub><sup><i>t</i></sup> <i>r<sub>s</sub></i> d<i>s</i></sup></div>
-          <p>Bankkontot tjänar som numeraire — alla priser uttrycks relativt <i>B<sub>t</sub></i>.</p>
+          <p>Bankkontot fungerar som numeraire, vilket betyder att vi uttrycker alla andra tillgångars priser relativt <i>B<sub>t</sub></i> istället för i kronor. Detta gör diskontering naturlig: en framtida utbetalning omvandlas till dagens värde genom division med <i>B<sub>t</sub></i>.</p>
         </div>
         <div class="deriv-step">
           <div class="sn">2</div>
           <div class="sh">Kortränta (OU)</div>
-          <p>Vasicek antar att korträntan <i>r<sub>t</sub></i> följer en OU-process under det riskneutrala måttet <i>Q</i>. Parametern θ styr återgångshastigheten, μ är det långsiktiga jämviktsläget och σ är volatiliteten:</p>
-          <div class="eq">d<i>r<sub>t</sub></i> = θ(μ − <i>r<sub>t</sub></i>) d<i>t</i> + σ d<i>W<sub>t</sub><sup>Q</sup></i></div>
-          <p>Under <i>Q</i> är driften justerad för marknadens riskpremie via Girsanov-satsen.</p>
+          <p>Vasicek antar att korträntan <i>r<sub>t</sub></i> följer en Ornstein&ndash;Uhlenbeck-process. Parametern θ styr återgångshastigheten, μ är det långsiktiga jämviktsläget och σ är volatiliteten:</p>
+          <div class="eq">d<i>r<sub>t</sub></i> = θ(μ &minus; <i>r<sub>t</sub></i>) d<i>t</i> + σ d<i>W<sub>t</sub></i> <sup>*</sup></div>
+          <p style="font-size:7.5pt; color:#7080a0; margin-top:auto; margin-bottom:0; line-height:1.25;">* Strikt sett gäller detta under ett justerat sannolikhetsmått Q som kompenserar för investerares riskaversion. Vi skattar parametrarna direkt från historisk data och bortser från denna justering.</p>
         </div>
         <div class="deriv-step">
           <div class="sn">3</div>
           <div class="sh">FTAP</div>
-          <p>Finansens fundamentalsats (FTAP) säger att i en arbitragefri marknad finns ett riskneutralt mått <i>Q</i> under vilket alla diskonterade tillgångspriser är martingaler. Priset på en nollkupongsobligation med förfall <i>T</i> ges därmed av det <i>Q</i>-diskonterade väntevärdet av utbetalningen, betingat på nuvarande information:</p>
-          <div class="eq"><i>P</i>(<i>t</i>,<i>T</i>) = 𝔼<sup><i>Q</i></sup>[<i>B<sub>t</sub></i>/<i>B<sub>T</sub></i> | ℱ<sub><i>t</i></sub>] = 𝔼<sup><i>Q</i></sup>[<i>e</i><sup>−∫<sub><i>t</i></sub><sup><i>T</i></sup><i>r<sub>s</sub></i>d<i>s</i></sup> | <i>r<sub>t</sub></i>]</div>
-          <p>Betingningen förenklas till <i>r<sub>t</sub></i> tack vare Markov-egenskapen hos OU-processen.</p>
+          <p>Om 1 kr på bankkontot idag är värd $e^{\int_0^T r_s\,ds}$ kr vid tid <i>T</i>, så är 1 kr vid tid <i>T</i> värd $e^{-\int_0^T r_s\,ds}$ kr idag. En nollkupongsobligation betalar ut precis 1 kr vid förfall <i>T</i>, så priset idag bör vara väntevärdet av denna diskonterade utbetalning. Finansens fundamentalsats (FTAP) formaliserar detta:</p>
+          <div class="eq">$$P(t,T) = \mathbb{E}\!\left[\,e^{-\int_t^T r_s\,ds}\,\bigg|\,\mathcal{F}_t\right]$$</div>
+          <p>$\mathcal{F}_t$ representerar all tillgänglig information vid tid <i>t</i>. Eftersom vi antar att <i>r<sub>t</sub></i> är en Markov-process finns all relevant information samlad i nuvarande räntan <i>r<sub>t</sub></i>, så vi kan ersätta $\mathcal{F}_t$ med <i>r<sub>t</sub></i>:</p>
+          <div class="eq">$$P(t,T) = \mathbb{E}\!\left[\,e^{-\int_t^T r_s\,ds}\,\bigg|\,r_t\right]$$</div>
         </div>
         <div class="deriv-step">
           <div class="sn">4</div>
-          <div class="sh">Feynman–Kac</div>
-          <p>Feynman–Kac-satsen kopplar stokastiska väntevärden till deterministiska PDE:er. Definiera <i>u</i>(<i>t</i>,<i>r</i>) = <i>P</i>(<i>t</i>,<i>T</i>) med <i>r<sub>t</sub></i> = <i>r</i>. Satsens tillämpning på steg 3 ger att <i>u</i> löser bakåt-PDE:n med diskonteringsterm −<i>ru</i>:</p>
-          <div class="eq">∂<sub><i>t</i></sub><i>u</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>u</i> + ½σ²∂<sub><i>rr</i></sub><i>u</i> − <i>ru</i> = 0</div>
-          <p>med terminalvillkor <i>u</i>(<i>T</i>,<i>r</i>) = 1 (obligationen löses in till 1 kr).</p>
+          <div class="sh">Feynman&ndash;Kac</div>
+          <p>Feynman&ndash;Kac-satsen kopplar ett stokastiskt väntevärde av denna form till en deterministisk PDE. Om <i>r<sub>t</sub></i> följer $dr_t = a(r_t)\,dt + \sqrt{b(r_t)}\,dW_t$ och vi definierar</p>
+          <div class="eq">$$u(t,r) := \mathbb{E}\!\left[\,e^{-\int_t^T r_s\,ds}\,\bigg|\,r_t = r\right]$$</div>
+          <p>så löser <i>u</i> bakåt-PDE:n</p>
+          <div class="eq">$$\partial_t u + a(r)\,\partial_r u + \tfrac{1}{2}\,b(r)\,\partial_{rr} u - r u = 0$$</div>
+          <p>med terminalvillkor <i>u</i>(<i>T</i>,<i>r</i>) = 1.</p>
         </div>
         <div class="deriv-step">
           <div class="sn">5</div>
           <div class="sh">Vasicek-PDE</div>
-          <p>Koefficienter från OU-modellen: drift <i>a</i>(<i>r</i>) = θ(μ−<i>r</i>) och diffusion <i>b</i> = σ². Insättning i Feynman–Kac ger den slutliga Vasicek-PDE:n som obligationspriset <i>P</i> måste uppfylla:</p>
-          <div class="eq">∂<sub><i>t</i></sub><i>P</i> + θ(μ−<i>r</i>)∂<sub><i>r</i></sub><i>P</i> + ½σ²∂<sub><i>rr</i></sub><i>P</i> − <i>rP</i> = 0</div>
-          <p>Denna PDE löses analytiskt via en exponentiellt-affin ansats, se nedan.</p>
+          <p>Eftersom <i>P</i>(<i>t</i>,<i>T</i>) = <i>u</i>(<i>t</i>, <i>r<sub>t</sub></i>) sätter vi in OU-processens koefficienter <i>a</i>(<i>r</i>) = θ(μ&minus;<i>r</i>) och <i>b</i> = σ² i Feynman&ndash;Kac-PDE:n. Detta ger Vasicek-PDE:n som obligationspriset <i>P</i> måste uppfylla:</p>
+          <div class="eq">∂<sub><i>t</i></sub><i>P</i> + θ(μ&minus;<i>r</i>)∂<sub><i>r</i></sub><i>P</i> + ½σ²∂<sub><i>rr</i></sub><i>P</i> &minus; <i>rP</i> = 0</div>
+          <p>Denna PDE löses analytiskt via en smart ansats och sedan numeriskt via Monte Carlo-simulering och finita differensmetoden på ett rutnät. De numeriska lösningarna jämförs mot den analytiska för att verifiera korrekt konvergens.</p>
         </div>
       </div>
 
