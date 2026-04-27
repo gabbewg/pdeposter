@@ -439,10 +439,10 @@
 
       <div class="sub" style="margin-top:3mm;">Resultat och konvergens</div>
 
-      <!-- 2×3 results grid -->
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:auto auto; gap:2mm; margin-top:3mm;">
+      <!-- Row 1: 4 plots (Sweden analytical, India analytical, MC, FDM) -->
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:2mm; margin-top:3mm;">
 
-        <!-- Row 1, Col 1: Sweden analytical (matches MC/FDM size) -->
+        <!-- Sweden analytical -->
         <div>
           <div class="figure notitle" style="margin-top:0;">
             <img src="swedenanalfinal.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:120mm;">
@@ -450,7 +450,15 @@
           </div>
         </div>
 
-        <!-- Row 1, Col 2: Monte Carlo surface Sweden -->
+        <!-- India analytical -->
+        <div>
+          <div class="figure notitle" style="margin-top:0;">
+            <img src="indiaanalfinal.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:120mm;">
+            <div class="cap">Indien: analytisk.</div>
+          </div>
+        </div>
+
+        <!-- Monte Carlo surface Sweden -->
         <div>
           <div class="figure notitle" style="margin-top:0;">
             <img src="mcfinalgraf.png" alt="Monte Carlo-yta för Sverige" style="max-height:120mm;">
@@ -458,13 +466,18 @@
           </div>
         </div>
 
-        <!-- Row 1, Col 3: FDM Sweden -->
+        <!-- FDM Sweden -->
         <div>
           <div class="figure notitle fdm-extra" style="margin-top:0;">
             <img src="fdmfinalgraf.png" alt="FDM-lösning för Sverige" style="max-height:120mm;">
             <div class="cap">Sverige: FDM-lösning (finita differenser).</div>
           </div>
         </div>
+
+      </div>
+
+      <!-- Row 2: 3 text/figure cells -->
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2mm; margin-top:3mm;">
 
         <!-- Row 2, Col 1: Analytical solution -->
         <div>
@@ -504,13 +517,9 @@
     <div class="panel">
       <h2>Diskussion</h2>
       <div class="sub">Vasicek-modellen vs. svensk marknadsdata</div>
-      <div style="display:grid; grid-template-columns: 1fr 1fr 1.6fr; gap:8mm; align-items:center;">
+      <div style="display:grid; grid-template-columns: 1fr 1.6fr; gap:8mm; align-items:center;">
         <div>
           <p>[Skriv din diskussionstext här.]</p>
-        </div>
-        <div class="figure notitle" style="margin-top:0;">
-          <img src="indiaanalfinal.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:90mm;">
-          <div class="cap">Indien: analytisk obligationsyta.</div>
         </div>
         <div class="figure" style="margin-top:0;">
           <img src="vasicek_vs_market_sweden.png" alt="Vasicek-priskurva vs. svensk marknadsdata" style="max-height:75mm;">
