@@ -438,29 +438,21 @@
 
       <div class="sub" style="margin-top:3mm;">Resultat och konvergens</div>
 
-      <!-- Row 1: 4 plots (Sweden analytical, India analytical, MC, FDM) -->
-      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:2mm; margin-top:3mm;">
+      <!-- Row 1: 3 plots (Sweden analytical, MC, FDM) -->
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:4mm; margin-top:3mm;">
 
         <!-- Sweden analytical -->
         <div>
           <div class="figure notitle" style="margin-top:0;">
-            <img src="swedenanalfinal.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:120mm;">
+            <img src="swedenanalfinal.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:150mm;">
             <div class="cap">Sverige: analytisk.</div>
-          </div>
-        </div>
-
-        <!-- India analytical -->
-        <div>
-          <div class="figure notitle" style="margin-top:0;">
-            <img src="indiaanalfinal.png" alt="Analytisk Vasicek-plot för Indien" style="max-height:120mm;">
-            <div class="cap">Indien: analytisk.</div>
           </div>
         </div>
 
         <!-- Monte Carlo surface Sweden -->
         <div>
           <div class="figure notitle" style="margin-top:0;">
-            <img src="mcfinalgraf.png" alt="Monte Carlo-yta för Sverige" style="max-height:120mm;">
+            <img src="mcfinalgraf.png" alt="Monte Carlo-yta för Sverige" style="max-height:150mm;">
             <div class="cap">Sverige: Monte Carlo-simulerad obligationsyta.</div>
           </div>
         </div>
@@ -468,7 +460,7 @@
         <!-- FDM Sweden -->
         <div>
           <div class="figure notitle fdm-extra" style="margin-top:0;">
-            <img src="fdmfinalgraf.png" alt="FDM-lösning för Sverige" style="max-height:120mm;">
+            <img src="fdmfinalgraf.png" alt="FDM-lösning för Sverige" style="max-height:150mm;">
             <div class="cap">Sverige: FDM-lösning (finita differenser).</div>
           </div>
         </div>
@@ -515,15 +507,26 @@
     <!-- 5. Diskussion -->
     <div class="panel">
       <h2>Diskussion</h2>
-      <div class="sub">Vasicek-modellen vs. svensk marknadsdata</div>
-      <div style="display:grid; grid-template-columns: 1fr 1.6fr; gap:8mm; align-items:center;">
+      <div class="sub">Vasicek-modellen vs. marknadsdata och jämförelse med Indien</div>
+
+      <div style="display:grid; grid-template-columns: 1fr 2fr; gap:8mm; align-items:center;">
         <div>
           <p><b>Vasicek-modellen mot marknadsdata.</b> Plotten till höger jämför Vasicek-priserna $P(r,\tau)$ för Sverige med Riksbankens marknadsdata, omräknade till diskonteringsfaktorer via $P=e^{-y\tau}$. När styrräntan $r_0$ ligger nära modellens långsiktiga jämvikt $R_\infty\approx 2{,}80\%$, som i juni 2022 ($r_0=0{,}00\%$) och april 2026 ($r_0=2{,}00\%$), följer modellen marknaden mycket väl. Vid årsskiftet 2024 stod styrräntan vid sin topp $r_0=4{,}00\%$ samtidigt som marknaden prisade in en kraftigt inverterad avkastningskurva. Här klarar Vasicek-modellen inte att följa med: en enda återgångshastighet ($\theta\approx 0{,}358$, halveringstid $\approx 1{,}9$ år) kan inte återskapa marknadens förväntan om snabb normalisering nedåt mot $R_\infty$, vilket är modellens centrala begränsning.</p>
-          <p><b>Sverige vs. Indien.</b> Ytan i mitten visar samma analytiska Vasicek-pris men med indiska parametrar ($\theta\approx 0{,}489$, $\mu\approx 6{,}80\%$, $\sigma\approx 0{,}50\%$). Det högre $\theta$-värdet ger snabbare mean reversion: faktorn $B(\tau)=(1-e^{-\theta\tau})/\theta$ mättas tidigare, vilket gör att priset avtar brantare med löptiden $\tau$, stabiliseras på en lägre nivå och blir mer okänsligt för den initiala räntan $r$ — ytan blir därmed mer parallell med $r$-axeln. Det högre $\mu$ förskjuter dessutom hela prisytan nedåt eftersom de långsiktiga räntorna är systematiskt högre i Indien.</p>
+          <p><b>Sverige vs. Indien.</b> Ytan till vänster visar samma analytiska Vasicek-pris men med indiska parametrar ($\theta\approx 0{,}489$, $\mu\approx 6{,}80\%$, $\sigma\approx 0{,}50\%$). Det högre $\theta$-värdet ger snabbare mean reversion: faktorn $B(\tau)=(1-e^{-\theta\tau})/\theta$ mättas tidigare, vilket gör att priset avtar brantare med löptiden $\tau$, stabiliseras på en lägre nivå och blir mer okänsligt för den initiala räntan $r$ — ytan blir därmed mer parallell med $r$-axeln. Det högre $\mu$ förskjuter dessutom hela prisytan nedåt eftersom de långsiktiga räntorna är systematiskt högre i Indien.</p>
         </div>
-        <div class="figure" style="margin-top:0;">
-          <img src="vasicek_vs_market_sweden.png" alt="Vasicek-priskurva vs. svensk marknadsdata" style="max-height:75mm;">
-          <div class="cap">Vasicek-implicerade obligationspriser $P(r,\tau)$ jämfört med svenska statsobligationspriser från Riksbanken vid tre tidpunkter.</div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5mm; align-items:center;">
+          <div class="figure" style="margin-top:0;">
+            <div style="overflow:hidden; max-height:95mm;">
+              <img src="indiaanalfinal.png" alt="Analytisk Vasicek-yta för Indien" style="max-height:100mm; margin-top:-5mm;">
+            </div>
+            <div class="cap">Indien: analytisk Vasicek-yta $P(r,\tau)$ med indiska parametrar.</div>
+          </div>
+          <div class="figure" style="margin-top:0;">
+            <div style="overflow:hidden; max-height:95mm;">
+              <img src="vasicek_vs_market_sweden.png" alt="Vasicek-priskurva vs. svensk marknadsdata" style="max-height:100mm; margin-top:-5mm;">
+            </div>
+            <div class="cap">Vasicek-implicerade obligationspriser $P(r,\tau)$ jämfört med svenska statsobligationspriser från Riksbanken vid tre tidpunkter.</div>
+          </div>
         </div>
       </div>
     </div>
