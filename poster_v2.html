@@ -46,18 +46,18 @@
   .banner {
     display: flex;
     align-items: center;
-    gap: 18mm;
-    padding: 8mm 26mm 8mm 26mm;
+    gap: 14mm;
+    padding: 5mm 26mm 5mm 26mm;
     background: var(--kth-dark);
     position: relative;
     z-index: 2;
     overflow: hidden;
   }
   .banner img {
-    width: 54mm;
+    width: 42mm;
     display: block;
     background: rgba(255,255,255,0.95);
-    padding: 3mm 4mm;
+    padding: 2.2mm 3mm;
     border-radius:0;
     position: relative;
     z-index: 1;
@@ -65,40 +65,40 @@
   .titlewrap { flex: 1; text-align: center; position: relative; z-index: 1; }
   .eyebrow {
     display: inline-block;
-    font-size: 9.5pt;
+    font-size: 8.5pt;
     letter-spacing: 2.5pt;
     text-transform: uppercase;
     color: var(--accent);
     border: 0.8pt solid rgba(224,184,74,0.45);
-    padding: 1mm 6mm;
+    padding: 0.8mm 5mm;
     border-radius: 999px;
-    margin-bottom: 3mm;
+    margin-bottom: 2.5mm;
     font-weight: 600;
   }
   .title {
     color: #ffffff;
     font-weight: 800;
-    font-size: 42pt;
+    font-size: 34pt;
     line-height: 1.0;
     letter-spacing: -0.5pt;
   }
   .subtitle {
     color: rgba(255,255,255,0.78);
     font-weight: 500;
-    font-size: 20pt;
-    margin-top: 3mm;
+    font-size: 16pt;
+    margin-top: 2mm;
     line-height: 1.1;
   }
   .authors {
-    margin-top: 4mm;
-    font-size: 12.5pt;
+    margin-top: 3mm;
+    font-size: 11pt;
     color: rgba(255,255,255,0.65);
     font-weight: 400;
   }
   .authors .sep { color: var(--accent); margin: 0 5pt; }
   .course {
-    margin-top: 1.5mm;
-    font-size: 10pt;
+    margin-top: 1mm;
+    font-size: 9pt;
     color: rgba(255,255,255,0.42);
     letter-spacing: 0.3pt;
   }
@@ -112,8 +112,8 @@
     flex-direction: column;
     flex: 1;
     min-height: 0;
-    gap: 5mm;
-    padding: 5mm 18mm 20mm 18mm;
+    gap: 4mm;
+    padding: 4mm 18mm 14mm 18mm;
     position: relative;
     z-index: 2;
   }
@@ -323,7 +323,7 @@
       <div class="title">Prissättning av Statsobligationer</div>
       <div class="subtitle">OU-processen, Vasicek-modellen och Historisk data </div>
       <div class="authors">
-        Carl Gustaf Bril<span class="sep">·</span>Viggo Forsman<span class="sep">·</span>Hjalmar Lindström<span class="sep">·</span>Gabriel Svärdson Wächter
+        Viggo Forsman<span class="sep">·</span>Carl Gustaf Bril<span class="sep">·</span>Hjalmar Lindström<span class="sep">·</span>Gabriel Svärdson Wächter
       </div>
       <div class="course">SF1693 Analytiska och Numeriska Metoder för Partiella Differentialekvationer och Transformer · VT 2026</div>
     </div>
@@ -356,7 +356,7 @@
         </div>
         <div style="border-left: 1pt solid var(--hair); padding-left: 8mm;">
           <div class="sub" style="margin-top:0;">3. Slutsats</div>
-          <p>Den analytiska obligationsytan stämmer väl med FDM-lösningen, vilket validerar numeriken. Ländernas skilda parametrar speglar deras räntemiljöer. Projektet illustrerar hur analytisk teori och numeriska metoder kompletterar varandra — från Brownsk rörelse till prissättning av räntederivat.</p>
+          <p>Vi härledde en analytisk lösning till Vasicek-PDE:n med en smart ansats, och både Monte Carlo (𝒪(<i>N</i><sup>−½</sup>)) och finita differensmetoden (𝒪(<i>h</i>²)) konvergerar mot den. När vi kalibrerade modellen mot svenska och indiska 10-åriga statsobligationsräntor 2020–2026 fick vi tydligt olika parametrar för de två länderna, vilket är väntat eftersom räntemiljöerna ser så olika ut. För Sverige fungerar modellen bra när styrräntan ligger nära jämviktsnivån, men vid räntetoppen 2024 gick det sämre: räntan ändrades för snabbt och kraftigt för att modellen skulle hinna med. Det är Vasicek-modellens stora begränsning.</p>
         </div>
       </div>
     </div>
@@ -366,7 +366,7 @@
 
       <div class="panel">
         <h2>OU-processen</h2>
-        <div class="sub">Mean-reverting process med analytisk lösning</div>
+        <div class="sub">Mean-reverting process</div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6mm; align-items:start;">
           <div>
             <p style="margin-bottom:1.5mm;">Vi modellerar korträntan <i>r<sub>t</sub></i> som en Ornstein–Uhlenbeck-process. Processen beskrivs av en stokastisk differentialekvation där en liten förändring i räntan d<i>r<sub>t</sub></i> ges av två bidrag över ett kort tidssteg d<i>t</i>. Driftstermen θ(μ − <i>r<sub>t</sub></i>) d<i>t</i> är proportionell mot avståndet till jämviktsnivån μ och drar räntan tillbaka mot μ med en hastighet som bestäms av θ. Diffusionstermen σ d<i>W<sub>t</sub></i> tillför slumpmässiga störningar via en Brownsk rörelse <i>W<sub>t</sub></i>, där d<i>W<sub>t</sub></i> representerar en liten oförutsägbar förändring under tidssteget d<i>t</i> och σ styr störningens amplitud. För varje fixt <i>t</i> är <i>r<sub>t</sub></i> normalfördelad: väntevärdet närmar sig μ exponentiellt och variansen växer mot ett stationärt värde σ²/(2θ), oberoende av startvärdet. Räntan svänger alltså kring μ utan att driva iväg på sikt, vilket kallas <i>mean reversion</i>.</p>
@@ -396,7 +396,7 @@
     </div><!-- end OU + Data row -->
 
     <!-- 4. Vasicek-modellen -->
-    <div class="panel" style="display:flex; flex-direction:column;">
+    <div class="panel" style="display:flex; flex-direction:column; padding-top:5mm; padding-bottom:5mm;">
       <h2>Vasicek-modellen</h2>
       <div class="sub">Härledning av obligationspriset</div>
 
@@ -449,7 +449,7 @@
         <!-- Sweden analytical -->
         <div>
           <div class="figure notitle" style="margin-top:0;">
-            <img src="swedenanalfinal.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:150mm;">
+            <img src="swedenanalfinal.png" alt="Analytisk Vasicek-plot för Sverige" style="max-height:100mm;">
             <div class="cap">Sverige: analytisk.</div>
           </div>
         </div>
@@ -457,7 +457,7 @@
         <!-- Monte Carlo surface Sweden -->
         <div>
           <div class="figure notitle" style="margin-top:0;">
-            <img src="mcfinalgraf.png" alt="Monte Carlo-yta för Sverige" style="max-height:150mm;">
+            <img src="mcfinalgraf.png" alt="Monte Carlo-yta för Sverige" style="max-height:100mm;">
             <div class="cap">Sverige: Monte Carlo-simulerad obligationsyta.</div>
           </div>
         </div>
@@ -465,7 +465,7 @@
         <!-- FDM Sweden -->
         <div>
           <div class="figure notitle fdm-extra" style="margin-top:0;">
-            <img src="fdmfinalgraf.png" alt="FDM-lösning för Sverige" style="max-height:150mm;">
+            <img src="fdmfinalgraf.png" alt="FDM-lösning för Sverige" style="max-height:100mm;">
             <div class="cap">Sverige: FDM-lösning (finita differenser).</div>
           </div>
         </div>
@@ -477,32 +477,36 @@
 
         <!-- Row 2, Col 1: Analytical solution -->
         <div>
-          <div class="sub" style="margin-top:0; margin-bottom:2mm;">Analytisk lösning — exponentiellt-affin ansats</div>
-          <p style="font-size:9.5pt;"><b>Ansats.</b> Affin drift och diffusion ger</p>
-          <div class="eq" style="font-size:10pt;"><i>P</i> = exp(<i>A</i>(<i>t</i>,<i>T</i>) − <i>B</i>(<i>t</i>,<i>T</i>)<i>r</i>)</div>
-          <p style="font-size:9.5pt;"><b>ODE-system.</b> Insättning i Vasicek-PDE ger</p>
-          <div class="eq left" style="font-size:10pt;"><i>B</i><sub>t</sub> = θ<i>B</i> − 1, &nbsp; <i>B</i>(<i>T</i>,<i>T</i>) = 0<br><i>A</i><sub>t</sub> = θμ<i>B</i> − ½σ²<i>B</i><sup>2</sup>, &nbsp; <i>A</i>(<i>T</i>,<i>T</i>) = 0</div>
-          <p style="font-size:9.5pt;"><b>Lösning.</b> Med τ = <i>T</i>−<i>t</i>, <i>R</i><sub>∞</sub> = μ − σ²/(2θ²):</p>
+          <div class="sub" style="margin-top:0; margin-bottom:2mm;">Analytisk lösning</div>
+          <p style="font-size:9.5pt;"><b>Ansats.</b> Eftersom Vasicek-PDE:n är linjär i <i>r</i> provar vi</p>
+          <div class="eq" style="font-size:10pt;"><i>P</i> = exp(<i>A</i>(<i>t</i>) − <i>B</i>(<i>t</i>)<i>r</i>)</div>
+          <p style="font-size:9.5pt;">Insättning ger en ekvation av formen [...] + [...]·<i>r</i> = 0 som måste gälla för alla <i>r</i>. Genom att kräva att konstantdelen och <i>r</i>-delen var för sig är noll får vi två ODE:er, en för varje okänd funktion:</p>
+          <div class="eq left" style="font-size:10pt;">d<i>B</i>/d<i>t</i> = θ<i>B</i> − 1, &nbsp; <i>B</i>(<i>T</i>) = 0<br>d<i>A</i>/d<i>t</i> = θμ<i>B</i> − ½σ²<i>B</i><sup>2</sup>, &nbsp; <i>A</i>(<i>T</i>) = 0</div>
+          <p style="font-size:9.5pt;"><b>Lösning.</b> Med τ = <i>T</i>−<i>t</i> och <i>R</i><sub>∞</sub> = μ − σ²/(2θ²) (långsiktig avkastning):</p>
           <div class="eq left" style="font-size:10pt;"><i>B</i> = (1 − <i>e</i><sup>−θτ</sup>)/θ<br><i>A</i> = (<i>B</i> − τ)<i>R</i><sub>∞</sub> − σ²<i>B</i><sup>2</sup>/(4θ)</div>
         </div>
 
         <!-- Row 2, Col 2: MC convergence -->
         <div>
           <div class="sub" style="margin-top:0; margin-bottom:2mm;">Monte Carlo-konvergens</div>
-          <p style="font-size:9.5pt;">Vi kör Monte Carlo-metoden för ett antal olika N = [100, 200, 300, 500, 1 000, 2 000, 3 000, 5 000, 10 000] och beräknar max-felet över hela nätet jämfört med den analytiska lösningen. Eftersom Monte Carlo är stokastisk tar vi medelvärdet av max-felet över 10 oberoende simulationer för varje N. RMS-felet kan användas för en mindre pessimistisk uppskattning. I en log-log-plot ser vi att lutningen är −½, vilket ger konvergensordning ½.</p>
-          <div class="figure notitle" style="margin-top:0;">
-            <img src="vasicek_mc_convergence.png" alt="Monte Carlo-konvergens" style="max-height:55mm;">
-            <div class="cap">Konvergens för Monte Carlo-metoden mot analytisk Vasicek-lösning.</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:3mm; align-items:center;">
+            <p style="font-size:9pt; margin:0;">Vi kör Monte Carlo-metoden för ett antal olika N = [100, 200, 300, 500, 1 000, 2 000, 3 000, 5 000, 10 000] och beräknar max-felet över hela nätet jämfört med den analytiska lösningen. Eftersom Monte Carlo är stokastisk tar vi medelvärdet av max-felet över 10 oberoende simulationer för varje N. RMS-felet kan användas för en mindre pessimistisk uppskattning. I en log-log-plot ser vi att lutningen är −½, vilket ger konvergensordning ½.</p>
+            <div class="figure notitle" style="margin-top:12mm;">
+              <img src="vasicek_mc_convergence.png" alt="Monte Carlo-konvergens" style="max-height:60mm;">
+              <div class="cap">Konvergens för Monte Carlo-metoden mot analytisk Vasicek-lösning.</div>
+            </div>
           </div>
         </div>
 
         <!-- Row 2, Col 3: FDM convergence study -->
         <div>
-          <div class="sub" style="margin-top:0; margin-bottom:2mm;">Konvergensstudie — Crank–Nicolson 𝒪(<i>h</i>²)</div>
-          <p style="font-size:9.5pt;">FDM-lösaren körs på en sekvens rutnät där Δ<i>r</i> och Δ<i>t</i> halveras successivt. Log-log-diagrammet följer slope-2-referensen tätt, från ≈ 10⁻⁵ (grovt) till ≈ 10⁻⁹ (fint), vilket bekräftar 𝒪(<i>h</i>²)-konvergens.</p>
-          <div class="figure notitle" style="margin-top:3mm;">
-            <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height:55mm;">
-            <div class="cap">Sverige 10Y: maxfel FDM vs. analytisk som funktion av Δ<i>r</i>.</div>
+          <div class="sub" style="margin-top:0; margin-bottom:2mm;">Finita differensmetoden - Konvergens</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:3mm; align-items:center;">
+            <p style="font-size:9pt; margin:0;">FDM-lösaren körs på en sekvens av rutnät där Δ<i>r</i> och Δ<i>t</i> halveras successivt. Log-log-diagrammet följer referenslinjen med lutning 2 nära, med maxfel som går från ≈ 10⁻⁵ på det grövsta rutnätet till ≈ 10⁻⁹ på det finaste, vilket bekräftar 𝒪(<i>h</i>²)-konvergens.</p>
+            <div class="figure notitle" style="margin-top:0;">
+              <img src="fig7_fdm_convergence_sweden.png" alt="FDM-konvergens (Sverige)" style="max-height:60mm;">
+              <div class="cap">Sverige 10Y: maxfel FDM vs. analytisk som funktion av Δ<i>r</i>.</div>
+            </div>
           </div>
         </div>
 
@@ -510,28 +514,31 @@
     </div>
 
     <!-- 5. Diskussion -->
-    <div class="panel">
+    <div class="panel" style="padding-top:4mm; padding-bottom:4mm;">
       <h2>Diskussion</h2>
       <div class="sub">Vasicek-modellen vs. marknadsdata och jämförelse med Indien</div>
 
-      <div style="display:grid; grid-template-columns: 1fr 2fr; gap:8mm; align-items:center;">
-        <div>
-          <p><b>Vasicek-modellen mot marknadsdata.</b> Plotten till höger jämför Vasicek-priserna $P(r,\tau)$ för Sverige med Riksbankens marknadsdata, omräknade till diskonteringsfaktorer via $P=e^{-y\tau}$. När styrräntan $r_0$ ligger nära modellens långsiktiga jämvikt $R_\infty\approx 2{,}80\%$, som i juni 2022 ($r_0=0{,}00\%$) och april 2026 ($r_0=2{,}00\%$), följer modellen marknaden mycket väl. Vid årsskiftet 2024 stod styrräntan vid sin topp $r_0=4{,}00\%$ samtidigt som marknaden prisade in en kraftigt inverterad avkastningskurva. Här klarar Vasicek-modellen inte att följa med: en enda återgångshastighet ($\theta\approx 0{,}358$, halveringstid $\approx 1{,}9$ år) kan inte återskapa marknadens förväntan om snabb normalisering nedåt mot $R_\infty$, vilket är modellens centrala begränsning.</p>
-          <p><b>Sverige vs. Indien.</b> Ytan till vänster visar samma analytiska Vasicek-pris men med indiska parametrar ($\theta\approx 0{,}489$, $\mu\approx 6{,}80\%$, $\sigma\approx 0{,}50\%$). Det högre $\theta$-värdet ger snabbare mean reversion: faktorn $B(\tau)=(1-e^{-\theta\tau})/\theta$ mättas tidigare, vilket gör att priset avtar brantare med löptiden $\tau$, stabiliseras på en lägre nivå och blir mer okänsligt för den initiala räntan $r$ — ytan blir därmed mer parallell med $r$-axeln. Det högre $\mu$ förskjuter dessutom hela prisytan nedåt eftersom de långsiktiga räntorna är systematiskt högre i Indien.</p>
-        </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5mm; align-items:center;">
+      <div style="display:grid; grid-template-columns: 1fr 2fr; gap:8mm; align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:3mm; align-items:stretch;">
           <div class="figure" style="margin-top:0;">
-            <div style="overflow:hidden; max-height:95mm;">
-              <img src="indiaanalfinal.png" alt="Analytisk Vasicek-yta för Indien" style="max-height:100mm; margin-top:-5mm;">
-            </div>
-            <div class="cap">Indien: analytisk Vasicek-yta $P(r,\tau)$ med indiska parametrar.</div>
-          </div>
-          <div class="figure" style="margin-top:0;">
-            <div style="overflow:hidden; max-height:114mm;">
-              <img src="vasicek_vs_market_sweden.png" alt="Vasicek-priskurva vs. svensk marknadsdata" style="max-height:120mm; margin-top:-5mm;">
+            <div style="overflow:hidden; max-height:62mm;">
+              <img src="vasicek_vs_market_sweden.png" alt="Vasicek-priskurva vs. svensk marknadsdata" style="max-height:67mm; margin-top:-4mm;">
             </div>
             <div class="cap">Vasicek-implicerade obligationspriser $P(r,\tau)$ jämfört med svenska statsobligationspriser från Riksbanken vid tre tidpunkter.</div>
           </div>
+          <div class="figure" style="margin-top:0;">
+            <div style="overflow:hidden; max-height:62mm;">
+              <img src="indiaanalfinal.png" alt="Analytisk Vasicek-yta för Indien" style="max-height:67mm; margin-top:-4mm;">
+            </div>
+            <div class="cap">Indien: analytisk Vasicek-yta $P(r,\tau)$ med indiska parametrar.</div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:9.5pt;"><b>Vasicek-modellen mot marknadsdata.</b> Plotten ovan jämför Vasicek-priserna för Sverige med Riksbankens marknadsdata, omräknade till diskonteringsfaktorer via $P = e^{-y\tau}$. När styrräntan ligger nära modellens långsiktiga jämvikt $R_\infty \approx 2{,}80\%$, som i april 2026 ($r_0 = 2{,}00\%$), följer modellen marknaden mycket väl. I juni 2022 ($r_0 = 0{,}00\%$) går det också hyfsat: vi befann oss i efterdyningarna av coronapandemin, då Riksbanken hade sänkt styrräntan till noll för att stötta ekonomin under nedstängningarna. Inflationen hade redan börjat skena men räntehöjningarna hade inte hunnit slå igenom. Modellen prissätter obligationerna något för högt eftersom den drar räntan långsamt tillbaka mot $R_\infty \approx 2{,}80\%$, medan marknaden redan prisade in en betydligt snabbare normalisering uppåt.</p>
+          <p style="font-size:9.5pt;">Vid årsskiftet 2024 ($r_0 = 4{,}00\%$) går det sämre. Räntan stod på sin topp efter en av de snabbaste höjningscyklerna i modern historia, där centralbankerna höjde aggressivt för att få ned den höga inflationen 2022–2023. Marknaden förväntade sig snabba sänkningar tillbaka mot normala nivåer. Vasicek-modellen antar däremot en konstant återgångshastighet $\theta$ och drar därför räntan långsamt mot $R_\infty$, vilket gör att modellen prissätter obligationerna för lågt jämfört med marknaden.</p>
+          <p style="font-size:9.5pt;">Den underliggande begränsningen är densamma i båda fallen: modellen antar en konstant $\theta$ och en fix jämviktsnivå $\mu$, men i verkligheten är båda rörliga mål som centralbanker justerar efter omständigheterna. Modellen kan därför inte fånga regimskiften eller den typen av kraftiga, händelsedrivna räntejusteringar som präglat det senaste decenniet.</p>
+          <p style="font-size:9.5pt;"><b>Sverige vs. Indien.</b> Ytan nedan visar samma analytiska Vasicek-pris men med indiska parametrar ($\theta \approx 0{,}489$, $\mu \approx 6{,}80\%$, $\sigma \approx 0{,}50\%$). Det högre $\theta$-värdet ger snabbare mean reversion: faktorn $B(\tau) = (1 - e^{-\theta\tau})/\theta$ mättas tidigare, vilket gör att priset avtar brantare med löptiden $\tau$, stabiliseras på en lägre nivå och blir mer okänsligt för den initiala räntan, ytan blir därmed mer parallell med $r$-axeln. Det högre $\mu$ förskjuter dessutom hela prisytan nedåt eftersom de långsiktiga räntorna är systematiskt högre i Indien.</p>
+          <p style="font-size:9.5pt;">Skillnaderna speglar grundläggande olikheter mellan ekonomierna. Indien har historiskt haft högre inflation än Sverige, och centralbanken (RBI) håller därför en högre styrränta för att hålla inflationen i schack. Det högre $\theta$-värdet betyder att räntan i genomsnitt rör sig snabbare tillbaka mot jämviktsnivån när den avvikit, vilket är konsistent med en mer aktiv penningpolitik där centralbanken justerar styrräntan oftare och i större steg.</p>
         </div>
       </div>
     </div>
